@@ -10,7 +10,7 @@
     </div>
     <div class="m-search-input">
       <input type="text" required [(ngModel)]="searchKeyword" class="m-search-input-input placeholder" name="q" placeholder="请输入检索关键字" autofocus="">
-      <i class="fa fa-times-circle fa-lg clean_icon"></i>
+      <i (click)="doClear()" class="fa fa-times-circle fa-lg clean_icon"></i>
     </div>
     <button (click)="doSearch()" class="m-search-submit"><i class="fa fa-search fa-2x"></i></button>
   </div>

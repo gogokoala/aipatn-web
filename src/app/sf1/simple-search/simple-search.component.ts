@@ -28,4 +28,10 @@ export class SimpleSearchComponent implements OnInit {
     }
   }
 
+  doClear() {
+    if (this.searchKeyword) {
+      this.searchKeyword = ''
+    }
+  }
+
 }
