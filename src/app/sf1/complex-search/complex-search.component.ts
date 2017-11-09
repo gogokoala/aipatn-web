@@ -46,7 +46,8 @@ export class ComplexSearchComponent implements OnInit {
     const k = this.exp.getKeyWords();
     console.log(k);
 
-    // const link = ['/sf1/search']
-    // this.router.navigate(link)
+    const sc = this.exp.getValue()
+    this.router.navigate(['/sf1/list'], { queryParams: { sc } });
+    
   }
 }
