@@ -48,6 +48,5 @@ export class ComplexSearchComponent implements OnInit {
 
     const sc = this.exp.getValue()
     this.router.navigate(['/sf1/list'], { queryParams: { sc } });
-    
   }
 }
