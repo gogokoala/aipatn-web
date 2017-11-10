@@ -31,6 +31,12 @@ export class SF1ListComponent implements OnInit {
 
   searchKeyword: Observable<string>
   sf1: SF1Response
+  
+  viewMode: number
+  viewModeDesc:string[]=['列表模式','图文模式'] //,'首图模式'
+
+  sortMode: number
+  sortModeDesc:string[]=['按相关度排序','按公开日升序','按公开日降序','按申请日升序','按申请日降序']
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +47,8 @@ export class SF1ListComponent implements OnInit {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
       this.sf1 = data.crisis;
+      this.viewMode=1;
+      this.sortMode=0;
       console.log(this.sf1)
     })
   }
@@ -51,5 +59,13 @@ export class SF1ListComponent implements OnInit {
       return db.name
     }
     return ''
+  }
+
+  setViewMode(mode:number){
+    this.viewMode=mode
+  }
+
+  setSortMode(mode:number){
+    this.sortMode=mode
   }
 }
