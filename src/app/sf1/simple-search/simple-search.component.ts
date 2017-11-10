@@ -23,8 +23,9 @@ export class SimpleSearchComponent implements OnInit {
 
   doSearch() {
     if (this.searchKeyword) {
-      const sc = this.searchExp.buildKeySearch(this.searchKeyword)
-      this.router.navigate(['/sf1/list'], { queryParams: { sc } });
+      const exp = this.searchExp.buildKeySearch(this.searchKeyword)
+      const dbs = 'FMZL,FMSQ,SYXX,WGZL'
+      this.router.navigate(['/sf1/list'], { queryParams: { exp, dbs } });
     }
   }
 

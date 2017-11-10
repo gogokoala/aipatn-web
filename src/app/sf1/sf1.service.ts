@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core'
 import { Headers, Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/map'
 
+/**
+ * 专利摘要数据
+ */
 export interface SF1Data {
   pid: string
   sysid: string
@@ -41,11 +44,17 @@ export interface SF1Data {
   familyNo: string
 }
 
+/**
+ * 数据库及满足条件的数据条数
+ */
 export interface SF1SectionInfo {
   sectionName: string
   recordNum: number
 }
 
+/**
+ * sf1 摘要检索响应结构
+ */
 export interface SF1Response {
   status: string
   message: string
@@ -56,15 +65,31 @@ export interface SF1Response {
   sectionInfos: Array<SF1SectionInfo>
 }
 
+/**
+ * 专利数据库分组
+ */
 export interface PatentGroup {
   code: string
   name: string
 }
 
+/**
+ * 专利数据库
+ */
 export interface PatentDatabase {
   code: string
   name: string
   group: string
+}
+
+export interface SF1SearchParams {
+  exp: string
+  dbs?: string
+  order?: string
+  option?: number
+  from?: number
+  to?: number
+  displayCols?: string
 }
 
 @Injectable()
@@ -117,10 +142,10 @@ export class SF1Service {
    *
    * @param searchConditions (string) 查询条件
    */
-  getList(searchConditions: string): Observable<SF1Response> {
+  getList(params: SF1SearchParams): Observable<SF1Response> {
     return this.http.post(
       this.sf1Url,
-      JSON.stringify({exp: searchConditions}),
+      JSON.stringify(params),
       { headers: this.headers }
     ).map(response => {
       const res = response.json()
@@ -132,6 +157,10 @@ export class SF1Service {
     })
   }
 
+  /**
+   * 根据数据库代表，查找对应数据库名称
+   * @param code 数据库代码
+   */
   getDatabase(code: string) {
     let el: PatentDatabase
     for (let i = 0; i < this.dbNames.length; i++) {
@@ -144,6 +173,11 @@ export class SF1Service {
     return undefined
   }
 
+  /**
+   * 格式化文本，突出显示关键字
+   * @param s 文本
+   * @param keywords 关键字数组
+   */
   formatString(s: string, keywords: Array<string>): string {
     if (s && keywords) {
     }
