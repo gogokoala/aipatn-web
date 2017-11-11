@@ -136,6 +136,8 @@ export class SF1Service {
         { code: 'OTHERPATENT', name: '更多其它国家', group: 'OTHERS' },
   ]
 
+  lastParams:SF1SearchParams;
+
   constructor(private http: Http) { }
 
   /**
@@ -143,6 +145,7 @@ export class SF1Service {
    * @param searchConditions (string) 查询条件
    */
   getList(params: SF1SearchParams): Observable<SF1Response> {
+    this.lastParams=params;
     return this.http.post(
       this.sf1Url,
       JSON.stringify(params),

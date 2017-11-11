@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { SF1Service, SF1Response } from '../sf1.service'
+import { SF1Service, SF1Response, SF1SearchParams } from '../sf1.service'
+import { SF1SearchExp } from '../sf1-search.service'
 
 @Component({
   selector: 'app-sf1-list',
@@ -29,8 +30,12 @@ export class SF1ListComponent implements OnInit {
     {id: 15, name: '代理人'},
   ]
 
-  searchKeyword: Observable<string>
+  searchKey:string=''
+
+  lastParams:SF1SearchParams
   sf1: SF1Response
+  
+  exp:SF1SearchExp
   
   viewMode: number
   viewModeDesc:string[]=['列表模式','图文模式'] //,'首图模式'
@@ -40,8 +45,12 @@ export class SF1ListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private service: SF1Service
-  ) {}
+  ) {
+    this.lastParams=service.lastParams
+    this.exp= new SF1SearchExp();
+  }
 
   ngOnInit() {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
@@ -68,4 +77,39 @@ export class SF1ListComponent implements OnInit {
   setSortMode(mode:number){
     this.sortMode=mode
   }
+
+  getExpValue(){
+    const l=this.lastParams.exp
+    const v=this.exp.getValue()
+    let r=l
+    if (r!=='' && v!==''){
+      r+=' and '
+    }
+    r+=v
+    return r
+  }
+
+  changeSearchKey(){
+    if (this.searchKey===''){
+      this.exp.clear()
+    }
+    else{
+      this.exp.buildKeySearch(this.searchKey)
+    }
+  }
+
+  doSearch(){
+    if (this.searchKey==='') return
+    this.lastParams.exp=this.getExpValue()
+    
+
+    this.searchKey=''
+    this.exp.clear();
+    
+    console.log("doSearch()")
+    console.log(this.lastParams)
+
+    this.router.navigate(['/sf1/list'], { queryParams: this.lastParams })
+  }
+
 }
