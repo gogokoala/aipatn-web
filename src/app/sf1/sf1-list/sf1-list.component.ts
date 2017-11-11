@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { SF1Service, SF1Response, SF1SearchParams } from '../sf1.service'
 import { SF1SearchExp } from '../sf1-search.service'
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-sf1-list',
@@ -55,10 +56,10 @@ export class SF1ListComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
-      this.sf1 = data.crisis;
+      this.sf1 = data.crisis
+
       this.viewMode = 1;
       this.sortMode = 0;
-      console.log(this.sf1)
     })
   }
 
@@ -108,7 +109,10 @@ export class SF1ListComponent implements OnInit {
 
     console.log('doSearch(): ' + this.lastParams)
 
-    this.router.navigate(['/sf1/list'], { queryParams: this.lastParams, relativeTo: this.route })
+    // Add a totally useless `t` parameter for kicks.
+    // Relative navigation back to the /sf1/list
+    this.router.navigate(['/sf1/list', { t: moment().valueOf() }],
+      { queryParams: this.lastParams, relativeTo: this.route })
   }
 
 }

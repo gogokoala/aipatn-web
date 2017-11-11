@@ -47,8 +47,8 @@ export class ComplexSearchComponent implements OnInit {
     console.log(k);
 
     const exp = this.exp.getValue()
-    
-    //const dbs = this.exp.getDBValue()
+
+    // const dbs = this.exp.getDBValue()
     const dbs = 'FMZL,FMSQ,SYXX,WGZL'
 
     const order = ''
