@@ -11,45 +11,53 @@
     </div>
 
     <div class="col-xs-10 fr-right pat-list">
-      <div class="u-toolbar">
-        <div class="searchform">
-          <label class="control-label u-label">检索条件</label>
         
-          <input type="hidden" value="35184372088831" name="sc">
-          <input type="hidden" value="type:(cn_in OR cn_gp) AND pa_ana:(中国航空工业集团公司西安飞机设计研究所)" name="fq">
-          <input type="hidden" value="s" name="type">
-          <input type="hidden" value="" name="sort">
-          <input type="hidden" value="" name="sortField">
+      <div class="panel panel-primary">
+      
+        <div class="panel-heading">
+          <span class="panel-title">二次检索</span>
+        </div>
+      
+        <div class="panel-body">
+          <div *ngFor="let item of searchKeys; let i=index" class="row" style="margin:4px 8px; width:60%">
+            <select class="col-lg-3 ui-select" [(ngModel)]="item.field" style="height:28px">
+              <option *ngFor="let f of searchFields" [ngValue]="f">{{f.title}} </option>
+            </select>
         
-          <div class="m-search">
-            <div class="search-div">
-              <div class="search-div-in">
-                <input type="text" class="u-search" autocomplete="off" placeholder="你想找啥？" [(ngModel)]="searchKey" (input)="changeSearchKey()">
-                <i class="fa fa-times-circle fa-2x clean_icon"></i>
-              </div>
-            </div>
-            <div class="btns">
-              <a class="search-btn" (click)="doSearch()">
-                <i class="fa fa-search fa-2x"></i>
-              </a>
-            </div>
+            <select class="col-lg-1 ui-select" [(ngModel)]="item.op" style="height:28px">
+              <option>AND</option>
+              <option>OR</option>
+              <option>NOT</option>
+            </select>
+        
+            <input type="text" class="col-lg-7 ui-text" [(ngModel)]="item.value" style="height:28px" />
+        
+            <i *ngIf="i==0 && searchKeys.length<5" class="col-lg-1 fa fa-plus-circle fa-2x iconfont-plus" (click)="addField()">&nbsp;</i>
+            <i *ngIf="i>0" class="col-lg-1 fa fa-minus-circle fa-2x iconfont-plus" (click)="removeField()">&nbsp;</i>
+        
           </div>
         </div>
-        <div class="m-holder">
-          <div class="">
-            <div id="filter_container" class="u-filter-containter">
-              {{getExpValue()}}
-            </div>
+      
+        <div class="panel-footer">
+          <div id="filter_container" class="u-filter-containter">
+            {{getExpValue()}}
           </div>
-          <div class="m-btns">
-            <a href="#" class="btn btn-default">过滤</a>
-            <a href="#" class="btn btn-default">清除</a>
-          </div>
+      
+          <a class="btn btn-default" (click)="doSearch()">
+            <i class="fa fa-search fa-lg"></i>
+            过滤
+          </a>
+          <a class="btn btn-default" (click)="clear()">
+              <i class="fa fa-close fa-lg"></i>
+              清除
+          </a>
+      
         </div>
+      
       </div>
-
+      
       <!-- Patent List -->
-      <div class="list-group u-list">
+      <div class="list-group">
         <div class="list-group-item active">
           
           <div class="dropdown" style="display:inline-block">

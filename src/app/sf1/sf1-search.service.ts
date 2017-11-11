@@ -1,4 +1,5 @@
 import * as moment from 'moment'
+import { forEach } from '@angular/router/src/utils/collection';
 
 class SF1SearchConditionItem {
   op: string
@@ -416,5 +417,48 @@ export class SF1SearchExp {
     return s
   }
 
+  getFields(){
+    let g=new Array<any>()
+    let id=1
+
+    this.key_group.forEach((item)=>{
+      g.push({id:id, name:item.name, title:item.title})
+      id++
+    })
+
+    this.code_group.forEach((item)=>{
+      g.push({id:id, name:item.name, title:item.title})
+      id++
+    })
+
+    this.type_group.forEach((item)=>{
+      g.push({id:id,name:item.name, title:item.title})
+      id++
+    })
+
+    this.name_group.forEach((item)=>{
+      g.push({id:id,name:item.name, title:item.title})
+      id++
+    })
+
+    return g
+  }
+
+  buildSecondSearch(keys:Array<any>){
+    let g=new Array<SF1SearchCondition>()
+    let id=1
+
+    keys.forEach((k)=>{
+      if (k.value){
+        let f=new SF1SearchCondition(id,k.field.name,k.field.title)
+        f.items[0].op=k.op
+        f.items[0].value=k.value
+        g.push(f)
+        id++
+      }
+    })
+
+    return this.getValueByGroup(g);
+  }
 
 }

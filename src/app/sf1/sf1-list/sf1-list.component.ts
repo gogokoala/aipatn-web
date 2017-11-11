@@ -31,12 +31,11 @@ export class SF1ListComponent implements OnInit {
     { id: 15, name: '代理人' },
   ]
 
-  searchKey = ''
+  searchKeys:Array<any>
+  searchFields:Array<any>
 
   lastParams: SF1SearchParams
   sf1: SF1Response
-
-  exp: SF1SearchExp
 
   viewMode: number
   viewModeDesc: string[] = ['列表模式', '图文模式'] // ,'首图模式'
@@ -47,10 +46,14 @@ export class SF1ListComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: SF1Service
+    private service: SF1Service,
+    private exp: SF1SearchExp
   ) {
     this.lastParams = service.lastParams
-    this.exp = new SF1SearchExp();
+    this.searchFields = this.exp.getFields()
+    this.searchKeys=[]
+    this.addField()
+    
   }
 
   ngOnInit() {
@@ -81,31 +84,26 @@ export class SF1ListComponent implements OnInit {
 
   getExpValue() {
     const l = this.lastParams.exp
-    const v = this.exp.getValue()
-    let r = l
-    if (r !== '' && v !== '') {
-      r += ' and '
-    }
-    r += v
-    return r
+    const v = this.exp.buildSecondSearch(this.searchKeys)
+    return l+v
   }
 
-  changeSearchKey() {
-    if (this.searchKey === '') {
-      this.exp.clear()
-    } else {
-      this.exp.buildKeySearch(this.searchKey)
-    }
+  clear(){
+    this.searchKeys=[]
+    this.addField()
   }
+
 
   doSearch() {
-    if (this.searchKey === '') {
+    let v=this.exp.buildSecondSearch(this.searchKeys)
+
+    if (!v) {
       return
     }
+
     this.lastParams.exp = this.getExpValue()
 
-    this.searchKey = ''
-    this.exp.clear()
+    this.clear()
 
     console.log('doSearch(): ' + this.lastParams)
 
@@ -113,6 +111,20 @@ export class SF1ListComponent implements OnInit {
     // Relative navigation back to the /sf1/list
     this.router.navigate(['/sf1/list', { t: moment().valueOf() }],
       { queryParams: this.lastParams, relativeTo: this.route })
+  }
+
+  addField(){
+    let f={
+      field: this.searchFields[0],
+      op:'AND',
+      value:'',
+    }
+
+    this.searchKeys.push(f)
+  }
+
+  removeField(i:number){
+    this.searchKeys.splice(i,1)
   }
 
 }
