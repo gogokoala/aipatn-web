@@ -13,51 +13,51 @@ import { SF1SearchExp } from '../sf1-search.service'
 export class SF1ListComponent implements OnInit {
 
   filter_items: any[] = [
-    {id: 1, name: '国家'},
-    {id: 2, name: '申请人'},
-    {id: 3, name: '申请日'},
-    {id: 4, name: '公开日'},
-    {id: 5, name: '授权日'},
-    {id: 6, name: '法律状态'},
-    {id: 7, name: '法律事件'},
-    {id: 8, name: '分类号:大类'},
-    {id: 9, name: '分类号:小类'},
-    {id: 10, name: '分类号:大组'},
-    {id: 11, name: '分类号:大组'},
-    {id: 12, name: '外观分类'},
-    {id: 13, name: '发明人'},
-    {id: 14, name: '代理机构'},
-    {id: 15, name: '代理人'},
+    { id: 1, name: '国家' },
+    { id: 2, name: '申请人' },
+    { id: 3, name: '申请日' },
+    { id: 4, name: '公开日' },
+    { id: 5, name: '授权日' },
+    { id: 6, name: '法律状态' },
+    { id: 7, name: '法律事件' },
+    { id: 8, name: '分类号:大类' },
+    { id: 9, name: '分类号:小类' },
+    { id: 10, name: '分类号:大组' },
+    { id: 11, name: '分类号:大组' },
+    { id: 12, name: '外观分类' },
+    { id: 13, name: '发明人' },
+    { id: 14, name: '代理机构' },
+    { id: 15, name: '代理人' },
   ]
 
-  searchKey:string=''
+  searchKey = ''
 
-  lastParams:SF1SearchParams
+  lastParams: SF1SearchParams
   sf1: SF1Response
-  
-  exp:SF1SearchExp
-  
+
+  exp: SF1SearchExp
+
   viewMode: number
-  viewModeDesc:string[]=['列表模式','图文模式'] //,'首图模式'
+  viewModeDesc: string[] = ['列表模式', '图文模式'] // ,'首图模式'
 
   sortMode: number
-  sortModeDesc:string[]=['按相关度排序','按公开日升序','按公开日降序','按申请日升序','按申请日降序']
+  sortModeDesc: string[] = ['按相关度排序', '按公开日升序', '按公开日降序', '按申请日升序', '按申请日降序']
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private service: SF1Service
   ) {
-    this.lastParams=service.lastParams
-    this.exp= new SF1SearchExp();
+    this.lastParams = service.lastParams
+    this.exp = new SF1SearchExp();
   }
 
   ngOnInit() {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
       this.sf1 = data.crisis;
-      this.viewMode=1;
-      this.sortMode=0;
+      this.viewMode = 1;
+      this.sortMode = 0;
       console.log(this.sf1)
     })
   }
@@ -70,46 +70,45 @@ export class SF1ListComponent implements OnInit {
     return ''
   }
 
-  setViewMode(mode:number){
-    this.viewMode=mode
+  setViewMode(mode: number) {
+    this.viewMode = mode
   }
 
-  setSortMode(mode:number){
-    this.sortMode=mode
+  setSortMode(mode: number) {
+    this.sortMode = mode
   }
 
-  getExpValue(){
-    const l=this.lastParams.exp
-    const v=this.exp.getValue()
-    let r=l
-    if (r!=='' && v!==''){
-      r+=' and '
+  getExpValue() {
+    const l = this.lastParams.exp
+    const v = this.exp.getValue()
+    let r = l
+    if (r !== '' && v !== '') {
+      r += ' and '
     }
-    r+=v
+    r += v
     return r
   }
 
-  changeSearchKey(){
-    if (this.searchKey===''){
+  changeSearchKey() {
+    if (this.searchKey === '') {
       this.exp.clear()
-    }
-    else{
+    } else {
       this.exp.buildKeySearch(this.searchKey)
     }
   }
 
-  doSearch(){
-    if (this.searchKey==='') return
-    this.lastParams.exp=this.getExpValue()
-    
+  doSearch() {
+    if (this.searchKey === '') {
+      return
+    }
+    this.lastParams.exp = this.getExpValue()
 
-    this.searchKey=''
-    this.exp.clear();
-    
-    console.log("doSearch()")
-    console.log(this.lastParams)
+    this.searchKey = ''
+    this.exp.clear()
 
-    this.router.navigate(['/sf1/list'], { queryParams: this.lastParams })
+    console.log('doSearch(): ' + this.lastParams)
+
+    this.router.navigate(['/sf1/list'], { queryParams: this.lastParams, relativeTo: this.route })
   }
 
 }
