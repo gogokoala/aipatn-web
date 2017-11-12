@@ -37,10 +37,13 @@ export class SF1ListComponent implements OnInit {
   lastParams: SF1SearchParams
   sf1: SF1Response
 
-  viewMode: number
+  pages:Array<any>
+  pageCnt:number=10
+
+  viewMode: number=1
   viewModeDesc: string[] = ['列表模式', '图文模式'] // ,'首图模式'
 
-  sortMode: number
+  sortMode: number=0
   sortModeDesc: string[] = ['按相关度排序', '按公开日升序', '按公开日降序', '按申请日升序', '按申请日降序']
 
   constructor(
@@ -53,7 +56,6 @@ export class SF1ListComponent implements OnInit {
     this.searchFields = this.exp.getFields()
     this.searchKeys=[]
     this.addField()
-    
   }
 
   ngOnInit() {
@@ -61,8 +63,8 @@ export class SF1ListComponent implements OnInit {
       console.log(data.crisis)
       this.sf1 = data.crisis
 
-      this.viewMode = 1;
-      this.sortMode = 0;
+      this.initPages()
+
     })
   }
 
@@ -102,10 +104,23 @@ export class SF1ListComponent implements OnInit {
     }
 
     this.lastParams.exp = this.getExpValue()
+    this.lastParams.from = 0
+    this.lastParams.to= this.pageCnt-1
 
     this.clear()
 
-    console.log('doSearch(): ' + this.lastParams)
+    // Add a totally useless `t` parameter for kicks.
+    // Relative navigation back to the /sf1/list
+    this.router.navigate(['/sf1/list', { t: moment().valueOf() }],
+      { queryParams: this.lastParams, relativeTo: this.route })
+  }
+
+  doPage(from:number) {
+    this.lastParams.exp = this.getExpValue()
+    this.lastParams.from = from
+    this.lastParams.to= from+this.pageCnt
+
+    this.clear()
 
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list
@@ -125,6 +140,33 @@ export class SF1ListComponent implements OnInit {
 
   removeField(i:number){
     this.searchKeys.splice(i,1)
+  }
+
+  initPages(){
+    this.pages=new Array<any>()
+
+    let ps=Math.trunc((this.sf1.from)/this.pageCnt)-3
+
+    if (ps<1) {
+      ps=1
+    }
+
+    let pe=Math.trunc(this.sf1.total*1.0/this.pageCnt+0.5)
+    if (pe>ps+9){
+      pe=ps+9
+    }
+
+
+
+    for (let i=ps;i<=pe;i++){
+      let pitem={
+        id: i,
+        from: (i-1)*this.pageCnt,
+      }
+
+      this.pages.push(pitem)
+    }
+
   }
 
 }

@@ -59,30 +59,37 @@
       <!-- Patent List -->
       <div class="list-group">
         <div class="list-group-item active">
-          
+      
           <div class="dropdown" style="display:inline-block">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{viewModeDesc[viewMode]}}
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li *ngFor="let item of viewModeDesc; let vi=index" >
+              <li *ngFor="let item of viewModeDesc; let vi=index">
                 <a (click)="setViewMode(vi)">{{item}}</a>
               </li>
             </ul>
           </div>
-
+      
           <div class="dropdown" style="display:inline-block">
-              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{sortModeDesc[sortMode]}}
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li *ngFor="let item of sortModeDesc; let vi=index">
-                  <a (click)="setSortMode(vi)">{{item}}</a>
-                </li>
-              </ul>
-              </div>
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              {{sortModeDesc[sortMode]}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let item of sortModeDesc; let vi=index">
+                <a (click)="setSortMode(vi)">{{item}}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div style="display:inline-block; font-size:24px; margin-left:32px; vertical-align:middle; ">
+              <span *ngFor="let item of pages">
+                <a  *ngIf="item.from!=sf1.from"  (click)="doPage(item.from)" style="color:#000000; cursor:pointer">{{item.id}}</a>
+                <span  *ngIf="item.from==sf1.from" style="color:#ffffff; cursor:pointer">{{item.id}}</span>
+              </span>
+          </div>
         </div>
 
         <div [ngSwitch]="viewMode">
