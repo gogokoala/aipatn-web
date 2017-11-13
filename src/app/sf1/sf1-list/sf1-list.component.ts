@@ -46,16 +46,16 @@ export class SF1ListComponent implements OnInit {
   sortMode: number = 0
   sortModeDesc: string[] = ['按相关度排序', '按公开日升序', '按公开日降序', '按申请日升序', '按申请日降序']
 
+  exp:SF1SearchExp
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private service: SF1Service,
-    private exp: SF1SearchExp
+    private sf1exp: SF1SearchExp
   ) {
-    this.lastParams = service.lastParams
+    this.exp=sf1exp
     this.searchFields = this.exp.getFields()
-    this.searchKeys = []
-    this.addField()
   }
 
   ngOnInit() {
@@ -63,6 +63,9 @@ export class SF1ListComponent implements OnInit {
       console.log(data.crisis)
       this.sf1 = data.crisis
 
+      this.lastParams = this.service.lastParams
+      
+      this.clear()
       this.initPages()
 
     })
@@ -85,9 +88,9 @@ export class SF1ListComponent implements OnInit {
   }
 
   getExpValue() {
-    const l = this.lastParams.exp
+    const l = this.exp.getValue()
     const v = this.exp.buildSecondSearch(this.searchKeys)
-    return l + v
+    return l + ' ' + v
   }
 
   clear() {
@@ -103,7 +106,8 @@ export class SF1ListComponent implements OnInit {
       return
     }
 
-    this.lastParams.exp = this.getExpValue()
+    //this.lastParams.exp = this.getExpValue()
+    this.lastParams.exp = this.exp.Encode()
     this.lastParams.from = 0
     this.lastParams.to = this.pageCnt - 1
 
@@ -155,8 +159,6 @@ export class SF1ListComponent implements OnInit {
     if (pe > ps + 9) {
       pe = ps + 9
     }
-
-
 
     for (let i = ps; i <= pe; i++) {
       let pitem = {

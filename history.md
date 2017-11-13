@@ -94,6 +94,12 @@ steps:
 1. 调整api端响应结构，增加response.error属性{status:'XXX', message:''}
 2. 增加sf1Service.redirectUrl，实现查询异常时的跳转重定向
 
+puyd:
+1. Exp实现Encode和Decode方法
+2. 简化表达式的显示方式
+todo: 二次检索尚未修改完成
+
+
 ### 2017-11-14 ###
 ### 2017-11-15 ###
 ### 2017-11-16 ###

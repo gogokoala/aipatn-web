@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
+import { SF1SearchExp } from './sf1-search.service';
 
 /**
  * 专利摘要数据
@@ -148,7 +149,13 @@ export class SF1Service {
    * @param searchConditions (string) 查询条件
    */
   getList(params: SF1SearchParams): Observable<SF1Response> {
-    this.lastParams = params;
+    
+    this.lastParams = Object.assign({}, params)
+    
+    let exp:SF1SearchExp=new SF1SearchExp()
+    exp.Decode(params.exp)
+    params.exp=exp.getValue()
+
     return this.http.post(
       `${this.baseUrl}sf1`,
       JSON.stringify(params),

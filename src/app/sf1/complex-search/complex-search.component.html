@@ -53,7 +53,7 @@
                   <span>例如：输入的检索的关键词组中间不能包含以下特殊字符 “；”， “——”，“,”,“()”。</span>
                 </p>
               </div>
-              <textarea class="form-control" rows="5" id="textArea" name="q" readonly="readonly" style="margin-bottom: 5px;" [ngModel]="exp.getValue()">
+              <textarea class="form-control" rows="5" id="textArea" name="q" readonly="readonly" style="margin-bottom: 5px;" [ngModel]="exp.getDisplay().join(' ')">
               </textarea>
               <input type="hidden" name="sc" value="35184372088831">
               <div>
