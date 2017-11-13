@@ -136,10 +136,12 @@ export class SF1Service {
     { code: 'OTHERPATENT', name: '更多其它国家', group: 'OTHERS' },
   ]
 
-  lastParams: SF1SearchParams;
-  redirectUrl: string;
+  lastParams: SF1SearchParams
+  redirectUrl: string
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    this.redirectUrl = ''
+  }
 
   /**
    *
