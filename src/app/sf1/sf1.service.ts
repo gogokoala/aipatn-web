@@ -95,48 +95,50 @@ export interface SF1SearchParams {
 @Injectable()
 export class SF1Service {
 
-  private headers = new Headers({'Content-Type': 'application/json'})
-  // private sf1Url = 'http://www.aipatn.com/api/sf1'
-  private sf1Url = 'http://47.100.5.243/api/sf1'
+  private headers = new Headers({ 'Content-Type': 'application/json' })
+  // private baseUrl = 'http://www.aipatn.com/api/'
+  // private baseUrl = 'http://47.100.5.243/api/'
+  private baseUrl = 'http://192.168.0.216/api/'
+  // private baseUrl = 'http://10.228.0.12/api/'
 
   private dbGroups: Array<PatentGroup> = [
-    {name: '中国', code: 'CN'},
-    {name: '主要国家和组织', code: 'MAIN'},
-    {name: '其它国家和地区', code: 'OTHERS'},
+    { name: '中国', code: 'CN' },
+    { name: '主要国家和组织', code: 'MAIN' },
+    { name: '其它国家和地区', code: 'OTHERS' },
   ]
 
   private dbNames: Array<PatentDatabase> = [
-        { code: 'FMZL', name: '中国发明专利', group: 'CN' },
-        { code: 'FMSQ', name: '中国发明授权', group: 'CN' },
-        { code: 'SYXX', name: '中国实用新型', group: 'CN' },
-        { code: 'WGZL', name: '中国外观专利', group: 'CN' },
-        { code: 'TWZL', name: '台湾', group: 'CN' },
-        { code: 'HKPATENT', name: '香港', group: 'CN' },
+    { code: 'FMZL', name: '中国发明专利', group: 'CN' },
+    { code: 'FMSQ', name: '中国发明授权', group: 'CN' },
+    { code: 'SYXX', name: '中国实用新型', group: 'CN' },
+    { code: 'WGZL', name: '中国外观专利', group: 'CN' },
+    { code: 'TWZL', name: '台湾', group: 'CN' },
+    { code: 'HKPATENT', name: '香港', group: 'CN' },
 
-        { code: 'USPATENT', name: '美国', group: 'MAIN' },
-        { code: 'GBPATENT', name: '英国', group: 'MAIN' },
-        { code: 'FRPATENT', name: '法国', group: 'MAIN' },
-        { code: 'DEPATENT', name: '德国', group: 'MAIN' },
-        { code: 'CHPATENT', name: '瑞士', group: 'MAIN' },
-        { code: 'JPPATENT', name: '日本', group: 'MAIN' },
-        { code: 'RUPATENT', name: '俄罗斯', group: 'MAIN' },
-        { code: 'KRPATENT', name: '韩国', group: 'MAIN' },
-        { code: 'EPPATENT', name: '欧洲专利局(EPO)', group: 'MAIN' },
-        { code: 'WOPATENT', name: '世界知识产权组织(WIPO)', group: 'MAIN' },
+    { code: 'USPATENT', name: '美国', group: 'MAIN' },
+    { code: 'GBPATENT', name: '英国', group: 'MAIN' },
+    { code: 'FRPATENT', name: '法国', group: 'MAIN' },
+    { code: 'DEPATENT', name: '德国', group: 'MAIN' },
+    { code: 'CHPATENT', name: '瑞士', group: 'MAIN' },
+    { code: 'JPPATENT', name: '日本', group: 'MAIN' },
+    { code: 'RUPATENT', name: '俄罗斯', group: 'MAIN' },
+    { code: 'KRPATENT', name: '韩国', group: 'MAIN' },
+    { code: 'EPPATENT', name: '欧洲专利局(EPO)', group: 'MAIN' },
+    { code: 'WOPATENT', name: '世界知识产权组织(WIPO)', group: 'MAIN' },
 
-        { code: 'GCPATENT', name: '阿拉伯', group: 'OTHERS' },
-        { code: 'AUPATENT', name: '澳大利亚', group: 'OTHERS' },
-        { code: 'CAPATENT', name: '加拿大', group: 'OTHERS' },
-        { code: 'ESPATENT', name: '西班牙', group: 'OTHERS' },
-        { code: 'ATPATENT', name: '奥地利', group: 'OTHERS' },
-        { code: 'ITPATENT', name: '意大利', group: 'OTHERS' },
-        { code: 'APPATENT', name: '非洲地址', group: 'OTHERS' },
-        { code: 'SEPATENT', name: '瑞典', group: 'OTHERS' },
-        { code: 'ASPATENT', name: '东南亚', group: 'OTHERS' },
-        { code: 'OTHERPATENT', name: '更多其它国家', group: 'OTHERS' },
+    { code: 'GCPATENT', name: '阿拉伯', group: 'OTHERS' },
+    { code: 'AUPATENT', name: '澳大利亚', group: 'OTHERS' },
+    { code: 'CAPATENT', name: '加拿大', group: 'OTHERS' },
+    { code: 'ESPATENT', name: '西班牙', group: 'OTHERS' },
+    { code: 'ATPATENT', name: '奥地利', group: 'OTHERS' },
+    { code: 'ITPATENT', name: '意大利', group: 'OTHERS' },
+    { code: 'APPATENT', name: '非洲地址', group: 'OTHERS' },
+    { code: 'SEPATENT', name: '瑞典', group: 'OTHERS' },
+    { code: 'ASPATENT', name: '东南亚', group: 'OTHERS' },
+    { code: 'OTHERPATENT', name: '更多其它国家', group: 'OTHERS' },
   ]
 
-  lastParams:SF1SearchParams;
+  lastParams: SF1SearchParams;
 
   constructor(private http: Http) { }
 
@@ -145,9 +147,9 @@ export class SF1Service {
    * @param searchConditions (string) 查询条件
    */
   getList(params: SF1SearchParams): Observable<SF1Response> {
-    this.lastParams=params;
+    this.lastParams = params;
     return this.http.post(
-      this.sf1Url,
+      `${this.baseUrl}sf1`,
       JSON.stringify(params),
       { headers: this.headers }
     ).map(response => {
@@ -156,7 +158,8 @@ export class SF1Service {
       if (res.code === 0 && res.data) {
         return res.data as SF1Response
       }
-      return undefined
+
+      return res.error as SF1Response
     })
   }
 
