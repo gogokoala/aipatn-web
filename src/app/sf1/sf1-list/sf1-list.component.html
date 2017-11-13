@@ -11,38 +11,38 @@
     </div>
 
     <div class="col-xs-10 fr-right pat-list">
-        
+
       <div class="panel panel-primary">
-      
+
         <div class="panel-heading">
           <span class="panel-title">二次检索</span>
         </div>
-      
+
         <div class="panel-body">
           <div *ngFor="let item of searchKeys; let i=index" class="row" style="margin:4px 8px; width:60%">
             <select class="col-lg-3 ui-select" [(ngModel)]="item.field" style="height:28px">
               <option *ngFor="let f of searchFields" [ngValue]="f">{{f.title}} </option>
             </select>
-        
+
             <select class="col-lg-1 ui-select" [(ngModel)]="item.op" style="height:28px">
               <option>AND</option>
               <option>OR</option>
               <option>NOT</option>
             </select>
-        
+
             <input type="text" class="col-lg-7 ui-text" [(ngModel)]="item.value" style="height:28px" />
-        
+
             <i *ngIf="i==0 && searchKeys.length<5" class="col-lg-1 fa fa-plus-circle fa-2x iconfont-plus" (click)="addField()">&nbsp;</i>
             <i *ngIf="i>0" class="col-lg-1 fa fa-minus-circle fa-2x iconfont-plus" (click)="removeField()">&nbsp;</i>
-        
+
           </div>
         </div>
-      
+
         <div class="panel-footer">
           <div id="filter_container" class="u-filter-containter">
             {{getExpValue()}}
           </div>
-      
+
           <a class="btn btn-default" (click)="doSearch()">
             <i class="fa fa-search fa-lg"></i>
             过滤
@@ -51,15 +51,15 @@
               <i class="fa fa-close fa-lg"></i>
               清除
           </a>
-      
+
         </div>
-      
+
       </div>
-      
+
       <!-- Patent List -->
       <div class="list-group">
         <div class="list-group-item active">
-      
+
           <div class="dropdown" style="display:inline-block">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{viewModeDesc[viewMode]}}
@@ -71,7 +71,7 @@
               </li>
             </ul>
           </div>
-      
+
           <div class="dropdown" style="display:inline-block">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{sortModeDesc[sortMode]}}
@@ -92,8 +92,8 @@
           </div>
         </div>
 
-        <div [ngSwitch]="viewMode">
-        
+        <div *ngIf="sf1.results" [ngSwitch]="viewMode">
+
           <table *ngSwitchCase="0" class="table">
             <tr>
               <th>
@@ -160,7 +160,7 @@
                           <strong>申请日：</strong>
                           <a href="#" target="_blank">{{item.appDate}}</a>
                         </p>
-          
+
                       </div>
                       <div class="col-xs-8">
                         <p>
@@ -186,17 +186,17 @@
                     </div>
                   </div>
                 </div>
-          
+
               </div>
             </div>
           </div>
-        
-        
-        
+
+
+
           <div *ngSwitchCase="2">
           </div>
-        
-        
+
+
         </div>
 
       </div>

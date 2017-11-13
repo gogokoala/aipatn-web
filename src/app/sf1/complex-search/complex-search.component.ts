@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service'
 import { SF1SearchExp } from '../sf1-search.service';
+import { SF1Service } from '../sf1.service';
 
 @Component({
   selector: 'app-complex-search',
@@ -34,6 +35,7 @@ export class ComplexSearchComponent implements OnInit {
   constructor(
     private router: Router,
     private user: UserService,
+    private sf1: SF1Service,
     private sf1Exp: SF1SearchExp
   ) {
     this.exp = sf1Exp
@@ -56,6 +58,8 @@ export class ComplexSearchComponent implements OnInit {
     const option = 2
     const from = 0
     const to = 10
+
+    this.sf1.redirectUrl = '/sf1/complex'
 
     this.router.navigate(['/sf1/list'], { queryParams: { exp, dbs, order, option, from, to, displayCols } });
   }
