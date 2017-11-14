@@ -40,7 +40,14 @@
 
         <div class="panel-footer">
           <div id="filter_container" class="u-filter-containter">
-            {{exp.getDisplay().join(' ')}}
+            <div *ngFor="let item of exp.getDisplay(); let id=index" style="display:inline-block; padding:4px; margin:4px;  border-width:1px; border-style:solid; border-color:gray" >
+              {{item.join(' ')}}
+              <i *ngIf="id>0" class="fa fa-times fa-lg iconfont-plus" (click)="delSecGroup(id)">&nbsp;</i>
+            </div>
+            <div *ngIf=(getDisplay()) style="display:inline-block; padding:4px; margin:4px;  border-width:1px; border-style:solid; border-color:gray" >
+              {{getDisplay()}}
+              <i class="fa fa-times fa-lg iconfont-plus" (click)="clear()">&nbsp;</i>
+            </div>
           </div>
 
           <a class="btn btn-default" (click)="doSearch()">

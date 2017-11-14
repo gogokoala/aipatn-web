@@ -42,6 +42,7 @@ export class ComplexSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.exp.clearSecGroup()
   }
 
   doSearch() {

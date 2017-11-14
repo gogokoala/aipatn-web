@@ -62,7 +62,7 @@ export class SF1ListComponent implements OnInit {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
       this.sf1 = data.crisis
-
+      
       this.lastParams = this.service.lastParams
       
       this.clear()
@@ -87,15 +87,13 @@ export class SF1ListComponent implements OnInit {
     this.sortMode = mode
   }
 
-  getExpValue() {
-    const l = this.exp.getValue()
-    const v = this.exp.buildSecondSearch(this.searchKeys)
-    return l + ' ' + v
-  }
-
   clear() {
     this.searchKeys = []
     this.addField()
+  }
+
+  getDisplay(){
+    return this.exp.buildSecondSearch(this.searchKeys)
   }
 
 
@@ -106,12 +104,13 @@ export class SF1ListComponent implements OnInit {
       return
     }
 
-    //this.lastParams.exp = this.getExpValue()
+    this.exp.addSecGroup(this.searchKeys)
     this.lastParams.exp = this.exp.Encode()
     this.lastParams.from = 0
     this.lastParams.to = this.pageCnt - 1
 
     this.clear()
+    this.service.redirectUrl='/sf1/list'
 
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list
@@ -120,11 +119,12 @@ export class SF1ListComponent implements OnInit {
   }
 
   doPage(from: number) {
-    this.lastParams.exp = this.getExpValue()
+    this.lastParams.exp = this.exp.Encode()
     this.lastParams.from = from
     this.lastParams.to = from + this.pageCnt
 
     this.clear()
+    this.service.redirectUrl='/sf1/list'
 
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list
@@ -169,6 +169,11 @@ export class SF1ListComponent implements OnInit {
       this.pages.push(pitem)
     }
 
+  }
+
+  delSecGroup(id){
+    this.exp.sec_group.splice(id-1,1)
+    this.doPage(0)
   }
 
 }

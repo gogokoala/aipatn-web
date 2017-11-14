@@ -147,6 +147,8 @@ export class SF1SearchExp {
   name_group: Array<SF1SearchCondition>
   date_group: Array<SF1SearchCondition>
 
+  sec_group: Array<Array<SF1SearchCondition>>
+
   lastKeyWord: string
 
   db_group: any[] = [
@@ -213,6 +215,7 @@ export class SF1SearchExp {
     this.type_group = Array<SF1SearchCondition>()
     this.name_group = Array<SF1SearchCondition>()
     this.date_group = Array<SF1SearchCondition>()
+    this.sec_group = Array<Array<SF1SearchCondition>>()
 
     const k: any[] = [
       { id: 1, name: ['名称', '摘要', '权利要求书', '说明书'], title: '所有字段' },
@@ -255,6 +258,10 @@ export class SF1SearchExp {
       { id: 3, name: ['优先权日'], title: '授权日' },
     ]
     this.initGroup(d, this.date_group)
+  }
+
+  clearSecGroup(){
+    this.sec_group=Array<Array<SF1SearchCondition>>()
   }
 
   buildKeySearch(text: string) {
@@ -318,6 +325,14 @@ export class SF1SearchExp {
     const n = this.getValueByGroup(this.name_group)
     const d = this.getDateValueByGroup(this.date_group)
 
+    let s=''
+    this.sec_group.forEach((g)=>{
+      let gs=this.getValueByGroup(g)
+      if (gs){
+        s+=(' '+gs)
+      }
+    })
+
     let v = k
 
     if (c !== '' && v !== '') {
@@ -339,6 +354,11 @@ export class SF1SearchExp {
       v += ' '
     }
     v += d
+
+    if (s !='' && v!=''){
+      v+=' '
+    }
+    v+=s
 
     if (v.startsWith('AND') || v.startsWith('NOT')){
       return v.substr(4,v.length-4)
@@ -459,7 +479,27 @@ export class SF1SearchExp {
       }
     })
 
-    return this.getValueByGroup(g);
+    return this.getGroupDisplay(g).join(' ')
+  }
+
+  addSecGroup(keys: Array<any>) {
+    let g = new Array<SF1SearchCondition>()
+    let id = 1
+
+    keys.forEach((k) => {
+      if (k.value) {
+        let f = new SF1SearchCondition(id, k.field.name, k.field.title)
+        f.items[0].op = k.op
+        f.items[0].value = k.value
+        g.push(f)
+        id++
+      }
+    })
+
+    if (g.length>0){
+      this.sec_group.push(g)
+    }
+
   }
 
   Encode(){
@@ -539,6 +579,12 @@ export class SF1SearchExp {
     this.type_group=this.setGroup(j.type_group)
     this.name_group=this.setGroup(j.name_group)
     this.date_group=this.setGroup(j.date_group)
+
+    this.sec_group=new Array<Array<SF1SearchCondition>>()
+
+    j.sec_group.forEach((g)=>{
+      this.sec_group.push(this.setGroup(g))
+    })
   }
 
   private getItemDisplay(item:SF1SearchCondition){
@@ -632,7 +678,6 @@ export class SF1SearchExp {
 
   getDisplay(){
     let r=new Array<string>()
-
     r=r.concat(this.getGroupDisplay(this.key_group))
     r=r.concat(this.getGroupDisplay(this.code_group))
     r=r.concat(this.getGroupDisplay(this.type_group))
@@ -648,7 +693,24 @@ export class SF1SearchExp {
       }
     }
 
-    return r
+    let rs=new Array<Array<string>>()
+    rs.push(r)
+    this.sec_group.forEach((g)=>{
+      let gr=this.getGroupDisplay(g)
+      if (gr){
+        rs.push(gr)
+      }
+    })
+
+    return rs
+  }
+
+  getDisplayAt(i){
+    let r=this.getDisplay()
+    if (r.length>i) {
+      return r[i].join(' ')
+    }
+    return ''
   }
 
 }
