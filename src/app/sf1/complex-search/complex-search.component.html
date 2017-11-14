@@ -34,11 +34,11 @@
           
           <div class="panel-body">
             <div>
-              <div class="alert alert-dismissible alert-danger" style="margin-bottom: 5px;">
+              <div *ngIf="error" class="alert alert-dismissible alert-danger" style="margin-bottom: 5px;">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <h1>
-                  <b>sorry!</b>没有查询到"
-                  <span></span>"的相关专利</h1>
+                  <b>sorry!</b>没有查询相关专利
+                </h1>
                 <p>没有搜索到相关专利，原因可能是：</p>
                 <p>· 此专利不存在。</p>
                 <p>· 通过申请(专利)号、公开(公告)号查询时，请直接输入号码，前面不用加"ZL"或者"CN"。</p>
@@ -70,39 +70,33 @@
           </div>
         
         </div>
-      </div>
-
-      <div class="m-expr-item">
         <div class="panel panel-primary">
           <div class="panel-heading">
             <span class="panel-title">关键词</span>
           </div>
           <div class="panel-body">
-
-            <div *ngFor="let item of exp.key_group" class="form-group">
-              <label class="col-lg-2 control-label">{{item.title}}</label>
-              <div class="col-lg-10">
-                <div class="row">
-                  <div *ngFor="let v of item.items; let vi=index" class="col-lg-12">
-
+            <div *ngFor="let item of exp.key_group" class="form-group row">
+              <label class="col-md-2 control-label">{{item.title}}</label>
+              <div class="col-md-7">
+                <div *ngFor="let v of item.items; let vi=index" class="row">
+                  <div class="col-md-2 form-padding">
                     <select class="ui-select" [(ngModel)]="v.op">
                       <option>AND</option>
                       <option>OR</option>
                       <!-- <option *ngIf="vi>0">NOT</option> -->
                       <option>NOT</option>
                     </select>
-
+                  </div>
+                  <div class="col-md-9 form-padding">
                     <input type="text" class="form-control ui-text" [(ngModel)]="v.value" />
-
+                  </div>
+                  <div class="col-md-1 form-padding">
                     <i *ngIf="vi==0" class="fa fa-plus-circle fa-2x iconfont-plus" (click)="item.newItem()">&nbsp;</i>
                     <i *ngIf="vi>0" class="fa fa-minus-circle fa-2x iconfont-plus" (click)="item.removeItemAt(vi)">&nbsp;</i>
-
                   </div>
                 </div>
-
               </div>
             </div>
-
           </div>
         </div>
         <div class="panel panel-primary">
@@ -110,41 +104,42 @@
             <span class="panel-title">日期</span>
           </div>
           <div class="panel-body">
-            
-            <div *ngFor="let item of exp.date_group" class="form-group">
-              <label class="col-lg-2 control-label">{{item.title}}</label>
-              <div class="col-lg-10 between">
-                <div class="row">
-                  <div *ngFor="let v of item.items; let vi=index" class="col-lg-12">
-
+            <div *ngFor="let item of exp.date_group" class="form-group row">
+              <label class="col-md-2 control-label">{{item.title}}</label>
+              <div class="col-md-7 between">
+                <div *ngFor="let v of item.items; let vi=index" class="row">
+                  <div class="col-md-2 form-padding">
                     <select class="ui-select" [(ngModel)]="v.op">
                       <option>AND</option>
                       <option>OR</option>
                       <!-- <option *ngIf="vi>0">NOT</option> -->
                       <option>NOT</option>
                     </select>
-
-                    <select class="ui-select ui-date-select" [(ngModel)]="v.mode">
+                  </div>
+                  <div class="col-md-2 form-padding">
+                    <select class="ui-select" [(ngModel)]="v.mode">
                       <option value="0">某个时间段</option>
                       <option value="1">某个时间之前</option>
                       <option value="2">某个时间之后</option>
                       <option value="3">某个时间点</option>
                     </select>
-
-                    <p-calendar *ngIf="v.mode!=1" [(ngModel)]="v.from" dateFormat="yymmdd" [locale]="cn"></p-calendar>
-                    <span *ngIf="v.mode==0" class="to">to</span>
-                    <p-calendar *ngIf="v.mode&lt;2" [(ngModel)]="v.to" dateFormat="yymmdd" [locale]="cn"></p-calendar>
-
-
+                  </div>
+                  <div *ngIf="v.mode!=1" class="col-md-3 form-padding">
+                    <p-calendar [(ngModel)]="v.from" dateFormat="yymmdd" [locale]="cn"></p-calendar>
+                  </div>
+                  <div *ngIf="v.mode==0" class="col-md-1 form-padding">
+                    <span class="to">to</span>
+                  </div>
+                  <div *ngIf="v.mode&lt;2" class="col-md-3 form-padding">
+                    <p-calendar [(ngModel)]="v.to" dateFormat="yymmdd" [locale]="cn"></p-calendar>
+                  </div>
+                  <div class="col-md-1 form-padding">
                     <i *ngIf="vi==0" class="fa fa-plus-circle fa-2x iconfont-plus" (click)="item.newItem()">&nbsp;</i>
                     <i *ngIf="vi>0" class="fa fa-minus-circle fa-2x iconfont-plus" (click)="item.removeItemAt(vi)">&nbsp;</i>
-
                   </div>
                 </div>
-
               </div>
             </div>
-
           </div>
         </div>
         <div class="panel panel-primary">
@@ -152,28 +147,27 @@
             <span class="panel-title">号码</span>
           </div>
           <div class="panel-body">
-            <div *ngFor="let item of exp.code_group" class="form-group">
-              <label class="col-lg-2 control-label">{{item.title}}</label>
-              <div class="col-lg-10">
-                <div class="row">
-                  <div *ngFor="let v of item.items; let vi=index" class="col-lg-12">
-
+            <div *ngFor="let item of exp.code_group" class="form-group row">
+              <label class="col-md-2 control-label">{{item.title}}</label>
+              <div class="col-md-7">
+                <div *ngFor="let v of item.items; let vi=index" class="row">
+                  <div class="col-md-2 form-padding">
                     <select class="ui-select" [(ngModel)]="v.op">
                       <option>AND</option>
                       <option>OR</option>
                       <!-- <option *ngIf="vi>0">NOT</option> -->
                       <option>NOT</option>
                     </select>
-
+                  </div>
+                  <div class="col-md-9 form-padding">
                     <input type="text" class="form-control ui-text" [(ngModel)]="v.value" />
-
+                  </div>
+                  <div class="col-md-1 form-padding">
                     <i *ngIf="vi==0" class="fa fa-plus-circle fa-2x iconfont-plus" (click)="item.newItem()">&nbsp;</i>
                     <i *ngIf="vi>0" class="fa fa-minus-circle fa-2x iconfont-plus" (click)="item.removeItemAt(vi)">&nbsp;</i>
-
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -182,27 +176,26 @@
             <span class="panel-title">分类号</span>
           </div>
           <div class="panel-body">
-            <div *ngFor="let item of exp.type_group" class="form-group">
-              <label class="col-lg-2 control-label">{{item.title}}</label>
-              <div class="col-lg-10">
-                <div class="row">
-                  <div *ngFor="let v of item.items; let vi=index" class="col-lg-12">
-
+            <div *ngFor="let item of exp.type_group" class="form-group row">
+              <label class="col-md-2 control-label">{{item.title}}</label>
+              <div class="col-md-7">
+                <div *ngFor="let v of item.items; let vi=index" class="row">
+                  <div class="col-md-2 form-padding">
                     <select class="ui-select" [(ngModel)]="v.op">
                       <option>AND</option>
                       <option>OR</option>
                       <!-- <option *ngIf="vi>0">NOT</option> -->
                       <option>NOT</option>
                     </select>
-
+                  </div>
+                  <div class="col-md-9 form-padding">
                     <input type="text" class="form-control ui-text" [(ngModel)]="v.value" />
-
+                  </div>
+                  <div class="col-md-1 form-padding">
                     <i *ngIf="vi==0" class="fa fa-plus-circle fa-2x iconfont-plus" (click)="item.newItem()">&nbsp;</i>
                     <i *ngIf="vi>0" class="fa fa-minus-circle fa-2x iconfont-plus" (click)="item.removeItemAt(vi)">&nbsp;</i>
-
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -212,27 +205,26 @@
             <span class="panel-title">名称地址</span>
           </div>
           <div class="panel-body">
-            <div *ngFor="let item of exp.name_group" class="form-group">
-              <label class="col-lg-2 control-label">{{item.title}}</label>
-              <div class="col-lg-10">
-                <div class="row">
-                  <div *ngFor="let v of item.items; let vi=index" class="col-lg-12">
-
+            <div *ngFor="let item of exp.name_group" class="form-group row">
+              <label class="col-md-2 control-label">{{item.title}}</label>
+              <div class="col-md-7">
+                <div *ngFor="let v of item.items; let vi=index" class="row">
+                  <div class="col-md-2 form-padding">
                     <select class="ui-select" [(ngModel)]="v.op">
                       <option>AND</option>
                       <option>OR</option>
                       <!-- <option *ngIf="vi>0">NOT</option> -->
                       <option>NOT</option>
                     </select>
-
+                  </div>
+                  <div class="col-md-9 form-padding">
                     <input type="text" class="form-control ui-text" [(ngModel)]="v.value" />
-
+                  </div>
+                  <div class="col-md-1 form-padding">
                     <i *ngIf="vi==0" class="fa fa-plus-circle fa-2x iconfont-plus" (click)="item.newItem()">&nbsp;</i>
                     <i *ngIf="vi>0" class="fa fa-minus-circle fa-2x iconfont-plus" (click)="item.removeItemAt(vi)">&nbsp;</i>
-
                   </div>
                 </div>
-
               </div>
             </div>
           </div>

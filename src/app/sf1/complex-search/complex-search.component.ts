@@ -14,6 +14,7 @@ import { SF1Service } from '../sf1.service';
 export class ComplexSearchComponent implements OnInit {
 
   result_num = 0
+  error: any
 
   cn: any = {
     /** 每周第一天，0代表周日 */
