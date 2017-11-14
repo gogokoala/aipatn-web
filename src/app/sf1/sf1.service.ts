@@ -148,7 +148,8 @@ export class SF1Service {
    * @param searchConditions (string) 查询条件
    */
   getList(params: SF1SearchParams): Observable<SF1Response> {
-    this.lastParams = params;
+    this.lastParams = params
+
     return this.http.post(
       `${this.baseUrl}sf1`,
       JSON.stringify(params),
