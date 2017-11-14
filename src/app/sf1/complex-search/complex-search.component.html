@@ -31,8 +31,9 @@
           <div class="panel-heading">
             <span class="panel-title">检索表达式预览</span>
           </div>
+          
           <div class="panel-body">
-            <form action="/search" method="post" id="Js_major_search_form">
+            <div>
               <div class="alert alert-dismissible alert-danger" style="margin-bottom: 5px;">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <h1>
@@ -53,8 +54,10 @@
                   <span>例如：输入的检索的关键词组中间不能包含以下特殊字符 “；”， “——”，“,”,“()”。</span>
                 </p>
               </div>
-              <textarea class="form-control" rows="5" id="textArea" name="q" readonly="readonly" style="margin-bottom: 5px;" [ngModel]="exp.getValue()">
+              <textarea class="form-control" rows="3" id="textArea" readonly="readonly" style="margin-bottom: 5px;" [ngModel]="exp.getDisplayAt(0)">
               </textarea>
+              <!-- <textarea class="form-control" rows="3" id="textArea" readonly="readonly" style="margin-bottom: 5px;" [ngModel]="exp.getValue()">
+              </textarea> -->
               <input type="hidden" name="sc" value="35184372088831">
               <div>
                 <button (click)="doSearch()" class="btn btn-primary">检索</button>
@@ -63,8 +66,9 @@
                   <span class="badge">{{result_num}}</span>
                 </a>
               </div>
-            </form>
+            </div>
           </div>
+        
         </div>
       </div>
 

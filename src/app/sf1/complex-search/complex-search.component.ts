@@ -42,13 +42,14 @@ export class ComplexSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.exp.clearSecGroup()
   }
 
   doSearch() {
-    const k = this.exp.getKeyWords();
-    console.log(k);
+    const k = this.exp.getKeyWords()
+    console.log(k)
 
-    const exp = this.exp.getValue()
+    const exp = this.exp.Encode()
 
     // const dbs = this.exp.getDBValue()
     const dbs = 'FMZL,FMSQ,SYXX,WGZL'
@@ -63,4 +64,5 @@ export class ComplexSearchComponent implements OnInit {
 
     this.router.navigate(['/sf1/list'], { queryParams: { exp, dbs, order, option, from, to, displayCols } });
   }
+
 }

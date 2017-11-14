@@ -94,7 +94,22 @@ steps:
 1. 调整api端响应结构，增加response.error属性{status:'XXX', message:''}
 2. 增加sf1Service.redirectUrl，实现查询异常时的跳转重定向
 
+puyd:
+1. Exp实现Encode和Decode方法
+2. 简化表达式的显示方式
+
 ### 2017-11-14 ###
+steps:
+1. 阿里云安装MSSQL2012
+2. 安装Ater服务端。数据库待同步。
+3. 部署客户端网站
+4. 激活polyfills，使网站兼容IE11, 360浏览器
+5. 调整高级检索css
+
+puyd:
+1. 修改二次检索表示式显示，可以删除二次检索的条件
+
+
 ### 2017-11-15 ###
 ### 2017-11-16 ###
 ### 2017-11-17 ###

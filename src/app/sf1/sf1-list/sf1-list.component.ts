@@ -46,23 +46,26 @@ export class SF1ListComponent implements OnInit {
   sortMode: number = 0
   sortModeDesc: string[] = ['按相关度排序', '按公开日升序', '按公开日降序', '按申请日升序', '按申请日降序']
 
+  exp:SF1SearchExp
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private service: SF1Service,
-    private exp: SF1SearchExp
+    private sf1exp: SF1SearchExp
   ) {
-    this.lastParams = service.lastParams
+    this.exp=sf1exp
     this.searchFields = this.exp.getFields()
-    this.searchKeys = []
-    this.addField()
   }
 
   ngOnInit() {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
       this.sf1 = data.crisis
-
+      
+      this.lastParams = this.service.lastParams
+      
+      this.clear()
       this.initPages()
 
     })
@@ -84,15 +87,13 @@ export class SF1ListComponent implements OnInit {
     this.sortMode = mode
   }
 
-  getExpValue() {
-    const l = this.lastParams.exp
-    const v = this.exp.buildSecondSearch(this.searchKeys)
-    return l + v
-  }
-
   clear() {
     this.searchKeys = []
     this.addField()
+  }
+
+  getDisplay(){
+    return this.exp.buildSecondSearch(this.searchKeys)
   }
 
 
@@ -103,11 +104,13 @@ export class SF1ListComponent implements OnInit {
       return
     }
 
-    this.lastParams.exp = this.getExpValue()
+    this.exp.addSecGroup(this.searchKeys)
+    this.lastParams.exp = this.exp.Encode()
     this.lastParams.from = 0
     this.lastParams.to = this.pageCnt - 1
 
     this.clear()
+    this.service.redirectUrl='/sf1/list'
 
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list
@@ -116,11 +119,12 @@ export class SF1ListComponent implements OnInit {
   }
 
   doPage(from: number) {
-    this.lastParams.exp = this.getExpValue()
+    this.lastParams.exp = this.exp.Encode()
     this.lastParams.from = from
     this.lastParams.to = from + this.pageCnt
 
     this.clear()
+    this.service.redirectUrl='/sf1/list'
 
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list
@@ -156,8 +160,6 @@ export class SF1ListComponent implements OnInit {
       pe = ps + 9
     }
 
-
-
     for (let i = ps; i <= pe; i++) {
       let pitem = {
         id: i,
@@ -167,6 +169,11 @@ export class SF1ListComponent implements OnInit {
       this.pages.push(pitem)
     }
 
+  }
+
+  delSecGroup(id){
+    this.exp.sec_group.splice(id-1,1)
+    this.doPage(0)
   }
 
 }
