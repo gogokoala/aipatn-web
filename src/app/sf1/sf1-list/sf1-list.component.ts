@@ -46,7 +46,7 @@ export class SF1ListComponent implements OnInit {
   sortMode: number = 0
   sortModeDesc: string[] = ['按相关度排序', '按公开日升序', '按公开日降序', '按申请日升序', '按申请日降序']
 
-  exp:SF1SearchExp
+  exp: SF1SearchExp
 
   constructor(
     private route: ActivatedRoute,
@@ -54,7 +54,7 @@ export class SF1ListComponent implements OnInit {
     private service: SF1Service,
     private sf1exp: SF1SearchExp
   ) {
-    this.exp=sf1exp
+    this.exp = sf1exp
     this.searchFields = this.exp.getFields()
   }
 
@@ -62,9 +62,9 @@ export class SF1ListComponent implements OnInit {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
       this.sf1 = data.crisis
-      
+
       this.lastParams = this.service.lastParams
-      
+
       this.clear()
       this.initPages()
 
@@ -92,13 +92,13 @@ export class SF1ListComponent implements OnInit {
     this.addField()
   }
 
-  getDisplay(){
+  getDisplay() {
     return this.exp.buildSecondSearch(this.searchKeys)
   }
 
 
   doSearch() {
-    let v = this.exp.buildSecondSearch(this.searchKeys)
+    const v = this.exp.buildSecondSearch(this.searchKeys)
 
     if (!v) {
       return
@@ -110,7 +110,7 @@ export class SF1ListComponent implements OnInit {
     this.lastParams.to = this.pageCnt - 1
 
     this.clear()
-    this.service.redirectUrl='/sf1/list'
+    this.service.redirectUrl = '/sf1/list'
 
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list
@@ -124,7 +124,7 @@ export class SF1ListComponent implements OnInit {
     this.lastParams.to = from + this.pageCnt
 
     this.clear()
-    this.service.redirectUrl='/sf1/list'
+    this.service.redirectUrl = '/sf1/list'
 
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list
@@ -133,7 +133,7 @@ export class SF1ListComponent implements OnInit {
   }
 
   addField() {
-    let f = {
+    const f = {
       field: this.searchFields[0],
       op: 'AND',
       value: '',
@@ -161,7 +161,7 @@ export class SF1ListComponent implements OnInit {
     }
 
     for (let i = ps; i <= pe; i++) {
-      let pitem = {
+      const pitem = {
         id: i,
         from: (i - 1) * this.pageCnt,
       }
@@ -171,8 +171,8 @@ export class SF1ListComponent implements OnInit {
 
   }
 
-  delSecGroup(id){
-    this.exp.sec_group.splice(id-1,1)
+  delSecGroup(id) {
+    this.exp.sec_group.splice(id - 1, 1)
     this.doPage(0)
   }
 
