@@ -14,6 +14,11 @@
 
       <div class="panel panel-primary">
 
+          <div *ngIf="error" class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>* (E{{error.status}}): {{error.message}} </strong>
+          </div>
+
         <div class="panel-heading">
           <span class="panel-title">二次检索</span>
         </div>

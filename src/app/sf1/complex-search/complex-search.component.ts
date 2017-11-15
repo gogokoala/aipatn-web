@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { UserService } from '../../services/user.service'
 import { SF1SearchExp } from '../sf1-search.service';
 import { SF1Service } from '../sf1.service';
@@ -35,6 +35,7 @@ export class ComplexSearchComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private user: UserService,
     private sf1: SF1Service,
     private sf1Exp: SF1SearchExp
@@ -44,6 +45,23 @@ export class ComplexSearchComponent implements OnInit {
 
   ngOnInit() {
     this.exp.clearSecGroup()
+
+    /*
+    this.route.params.subscribe(q => {
+      const status = q.status
+      const message = q.message
+      if (status && status !== '0') {
+        this.error = { status, message }
+        setTimeout(() => { this.error = null }, 10000)
+      }
+    })
+    */
+    this.error = {
+      status: '401',
+      message: '检索结果为空'
+    }
+    setTimeout(() => { this.error = null }, 10000)
+
   }
 
   doSearch() {
@@ -62,7 +80,6 @@ export class ComplexSearchComponent implements OnInit {
     const to = 10
 
     this.sf1.redirectUrl = '/sf1/complex'
-
     this.router.navigate(['/sf1/list'], { queryParams: { exp, dbs, order, option, from, to, displayCols } });
   }
 

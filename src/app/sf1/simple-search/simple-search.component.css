@@ -69,6 +69,12 @@
   float: left;
   position: relative;
 }
+
+.m-search-alert {
+  width:685px;
+  text-align:left;
+}
+
 .m-search-input-input {
   height:50px;
   line-height:50px;

@@ -3,6 +3,7 @@ import 'rxjs/add/operator/take'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router'
+import * as moment from 'moment/moment'
 
 import { SF1Response, SF1Service, SF1SearchParams } from './sf1.service'
 
@@ -38,7 +39,7 @@ export class SF1ListResolver implements Resolve<SF1Response> {
       if (res && res.status === '0') {
         return res
       } else { // id not found
-        this.router.navigate([this.sf1.redirectUrl])
+        this.router.navigate([this.sf1.redirectUrl, { t: moment().valueOf() }],  { queryParams: res })
         return null
       }
     })

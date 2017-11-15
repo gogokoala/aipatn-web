@@ -48,9 +48,11 @@ export class SF1ListComponent implements OnInit {
 
   exp: SF1SearchExp
 
+  error: any
+
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
+    private route: ActivatedRoute,
     private service: SF1Service,
     private sf1exp: SF1SearchExp
   ) {
@@ -67,7 +69,14 @@ export class SF1ListComponent implements OnInit {
 
       this.clear()
       this.initPages()
-
+    })
+    this.route.params.subscribe(q => {
+      const status = q.status
+      const message = q.message
+      if (status && status !== '0') {
+        this.error = { status, message }
+        setTimeout(() => { this.error = null }, 10000)
+      }
     })
   }
 
