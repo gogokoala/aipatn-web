@@ -518,6 +518,22 @@ export class SF1SearchExp {
     return r
   }
 
+  private getDBJson(){
+    let r=0xFFFFFFFF
+    let f=0x00000001
+
+    this.db_group.forEach((d)=>{
+      d.sub_types.forEach((t)=>{
+        if (!t.checked){
+          r= (r & ~f)
+        }
+        f=(f<<1)
+      })
+    })
+
+    return r
+  }
+
   private getJson(){
     let d={
       key_group: this.getGroupJson(this.key_group),
@@ -525,17 +541,9 @@ export class SF1SearchExp {
       type_group: this.getGroupJson(this.type_group),
       name_group: this.getGroupJson(this.name_group),
       date_group: this.getGroupJson(this.date_group),
-      db_group:[],
+      db_group:this.getDBJson(),
       sec_group: this.sec_group
     }
-
-    this.db_group.forEach((db)=>{
-      db.sub_types.forEach((t)=>{
-        if (t.checked) {
-          d.db_group.push(t.code)
-        }
-      })
-    })
 
     return JSON.stringify(d)
   }
@@ -566,6 +574,26 @@ export class SF1SearchExp {
     return v
   }
 
+  private setDBJson(j){
+    let f=0x00000001
+
+    this.dbCheckAll(true)
+
+    this.db_group.forEach((d)=>{
+      d.sub_types.forEach((t)=>{
+        let r=(f & j)
+        if (r===0){
+          t.checked=false
+          d.checked=false
+          this.db_group[0].checked=false
+        }
+        f=(f << 1)
+
+      })
+    })
+
+  }
+
   private setJson(j){
     this.clear()
     let d=JSON.parse(j)
@@ -576,15 +604,7 @@ export class SF1SearchExp {
       this.sec_group.push(this.setGroup(g))
     })
 
-    this.db_group.forEach((db)=>{
-      db.sub_types.forEach((t)=>{
-        
-        if (d.db_group.indexOf(t.code)>=0){
-          t.checked
-        }
-
-      })
-    })
+    this.setDBJson(d.db_group)
 
     this.setGroupJson(this.key_group,d.key_group)
     this.setGroupJson(this.code_group,d.code_group)
