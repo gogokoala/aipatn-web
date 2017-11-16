@@ -502,9 +502,47 @@ export class SF1SearchExp {
 
   }
 
+
+  private getGroupJson(g:Array<SF1SearchCondition>){
+    let r=[]
+    g.forEach((gi)=>{
+      gi.items.forEach((v)=>{
+        if (v.value || v.from || v.to){
+          r.push({
+            title:gi.title,
+            value:v
+          })
+        }
+      })
+    })
+    return r
+  }
+
+  private getJson(){
+    let d={
+      key_group: this.getGroupJson(this.key_group),
+      code_group: this.getGroupJson(this.code_group),
+      type_group: this.getGroupJson(this.type_group),
+      name_group: this.getGroupJson(this.name_group),
+      date_group: this.getGroupJson(this.date_group),
+      db_group:[],
+      sec_group: this.sec_group
+    }
+
+    this.db_group.forEach((db)=>{
+      db.sub_types.forEach((t)=>{
+        if (t.checked) {
+          d.db_group.push(t.code)
+        }
+      })
+    })
+
+    return JSON.stringify(d)
+  }
+
   Encode(){
-    const j=JSON.stringify(this)
-    const b = [];
+    const j=this.getJson()
+    const b = []
     
     for (let i = 0; i < j.length; ++i)
     {
@@ -526,6 +564,33 @@ export class SF1SearchExp {
     const v =crypt.bytesToBase64(b)
 
     return v
+  }
+
+  private setJson(j){
+    this.clear()
+    let d=JSON.parse(j)
+
+    this.sec_group=new Array<Array<SF1SearchCondition>>()
+    
+    d.sec_group.forEach((g)=>{
+      this.sec_group.push(this.setGroup(g))
+    })
+
+    this.db_group.forEach((db)=>{
+      db.sub_types.forEach((t)=>{
+        
+        if (d.db_group.indexOf(t.code)>=0){
+          t.checked
+        }
+
+      })
+    })
+
+    this.setGroupJson(this.key_group,d.key_group)
+    this.setGroupJson(this.code_group,d.code_group)
+    this.setGroupJson(this.type_group,d.type_group)
+    this.setGroupJson(this.name_group,d.name_group)
+    this.setGroupJson(this.date_group,d.date_group)
   }
 
   Decode(v:string){
@@ -551,9 +616,8 @@ export class SF1SearchExp {
       }
     }
     
-    this.setFromJson(j)
+    this.setJson(j)
   }
-
 
   private setGroup(j:Array<any>){
     let g=new Array<SF1SearchCondition>()
@@ -567,25 +631,22 @@ export class SF1SearchExp {
     return g
   }
 
-  private setFromJson(json:string)
-  {
-    let j=JSON.parse(json)
+  private setGroupJson(g:Array<SF1SearchCondition>,j:Array<any>){
+      g.forEach((gi)=>{
+        gi.items=[]
+        j.forEach((ji)=>{
+          if (ji.title===gi.title){
+            gi.items.push(ji.value)
+          }
+        })
 
-    this.db_group=j.db_group  
-    this.lastKeyWord=j.lastKeyWord
-
-    this.key_group=this.setGroup(j.key_group)
-    this.code_group=this.setGroup(j.code_group)
-    this.type_group=this.setGroup(j.type_group)
-    this.name_group=this.setGroup(j.name_group)
-    this.date_group=this.setGroup(j.date_group)
-
-    this.sec_group=new Array<Array<SF1SearchCondition>>()
-
-    j.sec_group.forEach((g)=>{
-      this.sec_group.push(this.setGroup(g))
-    })
+        if (gi.items.length===0){
+          gi.newItem()
+        }
+      })
   }
+
+  
 
   private getItemDisplay(item:SF1SearchCondition){
     let k=item.title
