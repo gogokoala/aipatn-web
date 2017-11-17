@@ -116,7 +116,7 @@ export class SF1ListComponent implements OnInit {
     this.exp.addSecGroup(this.searchKeys)
     this.lastParams.exp = this.exp.Encode()
     this.lastParams.from = 0
-    this.lastParams.to = this.pageCnt - 1
+    this.lastParams.to = this.pageCnt
 
     this.clear()
     this.service.redirectUrl = '/sf1/list'
@@ -158,10 +158,14 @@ export class SF1ListComponent implements OnInit {
   initPages() {
     this.pages = new Array<any>()
 
-    let ps = Math.trunc((this.sf1.from) / this.pageCnt) - 3
+    let ps = Math.trunc((this.sf1.from) / this.pageCnt)
 
     if (ps < 1) {
       ps = 1
+    }
+
+    if ((ps%10)!==1){
+      ps=Math.trunc(ps/10)*10+1
     }
 
     let pe = Math.trunc(this.sf1.total * 1.0 / this.pageCnt + 0.5)
@@ -178,11 +182,35 @@ export class SF1ListComponent implements OnInit {
       this.pages.push(pitem)
     }
 
+    console.log(this.pages)
+
   }
 
   delSecGroup(id) {
     this.exp.sec_group.splice(id - 1, 1)
     this.doPage(0)
+  }
+
+  setPageCnt(cnt) {
+    if (this.pageCnt !== cnt) {
+      this.pageCnt = cnt
+      let f = Math.trunc(this.lastParams.from / cnt) * cnt
+      this.doPage(f)
+    }
+  }
+
+  doPrePage(){
+    let f:number =this.lastParams.from - this.pageCnt 
+    if (f>=0) {
+      this.doPage(f)
+    }
+  }
+
+  doNextPage(){
+    let f:number = this.lastParams.from - 0 + this.pageCnt
+    if (f<this.sf1.total) {
+      this.doPage(f)
+    }
   }
 
 }

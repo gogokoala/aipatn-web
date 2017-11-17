@@ -70,9 +70,10 @@
 
       <!-- Patent List -->
       <div class="list-group">
-        <div class="list-group-item active">
-
-          <div class="dropdown" style="display:inline-block">
+      
+        <div class="list-group-item active" >
+          <div style="height:60px;margin-top:-18px;">
+          <div class="dropdown" style="display:inline-block;">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{viewModeDesc[viewMode]}}
               <span class="caret"></span>
@@ -83,8 +84,8 @@
               </li>
             </ul>
           </div>
-
-          <div class="dropdown" style="display:inline-block">
+        
+          <div class="dropdown" style="display:inline-block;">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{sortModeDesc[sortMode]}}
               <span class="caret"></span>
@@ -96,16 +97,52 @@
             </ul>
           </div>
 
-          <div style="display:inline-block; font-size:24px; margin-left:32px; vertical-align:middle; ">
-              <span *ngFor="let item of pages">
-                <a  *ngIf="item.from!=sf1.from"  (click)="doPage(item.from)" style="color:#000000; cursor:pointer">{{item.id}}</a>
-                <span  *ngIf="item.from==sf1.from" style="color:#ffffff; cursor:pointer">{{item.id}}</span>
-              </span>
+          &nbsp;&nbsp;&nbsp;
+        
+          <div class="dropdown" style="display:inline-block;">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              每页{{pageCnt}}条
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a (click)="setPageCnt(10)">每页10条</a>
+              </li>
+              <li>
+                <a (click)="setPageCnt(20)">每页20条</a>
+              </li>
+              <li>
+                <a (click)="setPageCnt(50)">每页50条</a>
+              </li>
+            </ul>
+          </div>
+        
+          <div style="display:inline-block;"  *ngIf="sf1.total>pageCnt">
+            <ul class="pagination" style="vertical-align:middle">
+              <li>
+                <a style="cursor:pointer" (click)="doPrePage()">
+                  <span>&laquo;</span>
+                </a>
+              </li>
+        
+              <li *ngFor="let item of pages" [ngClass]="{'active':item.from==sf1.from}">
+                <a *ngIf="item.from!=sf1.from" style="cursor:pointer" (click)="doPage(item.from)">{{item.id}}</a>
+                <span *ngIf="item.from==sf1.from">{{item.id}}</span>
+              </li>
+        
+              <li>
+                <a style="cursor:pointer" (click)="doNextPage()">
+                  <span>&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
           </div>
         </div>
-
-        <div *ngIf="sf1.results" [ngSwitch]="viewMode">
-
+      
+        <div class="list-group-item" *ngIf="sf1.results" [ngSwitch]="viewMode">
+      
           <table *ngSwitchCase="0" class="table">
             <tr>
               <th>
@@ -136,7 +173,7 @@
               <td>{{item.lprs}}</td>
             </tr>
           </table>
-
+      
           <div *ngSwitchCase="1">
             <div *ngFor="let item of sf1.results; let idx=index" class="list-group-item pat-item">
               <div class="pat-header">
@@ -172,7 +209,7 @@
                           <strong>申请日：</strong>
                           <a href="#" target="_blank">{{item.appDate}}</a>
                         </p>
-
+      
                       </div>
                       <div class="col-xs-8">
                         <p>
@@ -198,19 +235,89 @@
                     </div>
                   </div>
                 </div>
-
+      
               </div>
             </div>
           </div>
-
-
-
+      
+      
+      
           <div *ngSwitchCase="2">
           </div>
-
-
+      
+      
         </div>
-
+      
+        <div class="list-group-item active" >
+            <div style="height:60px;margin-top:-18px;">
+            <div class="dropup" style="display:inline-block;">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{viewModeDesc[viewMode]}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li *ngFor="let item of viewModeDesc; let vi=index">
+                  <a (click)="setViewMode(vi)">{{item}}</a>
+                </li>
+              </ul>
+            </div>
+          
+            <div class="dropup" style="display:inline-block;">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{sortModeDesc[sortMode]}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li *ngFor="let item of sortModeDesc; let vi=index">
+                  <a (click)="setSortMode(vi)">{{item}}</a>
+                </li>
+              </ul>
+            </div>
+  
+            &nbsp;&nbsp;&nbsp;
+          
+            <div class="dropup" style="display:inline-block;">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                每页{{pageCnt}}条
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a (click)="setPageCnt(10)">每页10条</a>
+                </li>
+                <li>
+                  <a (click)="setPageCnt(20)">每页20条</a>
+                </li>
+                <li>
+                  <a (click)="setPageCnt(50)">每页50条</a>
+                </li>
+              </ul>
+            </div>
+          
+            <div style="display:inline-block;"  *ngIf="sf1.total>pageCnt">
+              <ul class="pagination" style="vertical-align:middle">
+                <li>
+                  <a style="cursor:pointer" (click)="doPrePage()">
+                    <span>&laquo;</span>
+                  </a>
+                </li>
+          
+                <li *ngFor="let item of pages" [ngClass]="{'active':item.from==sf1.from}">
+                  <a *ngIf="item.from!=sf1.from" style="cursor:pointer" (click)="doPage(item.from)">{{item.id}}</a>
+                  <span *ngIf="item.from==sf1.from">{{item.id}}</span>
+                </li>
+          
+                <li>
+                  <a style="cursor:pointer" (click)="doNextPage()">
+                    <span>&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+  
+            </div>
+          </div>
+      
       </div>
     </div>
 
