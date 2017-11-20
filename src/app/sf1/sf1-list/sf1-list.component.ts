@@ -13,22 +13,26 @@ import * as moment from 'moment'
 })
 export class SF1ListComponent implements OnInit {
 
-  filter_items: any[] = [
-    { id: 1, name: '国家' },
-    { id: 2, name: '申请人' },
-    { id: 3, name: '申请日' },
-    { id: 4, name: '公开日' },
-    { id: 5, name: '授权日' },
-    { id: 6, name: '法律状态' },
-    { id: 7, name: '法律事件' },
-    { id: 8, name: '分类号:大类' },
-    { id: 9, name: '分类号:小类' },
-    { id: 10, name: '分类号:大组' },
-    { id: 11, name: '分类号:大组' },
-    { id: 12, name: '外观分类' },
-    { id: 13, name: '发明人' },
-    { id: 14, name: '代理机构' },
-    { id: 15, name: '代理人' },
+  // filter_items: any[] = [
+  //   { id: 1, name: '国家' },
+  //   { id: 2, name: '申请人' },
+  //   { id: 3, name: '申请日' },
+  //   { id: 4, name: '公开日' },
+  //   { id: 5, name: '授权日' },
+  //   { id: 6, name: '法律状态' },
+  //   { id: 7, name: '法律事件' },
+  //   { id: 8, name: '分类号:大类' },
+  //   { id: 9, name: '分类号:小类' },
+  //   { id: 10, name: '分类号:大组' },
+  //   { id: 11, name: '分类号:大组' },
+  //   { id: 12, name: '外观分类' },
+  //   { id: 13, name: '发明人' },
+  //   { id: 14, name: '代理机构' },
+  //   { id: 15, name: '代理人' },
+  // ]
+
+  filter_items: any[]=[
+    { id: 1, name: '国家' }
   ]
 
   searchKeys: Array<any>
@@ -61,21 +65,24 @@ export class SF1ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.error=null
+    
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
+
+      this.lastParams = this.service.lastParams;
+
       this.sf1 = data.crisis
-
-      this.lastParams = this.service.lastParams
-      
-      if (this.lastParams.jp){
-        this.exp.Decode(this.lastParams.jp)
-      }
-
       this.clear()
       this.initPages()
     })
 
-    this.route.params.subscribe(q => {
+    this.route.queryParams.subscribe(q => {
+     
+      if (q.jp){
+        this.exp.Decode(q.jp)
+      }
+
       const status = q.status
       const message = q.message
       if (status && status !== '0') {

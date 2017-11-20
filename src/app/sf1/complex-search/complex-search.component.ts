@@ -52,7 +52,7 @@ export class ComplexSearchComponent implements OnInit {
     this.error=null
     this.exp.clearSecGroup()
 
-    this.route.params.subscribe(q => {
+    this.route.queryParams.subscribe(q => {
       console.log(q)
       const status = q.status
       const message = q.message

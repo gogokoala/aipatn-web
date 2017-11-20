@@ -21,6 +21,8 @@ export class SF1ListResolver implements Resolve<SF1Response> {
     const order = route.queryParamMap.get('order')
     const option: any = route.queryParamMap.get('option')
     const displayCols = route.queryParamMap.get('displayCols')
+    const dp = route.queryParamMap.get('dp')
+    const jp = route.queryParamMap.get('jp')
 
     if (!exp) {
       this.router.navigate([this.sf1.redirectUrl])
@@ -34,12 +36,16 @@ export class SF1ListResolver implements Resolve<SF1Response> {
     params.option = option && !isNaN(option) ? option : 2
     params.from = from && !isNaN(from) ? from : 0
     params.to = to && !isNaN(to) ? to : 10
+    params.dp = dp
+    params.jp = jp
 
     return this.sf1.getList(params).map(res => {
       if (res && res.status === '0') {
         return res
       } else { // id not found
-        this.router.navigate([this.sf1.redirectUrl, { t: moment().valueOf() }],  { queryParams: res })
+        const t=moment().valueOf()
+        res.t=t
+        this.router.navigate([this.sf1.redirectUrl], { queryParams: res })
         return null
       }
     })

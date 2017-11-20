@@ -64,6 +64,7 @@ export interface SF1Response {
   to: number
   results: Array<SF1Data>
   sectionInfos: Array<SF1SectionInfo>
+  t?:number
 }
 
 /**
