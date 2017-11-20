@@ -61,8 +61,9 @@
               <div>
                 <button (click)="doSearch()" class="btn btn-primary">检索</button>
                 <a class="btn btn-default" (click)="exp.clear()">清空</a>
-                <a href="#" class="btn btn-default" (click)="doResultNum()">查看命中条数
-                  <span class="badge">{{result_num}}</span>
+                <a class="btn btn-default" (click)="doResultNum()">查看命中条数
+                  <span *ngIf="!flg.doResultNum"  class="badge">{{result_num|number:0}}</span>
+                  <span *ngIf="flg.doResultNum"  class="badge"><i class="fa fa-spinner fa-spin"></i></span>
                 </a>
               </div>
             </div>

@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { UserService } from '../../services/user.service'
 import { SF1SearchExp } from '../sf1-search.service';
 import { SF1Service, SF1SearchParams } from '../sf1.service';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-complex-search',
@@ -33,6 +34,10 @@ export class ComplexSearchComponent implements OnInit {
 
   exp: SF1SearchExp
 
+  flg:any={
+    doResultNum:false
+  }
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -44,10 +49,11 @@ export class ComplexSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.error=null
     this.exp.clearSecGroup()
 
-    /*
     this.route.params.subscribe(q => {
+      console.log(q)
       const status = q.status
       const message = q.message
       if (status && status !== '0') {
@@ -55,16 +61,17 @@ export class ComplexSearchComponent implements OnInit {
         setTimeout(() => { this.error = null }, 10000)
       }
     })
-    */
-    this.error = {
-      status: '401',
-      message: '检索结果为空'
-    }
-    setTimeout(() => { this.error = null }, 10000)
 
+    // this.error = {
+    //   status: '401',
+    //   message: '检索结果为空'
+    // }
+    // setTimeout(() => { this.error = null }, 10000)
+
+   
   }
 
-  private makeParams(){
+  private makeParams(cnt){
     const exp = this.exp.getValue()
     // const dbs = this.exp.getDBValue()
     const dbs = 'FMZL,FMSQ,SYXX,WGZL'
@@ -73,7 +80,7 @@ export class ComplexSearchComponent implements OnInit {
     const displayCols = ''
     const option = 2
     const from = 0
-    const to = 10
+    const to = cnt
     const dp=this.exp.getDisplayText()
     const jp=this.exp.Encode()
 
@@ -87,18 +94,33 @@ export class ComplexSearchComponent implements OnInit {
     //const k = this.exp.getKeyWords()
     //console.log(k)
 
-    let p=this.makeParams()
+    let p=this.makeParams(10)
     
     this.sf1.redirectUrl = '/sf1/complex'
     this.router.navigate(['/sf1/list'], { queryParams: p });
   }
 
   doResultNum(){
-    
-    let p=this.makeParams()    
+    this.result_num=0
+    this.error=null
+    this.flg.doResultNum=true
+
+    let p=this.makeParams(0)    
     this.sf1.redirectUrl = '/sf1/complex'
-    this.sf1.getList(p).subscribe(d=>{
-      console.log(d)
+    this.sf1.getList(p).subscribe((d)=>{
+      this.flg.doResultNum=false
+      console.log(d);
+      if (d.status!=='0')
+      {
+        this.error={
+          status:d.status,
+          Message:d.message
+        }
+        setTimeout(() => { this.error = null }, 10000)
+      }
+      else if (d.results){
+        this.result_num=d.total
+      }
     })
   }
 
