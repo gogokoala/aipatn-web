@@ -9,7 +9,7 @@ import { SF1DetailComponent } from './sf1-detail/sf1-detail.component'
 import { SF1ListResolver } from './sf1-list-resolver.service'
 
 const routes: Routes = [
-  { path: '', redirectTo: 'simple', pathMatch: 'full'},
+  { path: '', redirectTo: 'simple', pathMatch: 'full' },
   { path: 'simple', component: SimpleSearchComponent },
   { path: 'complex', component: ComplexSearchComponent },
   {
@@ -37,4 +37,4 @@ const routes: Routes = [
   ]
 })
 
-export class SF1RoutingModule {}
+export class SF1RoutingModule { }

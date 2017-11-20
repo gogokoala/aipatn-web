@@ -31,11 +31,11 @@ export class SF1ListComponent implements OnInit {
   //   { id: 15, name: '代理人' },
   // ]
 
-  filter_items: any[]=[
-    { id: 0, name: '数据库', items:[] },
-    { id: 1, name: '申请日', items:[] },
-    { id: 2, name: '公开日', items:[] },
-    { id: 3, name: '授权日', items:[] }
+  filter_items: any[] = [
+    { id: 0, name: '数据库', items: [] },
+    { id: 1, name: '申请日', items: [] },
+    { id: 2, name: '公开日', items: [] },
+    { id: 3, name: '授权日', items: [] }
   ]
 
   searchKeys: Array<any>
@@ -68,18 +68,18 @@ export class SF1ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.error=null
-    
+    this.error = null
+
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
 
       this.sf1 = data.crisis
-      
+
       this.lastParams = this.sf1.params;
-      if (this.lastParams.jp){
+      if (this.lastParams.jp) {
         this.exp.Decode(this.lastParams.jp)
       }
-      
+
       this.clear()
       this.initPages()
       this.initFilter()
@@ -131,8 +131,8 @@ export class SF1ListComponent implements OnInit {
     this.exp.addSecGroup(this.searchKeys)
 
     this.lastParams.exp = this.exp.getValue()
-    this.lastParams.dp=this.exp.getDisplayText()
-    this.lastParams.jp=this.exp.Encode()
+    this.lastParams.dp = this.exp.getDisplayText()
+    this.lastParams.jp = this.exp.Encode()
 
     this.lastParams.from = 0
     this.lastParams.to = this.pageCnt
@@ -148,8 +148,8 @@ export class SF1ListComponent implements OnInit {
 
   doPage(from: number) {
     this.lastParams.exp = this.exp.getValue()
-    this.lastParams.dp=this.exp.getDisplayText()
-    this.lastParams.jp=this.exp.Encode()
+    this.lastParams.dp = this.exp.getDisplayText()
+    this.lastParams.jp = this.exp.Encode()
     this.lastParams.from = from
     this.lastParams.to = from + this.pageCnt
 
@@ -185,8 +185,8 @@ export class SF1ListComponent implements OnInit {
       ps = 1
     }
 
-    if ((ps%10)!==1){
-      ps=Math.trunc(ps/10)*10+1
+    if ((ps % 10) !== 1) {
+      ps = Math.trunc(ps / 10) * 10 + 1
     }
 
     let pe = Math.trunc(this.sf1.total * 1.0 / this.pageCnt + 0.5)
@@ -220,62 +220,62 @@ export class SF1ListComponent implements OnInit {
     }
   }
 
-  doPrePage(){
-    let f:number =this.lastParams.from - this.pageCnt 
-    if (f>=0) {
+  doPrePage() {
+    let f: number = this.lastParams.from - this.pageCnt
+    if (f >= 0) {
       this.doPage(f)
     }
   }
 
-  doNextPage(){
-    let f:number = this.lastParams.from - 0 + this.pageCnt
-    if (f<this.sf1.total) {
+  doNextPage() {
+    let f: number = this.lastParams.from - 0 + this.pageCnt
+    if (f < this.sf1.total) {
       this.doPage(f)
     }
   }
 
-  private initDBFilter(){
-    let dbs=[]
-    
-    this.lastParams.dbs.split(',').forEach((db)=>{
-      let d=this.service.getDatabase(db)
+  private initDBFilter() {
+    let dbs = []
+
+    this.lastParams.dbs.split(',').forEach((db) => {
+      let d = this.service.getDatabase(db)
       if (d) {
-        let data={
-            code: db,
-            name: d.name,
-            cnt: -1,
-            rate: 0
+        let data = {
+          code: db,
+          name: d.name,
+          cnt: -1,
+          rate: 0
         }
         dbs.push(data)
       }
     })
-    
-    
+
+
 
     return dbs
   }
 
-  private initYearFilter(field:string){
-    const n=10
-    let r=[]
-    let y=moment().year()
+  private initYearFilter(field: string) {
+    const n = 10
+    let r = []
+    let y = moment().year()
 
-    for (let i=0;i<n;i++){
-      let d={
-        name:y-i,
-        code: field+'=('+(y-i)+'0101 to '+(y-i)+'1231)',
-        cnt:-1,
-        rate:0
+    for (let i = 0; i < n; i++) {
+      let d = {
+        name: y - i,
+        code: field + '=(' + (y - i) + '0101 to ' + (y - i) + '1231)',
+        cnt: -1,
+        rate: 0
       }
 
       r.push(d)
     }
 
-    let d={
-      name:(y-n).toString()+'及以前',
-      code: field+'=(19700101 to '+(y-10)+'1231)',
-      cnt:-1,
-      rate:0
+    let d = {
+      name: (y - n).toString() + '及以前',
+      code: field + '=(19700101 to ' + (y - 10) + '1231)',
+      cnt: -1,
+      rate: 0
     }
 
     r.push(d)
@@ -283,7 +283,7 @@ export class SF1ListComponent implements OnInit {
     return r
   }
 
-  private getFilterCnt(){
+  private getFilterCnt() {
     for (let j = 0; j < 4; j++) {
       for (let i = 0; i < this.filter_items[j].items.length; i++) {
         let ji = this.filter_items[j].items[i]
@@ -329,12 +329,12 @@ export class SF1ListComponent implements OnInit {
 
   }
 
-  initFilter(){
-    this.filter_items[0].items=this.initDBFilter()
+  initFilter() {
+    this.filter_items[0].items = this.initDBFilter()
 
-    this.filter_items[1].items=this.initYearFilter('申请日')
-    this.filter_items[2].items=this.initYearFilter('公开（公告）日')
-    this.filter_items[3].items=this.initYearFilter('优先权日')
+    this.filter_items[1].items = this.initYearFilter('申请日')
+    this.filter_items[2].items = this.initYearFilter('公开（公告）日')
+    this.filter_items[3].items = this.initYearFilter('优先权日')
 
     this.getFilterCnt()
 

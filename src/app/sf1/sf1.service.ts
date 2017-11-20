@@ -64,8 +64,8 @@ export interface SF1Response {
   to: number
   results: Array<SF1Data>
   sectionInfos: Array<SF1SectionInfo>
-  t?:number
-  params?:SF1SearchParams
+  t?: number
+  params?: SF1SearchParams
 }
 
 /**
@@ -93,8 +93,8 @@ export interface SF1SearchParams {
   from?: number
   to?: number
   displayCols?: string
-  dp?: string   //exp.getDisplay()
-  jp?: string   //exp.Encode()
+  dp?: string   // exp.getDisplay()
+  jp?: string   // exp.Encode()
 }
 
 @Injectable()

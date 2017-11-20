@@ -9,7 +9,7 @@ import { SF1Response, SF1Service, SF1SearchParams } from './sf1.service'
 
 @Injectable()
 export class SF1ListResolver implements Resolve<SF1Response> {
-  constructor(private sf1: SF1Service, private router: Router) {}
+  constructor(private sf1: SF1Service, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<SF1Response> {
     const params: SF1SearchParams = { exp: '' }
@@ -41,16 +41,16 @@ export class SF1ListResolver implements Resolve<SF1Response> {
 
     return this.sf1.getList(params).map(res => {
       if (res && res.status === '0') {
-        
-        res.params=params
-        res.t=0
+
+        res.params = params
+        res.t = 0
 
         return res
       } else { // id not found
-        
-        const t=moment().valueOf()
-        res.t=t
-        
+
+        const t = moment().valueOf()
+        res.t = t
+
         this.router.navigate([this.sf1.redirectUrl], { queryParams: res })
         return null
       }

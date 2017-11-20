@@ -1,4 +1,4 @@
-import {SF1Service} from '../sf1.service';
+import { SF1Service } from '../sf1.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service'
@@ -23,7 +23,7 @@ export class SimpleSearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.error =null
+    this.error = null
 
     this.route.queryParams.subscribe(q => {
       const status = q.status
@@ -39,8 +39,8 @@ export class SimpleSearchComponent implements OnInit {
     if (this.searchKeyword) {
       const exp = this.searchExp.buildKeySearch(this.searchKeyword)
       const dbs = 'FMZL,FMSQ,SYXX,WGZL'
-      const jp=this.searchExp.Encode()
-      const dp=this.searchExp.getDisplay()
+      const jp = this.searchExp.Encode()
+      const dp = this.searchExp.getDisplay()
       this.sf1.redirectUrl = '/sf1/simple'
       this.router.navigate(['/sf1/list'], { queryParams: { exp, dbs, dp, jp } });
     }

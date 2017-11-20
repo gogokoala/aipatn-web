@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service'
 import { SF1SearchExp } from '../sf1-search.service';
 import { SF1Service, SF1SearchParams } from '../sf1.service';
@@ -34,8 +34,8 @@ export class ComplexSearchComponent implements OnInit {
 
   exp: SF1SearchExp
 
-  flg:any={
-    doResultNum:false
+  flg: any = {
+    doResultNum: false
   }
 
   constructor(
@@ -49,7 +49,7 @@ export class ComplexSearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.error=null
+    this.error = null
     this.exp.clearSecGroup()
 
     this.route.queryParams.subscribe(q => {
@@ -68,10 +68,10 @@ export class ComplexSearchComponent implements OnInit {
     // }
     // setTimeout(() => { this.error = null }, 10000)
 
-   
+
   }
 
-  private makeParams(cnt){
+  private makeParams(cnt) {
     const exp = this.exp.getValue()
     // const dbs = this.exp.getDBValue()
     const dbs = 'FMZL,FMSQ,SYXX,WGZL'
@@ -81,10 +81,10 @@ export class ComplexSearchComponent implements OnInit {
     const option = 2
     const from = 0
     const to = cnt
-    const dp=this.exp.getDisplayText()
-    const jp=this.exp.Encode()
+    const dp = this.exp.getDisplayText()
+    const jp = this.exp.Encode()
 
-    let p:SF1SearchParams={ exp, dbs, order, option, from, to, displayCols, dp, jp }
+    let p: SF1SearchParams = { exp, dbs, order, option, from, to, displayCols, dp, jp }
 
     return p
 
@@ -94,32 +94,31 @@ export class ComplexSearchComponent implements OnInit {
     //const k = this.exp.getKeyWords()
     //console.log(k)
 
-    let p=this.makeParams(10)
-    
+    let p = this.makeParams(10)
+
     this.sf1.redirectUrl = '/sf1/complex'
     this.router.navigate(['/sf1/list'], { queryParams: p });
   }
 
-  doResultNum(){
-    this.result_num=0
-    this.error=null
-    this.flg.doResultNum=true
+  doResultNum() {
+    this.result_num = 0
+    this.error = null
+    this.flg.doResultNum = true
 
-    let p=this.makeParams(1)    
+    let p = this.makeParams(1)
 
-    this.sf1.search(p).subscribe((d)=>{
-      this.flg.doResultNum=false
+    this.sf1.search(p).subscribe((d) => {
+      this.flg.doResultNum = false
       console.log(d);
-      if (d.status!=='0')
-      {
-        this.error={
-          status:d.status,
-          Message:d.message
+      if (d.status !== '0') {
+        this.error = {
+          status: d.status,
+          Message: d.message
         }
         setTimeout(() => { this.error = null }, 10000)
       }
-      else if (d.results){
-        this.result_num=d.total
+      else if (d.results) {
+        this.result_num = d.total
       }
     })
   }

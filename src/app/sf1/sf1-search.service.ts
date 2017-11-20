@@ -43,7 +43,7 @@ class SF1SearchCondition {
 
   getValue() {
     let v = ''
-    let p=''
+    let p = ''
 
     for (let i = 0; i < this.items.length; i++) {
       const it = this.items[i]
@@ -52,7 +52,7 @@ class SF1SearchCondition {
           v += (' ' + it.op + ' ')
         }
         else {
-          p=it.op
+          p = it.op
         }
         v += it.value
       }
@@ -72,7 +72,7 @@ class SF1SearchCondition {
     }
 
     if (r !== '') {
-      r = (p +' (' + r + ')')
+      r = (p + ' (' + r + ')')
     }
 
     return r
@@ -80,7 +80,7 @@ class SF1SearchCondition {
 
   getDateValue() {
     let v = ''
-    let p =''
+    let p = ''
 
     for (let i = 0; i < this.items.length; i++) {
       const it = this.items[i]
@@ -125,8 +125,8 @@ class SF1SearchCondition {
           if (v !== '') {
             v += (' ' + it.op + ' ')
           }
-          else{
-            p=it.op
+          else {
+            p = it.op
           }
           v += r
         }
@@ -134,7 +134,7 @@ class SF1SearchCondition {
     }
 
     if (v !== '') {
-      v = (p+' (' + v + ')')
+      v = (p + ' (' + v + ')')
     }
     return v
   }
@@ -260,8 +260,8 @@ export class SF1SearchExp {
     this.initGroup(d, this.date_group)
   }
 
-  clearSecGroup(){
-    this.sec_group=Array<Array<SF1SearchCondition>>()
+  clearSecGroup() {
+    this.sec_group = Array<Array<SF1SearchCondition>>()
   }
 
   buildKeySearch(text: string) {
@@ -325,11 +325,11 @@ export class SF1SearchExp {
     const n = this.getValueByGroup(this.name_group)
     const d = this.getDateValueByGroup(this.date_group)
 
-    let s=''
-    this.sec_group.forEach((g)=>{
-      let gs=this.getValueByGroup(g)
-      if (gs){
-        s+=(' '+gs)
+    let s = ''
+    this.sec_group.forEach((g) => {
+      let gs = this.getValueByGroup(g)
+      if (gs) {
+        s += (' ' + gs)
       }
     })
 
@@ -355,16 +355,16 @@ export class SF1SearchExp {
     }
     v += d
 
-    if (s !='' && v!=''){
-      v+=' '
+    if (s != '' && v != '') {
+      v += ' '
     }
-    v+=s
+    v += s
 
-    if (v.startsWith('AND') || v.startsWith('NOT')){
-      return v.substr(4,v.length-4)
+    if (v.startsWith('AND') || v.startsWith('NOT')) {
+      return v.substr(4, v.length - 4)
     }
-    else if (v.startsWith('OR')){
-      return v.substr(3,v.length-3)
+    else if (v.startsWith('OR')) {
+      return v.substr(3, v.length - 3)
     }
 
     return v
@@ -438,42 +438,42 @@ export class SF1SearchExp {
     return s
   }
 
-  getFields(){
-    let g=new Array<any>()
-    let id=1
+  getFields() {
+    let g = new Array<any>()
+    let id = 1
 
-    this.key_group.forEach((item)=>{
-      g.push({id:id, name:item.name, title:item.title})
+    this.key_group.forEach((item) => {
+      g.push({ id: id, name: item.name, title: item.title })
       id++
     })
 
-    this.code_group.forEach((item)=>{
-      g.push({id:id, name:item.name, title:item.title})
+    this.code_group.forEach((item) => {
+      g.push({ id: id, name: item.name, title: item.title })
       id++
     })
 
-    this.type_group.forEach((item)=>{
-      g.push({id:id,name:item.name, title:item.title})
+    this.type_group.forEach((item) => {
+      g.push({ id: id, name: item.name, title: item.title })
       id++
     })
 
-    this.name_group.forEach((item)=>{
-      g.push({id:id,name:item.name, title:item.title})
+    this.name_group.forEach((item) => {
+      g.push({ id: id, name: item.name, title: item.title })
       id++
     })
 
     return g
   }
 
-  buildSecondSearch(keys:Array<any>){
-    let g=new Array<SF1SearchCondition>()
-    let id=1
+  buildSecondSearch(keys: Array<any>) {
+    let g = new Array<SF1SearchCondition>()
+    let id = 1
 
-    keys.forEach((k)=>{
-      if (k.value){
-        let f=new SF1SearchCondition(id,k.field.name,k.field.title)
-        f.items[0].op=k.op
-        f.items[0].value=k.value
+    keys.forEach((k) => {
+      if (k.value) {
+        let f = new SF1SearchCondition(id, k.field.name, k.field.title)
+        f.items[0].op = k.op
+        f.items[0].value = k.value
         g.push(f)
         id++
       }
@@ -496,21 +496,21 @@ export class SF1SearchExp {
       }
     })
 
-    if (g.length>0){
+    if (g.length > 0) {
       this.sec_group.push(g)
     }
 
   }
 
 
-  private getGroupJson(g:Array<SF1SearchCondition>){
-    let r=[]
-    g.forEach((gi)=>{
-      gi.items.forEach((v)=>{
-        if (v.value || v.from || v.to){
+  private getGroupJson(g: Array<SF1SearchCondition>) {
+    let r = []
+    g.forEach((gi) => {
+      gi.items.forEach((v) => {
+        if (v.value || v.from || v.to) {
           r.push({
-            title:gi.title,
-            value:v
+            title: gi.title,
+            value: v
           })
         }
       })
@@ -518,105 +518,104 @@ export class SF1SearchExp {
     return r
   }
 
-  private getDBJson(){
-    let r=0xFFFFFFFF
-    let f=0x00000001
+  private getDBJson() {
+    let r = 0xFFFFFFFF
+    let f = 0x00000001
 
-    this.db_group.forEach((d)=>{
-      d.sub_types.forEach((t)=>{
-        if (!t.checked){
-          r= (r & ~f)
+    this.db_group.forEach((d) => {
+      d.sub_types.forEach((t) => {
+        if (!t.checked) {
+          r = (r & ~f)
         }
-        f=(f<<1)
+        f = (f << 1)
       })
     })
 
     return r
   }
 
-  private getJson(){
-    let d={
+  private getJson() {
+    let d = {
       key_group: this.getGroupJson(this.key_group),
       code_group: this.getGroupJson(this.code_group),
       type_group: this.getGroupJson(this.type_group),
       name_group: this.getGroupJson(this.name_group),
       date_group: this.getGroupJson(this.date_group),
-      db_group:this.getDBJson(),
+      db_group: this.getDBJson(),
       sec_group: this.sec_group
     }
 
     return JSON.stringify(d)
   }
 
-  Encode(){
-    const j=this.getJson()
+  Encode() {
+    const j = this.getJson()
     const b = []
-    
-    for (let i = 0; i < j.length; ++i)
-    {
-        let c= j.charCodeAt(i)
 
-        if (c<128){
-          b.push(c)
-        }
-        else if(c<2048){
-          b.push((c >> 6) | 192)
-          b.push((c & 63) | 128)
-        }
-        else{
-          b.push((c >> 12) | 224)
-          b.push(((c >> 6) & 63) | 128)
-          b.push((c & 63) | 128)
-        }
+    for (let i = 0; i < j.length; ++i) {
+      let c = j.charCodeAt(i)
+
+      if (c < 128) {
+        b.push(c)
+      }
+      else if (c < 2048) {
+        b.push((c >> 6) | 192)
+        b.push((c & 63) | 128)
+      }
+      else {
+        b.push((c >> 12) | 224)
+        b.push(((c >> 6) & 63) | 128)
+        b.push((c & 63) | 128)
+      }
     }
-    const v =crypt.bytesToBase64(b)
+    const v = crypt.bytesToBase64(b)
 
     return v
   }
 
-  private setDBJson(j){
-    let f=0x00000001
+  private setDBJson(j) {
+    let f = 0x00000001
 
     this.dbCheckAll(true)
 
-    this.db_group.forEach((d)=>{
-      d.sub_types.forEach((t)=>{
-        let r=(f & j)
-        if (r===0){
-          t.checked=false
-          d.checked=false
-          this.db_group[0].checked=false
+    this.db_group.forEach((d) => {
+      d.sub_types.forEach((t) => {
+        let r = (f & j)
+        if (r === 0) {
+          t.checked = false
+          d.checked = false
+          this.db_group[0].checked = false
         }
-        f=(f << 1)
+        f = (f << 1)
 
       })
     })
 
   }
 
-  private setJson(j){
+  private setJson(j) {
     this.clear()
-    let d=JSON.parse(j)
+    let d = JSON.parse(j)
 
-    this.sec_group=new Array<Array<SF1SearchCondition>>()
-    
-    d.sec_group.forEach((g)=>{
+    this.sec_group = new Array<Array<SF1SearchCondition>>()
+
+    d.sec_group.forEach((g) => {
       this.sec_group.push(this.setGroup(g))
     })
 
     this.setDBJson(d.db_group)
 
-    this.setGroupJson(this.key_group,d.key_group)
-    this.setGroupJson(this.code_group,d.code_group)
-    this.setGroupJson(this.type_group,d.type_group)
-    this.setGroupJson(this.name_group,d.name_group)
-    this.setGroupJson(this.date_group,d.date_group)
+    this.setGroupJson(this.key_group, d.key_group)
+    this.setGroupJson(this.code_group, d.code_group)
+    this.setGroupJson(this.type_group, d.type_group)
+    this.setGroupJson(this.name_group, d.name_group)
+    this.setGroupJson(this.date_group, d.date_group)
   }
 
-  Decode(v:string){
-    let b=crypt.base64ToBytes(v)
-    let j=''
-    let i=0
+  Decode(v: string) {
+    let b = crypt.base64ToBytes(v)
+    let j = ''
+    let i = 0
     while (i < b.length) {
       let c = b[i]
       if (c < 128) {
@@ -635,108 +634,108 @@ export class SF1SearchExp {
         i += 3
       }
     }
-    
+
     this.setJson(j)
   }
 
-  private setGroup(j:Array<any>){
-    let g=new Array<SF1SearchCondition>()
+  private setGroup(j: Array<any>) {
+    let g = new Array<SF1SearchCondition>()
 
-    j.forEach((item)=>{
-      let i=new SF1SearchCondition(item.id,item.name,item.title)
-      i.items=item.items
+    j.forEach((item) => {
+      let i = new SF1SearchCondition(item.id, item.name, item.title)
+      i.items = item.items
       g.push(i)
     })
 
     return g
   }
 
-  private setGroupJson(g:Array<SF1SearchCondition>,j:Array<any>){
-      g.forEach((gi)=>{
-        gi.items=[]
-        j.forEach((ji)=>{
-          if (ji.title===gi.title){
-            gi.items.push(ji.value)
-          }
-        })
-
-        if (gi.items.length===0){
-          gi.newItem()
+  private setGroupJson(g: Array<SF1SearchCondition>, j: Array<any>) {
+    g.forEach((gi) => {
+      gi.items = []
+      j.forEach((ji) => {
+        if (ji.title === gi.title) {
+          gi.items.push(ji.value)
         }
       })
+
+      if (gi.items.length === 0) {
+        gi.newItem()
+      }
+    })
   }
 
-  
 
-  private getItemDisplay(item:SF1SearchCondition){
-    let k=item.title
-    let op=''
-    let v=''
-    item.items.forEach((vi)=>{
-      if (vi.value){
+
+  private getItemDisplay(item: SF1SearchCondition) {
+    let k = item.title
+    let op = ''
+    let v = ''
+    item.items.forEach((vi) => {
+      if (vi.value) {
         if (!op) {
-          op=vi.op
+          op = vi.op
         }
         else {
-          v+=' '+vi.op+' '
+          v += ' ' + vi.op + ' '
         }
-        v+=vi.value
+        v += vi.value
       }
     })
 
     if (v) {
-      return op+' '+k+'=('+v+')'
+      return op + ' ' + k + '=(' + v + ')'
     }
-    else{
+    else {
       return ''
     }
   }
 
-  private getDateItemDisplay(item:SF1SearchCondition){
-    let k=item.title
-    let v=''
-    item.items.forEach((vi)=>{
-      let f=vi.from
-      let t=vi.to
-      let vs=''
-      
-      switch (vi.mode){
-          case '0':
-            if (f && t){
-              vs='(from '+moment(f).format('YYYYMMDD') + ' to ' + moment(t).format('YYYYMMDD')+')'
-            }
-            break
-          case '1':
-            if (t){
-              vs='(to ' + moment(t).format('YYYYMMDD')+')'
-            }
-            break
-          case '2':
-            if (f){
-              vs='(from '+moment(f).format('YYYYMMDD')+')'
-            }
-            break
-          case '3':
-            if (f){
-              vs='('+moment(f).format('YYYYMMDD')+')'
-            }
-            break
+  private getDateItemDisplay(item: SF1SearchCondition) {
+    let k = item.title
+    let v = ''
+    item.items.forEach((vi) => {
+      let f = vi.from
+      let t = vi.to
+      let vs = ''
+
+      switch (vi.mode) {
+        case '0':
+          if (f && t) {
+            vs = '(from ' + moment(f).format('YYYYMMDD') + ' to ' + moment(t).format('YYYYMMDD') + ')'
+          }
+          break
+        case '1':
+          if (t) {
+            vs = '(to ' + moment(t).format('YYYYMMDD') + ')'
+          }
+          break
+        case '2':
+          if (f) {
+            vs = '(from ' + moment(f).format('YYYYMMDD') + ')'
+          }
+          break
+        case '3':
+          if (f) {
+            vs = '(' + moment(f).format('YYYYMMDD') + ')'
+          }
+          break
       }
 
-      if (vs){
-          v+=(' '+vi.op+' '+k+'='+vs)
+      if (vs) {
+        v += (' ' + vi.op + ' ' + k + '=' + vs)
       }
     })
 
     return v
   }
 
-  private getGroupDisplay(g:Array<SF1SearchCondition>){
-    let r=new Array<string>()
+  private getGroupDisplay(g: Array<SF1SearchCondition>) {
+    let r = new Array<string>()
 
-    g.forEach((c)=>{
-      let v=this.getItemDisplay(c)
-      if (v){
+    g.forEach((c) => {
+      let v = this.getItemDisplay(c)
+      if (v) {
         r.push(v)
       }
     })
@@ -744,12 +743,12 @@ export class SF1SearchExp {
     return r
   }
 
-  private getDateDisplay(g:Array<SF1SearchCondition>){
-    let r=new Array<string>()
+  private getDateDisplay(g: Array<SF1SearchCondition>) {
+    let r = new Array<string>()
 
-    g.forEach((c)=>{
-      let v=this.getDateItemDisplay(c)
-      if (v){
+    g.forEach((c) => {
+      let v = this.getDateItemDisplay(c)
+      if (v) {
         r.push(v)
       }
     })
@@ -757,28 +756,28 @@ export class SF1SearchExp {
     return r
   }
 
-  getDisplay(){
-    let r=new Array<string>()
-    r=r.concat(this.getGroupDisplay(this.key_group))
-    r=r.concat(this.getGroupDisplay(this.code_group))
-    r=r.concat(this.getGroupDisplay(this.type_group))
-    r=r.concat(this.getGroupDisplay(this.name_group))
-    r=r.concat(this.getDateDisplay(this.date_group))
+  getDisplay() {
+    let r = new Array<string>()
+    r = r.concat(this.getGroupDisplay(this.key_group))
+    r = r.concat(this.getGroupDisplay(this.code_group))
+    r = r.concat(this.getGroupDisplay(this.type_group))
+    r = r.concat(this.getGroupDisplay(this.name_group))
+    r = r.concat(this.getDateDisplay(this.date_group))
 
-    if (r.length>0){
-      if (r[0].startsWith('AND') || r[0].startsWith('NOT')){
-        r[0]=r[0].substr(4,r[0].length-4)
+    if (r.length > 0) {
+      if (r[0].startsWith('AND') || r[0].startsWith('NOT')) {
+        r[0] = r[0].substr(4, r[0].length - 4)
       }
-      else if (r[0].startsWith('OR')){
-        r[0]=r[0].substr(3,r[0].length-3)
+      else if (r[0].startsWith('OR')) {
+        r[0] = r[0].substr(3, r[0].length - 3)
       }
     }
 
-    let rs=new Array<Array<string>>()
+    let rs = new Array<Array<string>>()
     rs.push(r)
-    this.sec_group.forEach((g)=>{
-      let gr=this.getGroupDisplay(g)
-      if (gr){
+    this.sec_group.forEach((g) => {
+      let gr = this.getGroupDisplay(g)
+      if (gr) {
         rs.push(gr)
       }
     })
@@ -786,22 +785,22 @@ export class SF1SearchExp {
     return rs
   }
 
-  getDisplayAt(i){
-    let r=this.getDisplay()
-    if (r.length>i) {
+  getDisplayAt(i) {
+    let r = this.getDisplay()
+    if (r.length > i) {
       return r[i].join(' ')
     }
     return ''
   }
 
-  getDisplayText(){
-    let r=''
-    let d=this.getDisplay()
-    d.forEach((di)=>{
+  getDisplayText() {
+    let r = ''
+    let d = this.getDisplay()
+    d.forEach((di) => {
       if (r) {
-        r+=' '
+        r += ' '
       }
-      r+=di.join(' ')
+      r += di.join(' ')
     })
     return r
   }
