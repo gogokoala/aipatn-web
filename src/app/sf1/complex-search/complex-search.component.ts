@@ -105,7 +105,7 @@ export class ComplexSearchComponent implements OnInit {
     this.error=null
     this.flg.doResultNum=true
 
-    let p=this.makeParams(0)    
+    let p=this.makeParams(1)    
 
     this.sf1.search(p).subscribe((d)=>{
       this.flg.doResultNum=false

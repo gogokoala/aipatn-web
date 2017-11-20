@@ -234,7 +234,7 @@ export class SF1ListComponent implements OnInit {
     }
   }
 
-  initFilter(){
+  private initDBFilter(){
     let dbs=[]
     
     this.lastParams.dbs.split(',').forEach((db)=>{
@@ -243,28 +243,100 @@ export class SF1ListComponent implements OnInit {
         let data={
             code: db,
             name: d.name,
-            cnt: -1
+            cnt: -1,
+            rate: 0
         }
         dbs.push(data)
       }
     })
+    
+    
 
-    this.filter_items[0].items=dbs
-    dbs.forEach((db)=>{
-      let p=Object.assign({},this.lastParams)
-      p.dbs=db.code
+    return dbs
+  }
 
-      this.service.search(p).subscribe((d)=>{
-        console.log(d);
-        if (d.status!=='0')
-        {
-          db.cnt=0
+  private initYearFilter(field:string){
+    const n=10
+    let r=[]
+    let y=moment().year()
+
+    for (let i=0;i<n;i++){
+      let d={
+        name:y-i,
+        code: field+'=('+(y-i)+'0101 to '+(y-i)+'1231)',
+        cnt:-1,
+        rate:0
+      }
+
+      r.push(d)
+    }
+
+    let d={
+      name:(y-n).toString()+'及以前',
+      code: field+'=(19700101 to '+(y-10)+'1231)',
+      cnt:-1,
+      rate:0
+    }
+
+    r.push(d)
+
+    return r
+  }
+
+  private getFilterCnt(){
+    for (let j = 0; j < 4; j++) {
+      for (let i = 0; i < this.filter_items[j].items.length; i++) {
+        let ji = this.filter_items[j].items[i]
+
+        if (ji.cnt < 0) {
+
+          let p = Object.assign({}, this.lastParams)
+
+          switch (j) {
+            case 0:
+              p.dbs = ji.code
+              break
+            case 1:
+            case 2:
+            case 3:
+              p.exp = '(' + p.exp + ') AND ' + ji.code
+              break
+          }
+
+          p.from = 0
+          p.to = 1
+
+          this.service.search(p).subscribe((d) => {
+            console.log(d);
+            if (d.status !== '0') {
+              ji.cnt = 0
+            }
+            else if (d.results) {
+              ji.cnt = d.total
+              ji.rate = (d.total / this.sf1.total * 100).toFixed(1)
+            }
+
+            setTimeout(() => {
+              this.getFilterCnt()
+            }, 100);
+          })
+
+          return
         }
-        else if (d.results){
-          db.cnt=d.total
-        }
-      })
-    })
+
+      }
+    }
+
+  }
+
+  initFilter(){
+    this.filter_items[0].items=this.initDBFilter()
+
+    this.filter_items[1].items=this.initYearFilter('申请日')
+    this.filter_items[2].items=this.initYearFilter('公开（公告）日')
+    this.filter_items[3].items=this.initYearFilter('优先权日')
+
+    this.getFilterCnt()
 
   }
 

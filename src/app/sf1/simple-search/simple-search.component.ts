@@ -23,8 +23,9 @@ export class SimpleSearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    /*
-    this.route.params.subscribe(q => {
+    this.error =null
+
+    this.route.queryParams.subscribe(q => {
       const status = q.status
       const message = q.message
       if (status && status !== '0') {
@@ -32,13 +33,6 @@ export class SimpleSearchComponent implements OnInit {
         setTimeout(() => { this.error = null }, 10000)
       }
     })
-    */
-    this.error = {
-      status: '401',
-      message: '检索结果为空'
-    }
-    setTimeout(() => { this.error = null }, 10000)
-
   }
 
   doSearch() {
