@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
-import { CalendarModule } from 'primeng/primeng'
+import { CalendarModule, AccordionModule } from 'primeng/primeng'
 
 import { SF1Service } from './sf1.service'
 import { SF1RoutingModule } from './sf1-routing.module'
@@ -20,6 +20,7 @@ import { FooterComponent } from '../footer/footer.component'
     CommonModule,
     FormsModule,
     CalendarModule,
+    AccordionModule,
     SF1RoutingModule
   ],
   declarations: [

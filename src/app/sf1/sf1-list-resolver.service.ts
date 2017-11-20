@@ -41,10 +41,16 @@ export class SF1ListResolver implements Resolve<SF1Response> {
 
     return this.sf1.getList(params).map(res => {
       if (res && res.status === '0') {
+        
+        res.params=params
+        res.t=0
+
         return res
       } else { // id not found
+        
         const t=moment().valueOf()
         res.t=t
+        
         this.router.navigate([this.sf1.redirectUrl], { queryParams: res })
         return null
       }

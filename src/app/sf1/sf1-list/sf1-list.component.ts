@@ -32,7 +32,10 @@ export class SF1ListComponent implements OnInit {
   // ]
 
   filter_items: any[]=[
-    { id: 1, name: '国家' }
+    { id: 0, name: '数据库', items:[] },
+    { id: 1, name: '申请日', items:[] },
+    { id: 2, name: '公开日', items:[] },
+    { id: 3, name: '授权日', items:[] }
   ]
 
   searchKeys: Array<any>
@@ -70,19 +73,19 @@ export class SF1ListComponent implements OnInit {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
 
-      this.lastParams = this.service.lastParams;
-
       this.sf1 = data.crisis
+      
+      this.lastParams = this.sf1.params;
+      if (this.lastParams.jp){
+        this.exp.Decode(this.lastParams.jp)
+      }
+      
       this.clear()
       this.initPages()
+      this.initFilter()
     })
 
     this.route.queryParams.subscribe(q => {
-     
-      if (q.jp){
-        this.exp.Decode(q.jp)
-      }
-
       const status = q.status
       const message = q.message
       if (status && status !== '0') {
@@ -229,6 +232,40 @@ export class SF1ListComponent implements OnInit {
     if (f<this.sf1.total) {
       this.doPage(f)
     }
+  }
+
+  initFilter(){
+    let dbs=[]
+    
+    this.lastParams.dbs.split(',').forEach((db)=>{
+      let d=this.service.getDatabase(db)
+      if (d) {
+        let data={
+            code: db,
+            name: d.name,
+            cnt: -1
+        }
+        dbs.push(data)
+      }
+    })
+
+    this.filter_items[0].items=dbs
+    dbs.forEach((db)=>{
+      let p=Object.assign({},this.lastParams)
+      p.dbs=db.code
+
+      this.service.search(p).subscribe((d)=>{
+        console.log(d);
+        if (d.status!=='0')
+        {
+          db.cnt=0
+        }
+        else if (d.results){
+          db.cnt=d.total
+        }
+      })
+    })
+
   }
 
 }

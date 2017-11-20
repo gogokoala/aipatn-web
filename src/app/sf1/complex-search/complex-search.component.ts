@@ -106,8 +106,8 @@ export class ComplexSearchComponent implements OnInit {
     this.flg.doResultNum=true
 
     let p=this.makeParams(0)    
-    this.sf1.redirectUrl = '/sf1/complex'
-    this.sf1.getList(p).subscribe((d)=>{
+
+    this.sf1.search(p).subscribe((d)=>{
       this.flg.doResultNum=false
       console.log(d);
       if (d.status!=='0')

@@ -65,6 +65,7 @@ export interface SF1Response {
   results: Array<SF1Data>
   sectionInfos: Array<SF1SectionInfo>
   t?:number
+  params?:SF1SearchParams
 }
 
 /**
@@ -152,9 +153,11 @@ export class SF1Service {
    * @param searchConditions (string) 查询条件
    */
   getList(params: SF1SearchParams): Observable<SF1Response> {
-
     this.lastParams = Object.assign({}, params)
+    return this.search(params)
+  }
 
+  search(params: SF1SearchParams): Observable<SF1Response> {
     return this.http.post(
       `${this.baseUrl}sf1`,
       JSON.stringify(params),

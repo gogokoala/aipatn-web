@@ -3,10 +3,19 @@
 
     <div class="col-xs-2 fr-left">
       <div class="list-group">
-        <a href="#" class="list-group-item active">筛选项</a>
-        <div>
-          <a *ngFor="let fi of filter_items" class="list-group-item">{{fi.name}}</a>
-        </div>
+        <div class="list-group-item active">筛选项</div>
+        <p-accordion>
+          <p-accordionTab *ngFor="let fi of filter_items" class="list-group" >
+            <p-header style="font-size:16px" >{{fi.name}}</p-header>
+            <a class="list-group-item" *ngFor="let ti of fi.items" style="cursor:pointer" >
+                <span>{{ti.name}}</span>
+                <span *ngIf="ti.cnt>99999"  class="badge" style="background-color:gray">99999</span>
+                <span *ngIf="ti.cnt>=0 && ti.cnt<=99999"  class="badge" style="background-color:gray">{{ti.cnt}}</span>
+                <span *ngIf="ti.cnt<0"  class="badge" style="background-color:gray"><i class="fa fa-spinner fa-spin"></i></span>
+            </a>
+          </p-accordionTab>
+        </p-accordion>
+        
       </div>
     </div>
 
