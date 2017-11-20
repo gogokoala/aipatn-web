@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { UserService } from '../../services/user.service'
 import { SF1SearchExp } from '../sf1-search.service';
-import { SF1Service } from '../sf1.service';
+import { SF1Service, SF1SearchParams } from '../sf1.service';
 
 @Component({
   selector: 'app-complex-search',
@@ -64,12 +64,8 @@ export class ComplexSearchComponent implements OnInit {
 
   }
 
-  doSearch() {
-    const k = this.exp.getKeyWords()
-    console.log(k)
-
-    const exp = this.exp.Encode()
-
+  private makeParams(){
+    const exp = this.exp.getValue()
     // const dbs = this.exp.getDBValue()
     const dbs = 'FMZL,FMSQ,SYXX,WGZL'
 
@@ -78,9 +74,32 @@ export class ComplexSearchComponent implements OnInit {
     const option = 2
     const from = 0
     const to = 10
+    const dp=this.exp.getDisplayText()
+    const jp=this.exp.Encode()
 
+    let p:SF1SearchParams={ exp, dbs, order, option, from, to, displayCols, dp, jp }
+
+    return p
+
+  }
+
+  doSearch() {
+    //const k = this.exp.getKeyWords()
+    //console.log(k)
+
+    let p=this.makeParams()
+    
     this.sf1.redirectUrl = '/sf1/complex'
-    this.router.navigate(['/sf1/list'], { queryParams: { exp, dbs, order, option, from, to, displayCols } });
+    this.router.navigate(['/sf1/list'], { queryParams: p });
+  }
+
+  doResultNum(){
+    
+    let p=this.makeParams()    
+    this.sf1.redirectUrl = '/sf1/complex'
+    this.sf1.getList(p).subscribe(d=>{
+      console.log(d)
+    })
   }
 
 }

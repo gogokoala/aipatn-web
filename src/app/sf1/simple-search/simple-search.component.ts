@@ -45,8 +45,10 @@ export class SimpleSearchComponent implements OnInit {
     if (this.searchKeyword) {
       const exp = this.searchExp.buildKeySearch(this.searchKeyword)
       const dbs = 'FMZL,FMSQ,SYXX,WGZL'
+      const jp=this.searchExp.Encode()
+      const dp=this.searchExp.getDisplay()
       this.sf1.redirectUrl = '/sf1/simple'
-      this.router.navigate(['/sf1/list'], { queryParams: { exp, dbs } });
+      this.router.navigate(['/sf1/list'], { queryParams: { exp, dbs, dp, jp } });
     }
   }
 

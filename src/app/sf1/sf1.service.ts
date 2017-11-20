@@ -91,6 +91,8 @@ export interface SF1SearchParams {
   from?: number
   to?: number
   displayCols?: string
+  dp?: string   //exp.getDisplay()
+  jp?: string   //exp.Encode()
 }
 
 @Injectable()
@@ -151,10 +153,6 @@ export class SF1Service {
   getList(params: SF1SearchParams): Observable<SF1Response> {
 
     this.lastParams = Object.assign({}, params)
-
-    const exp: SF1SearchExp = new SF1SearchExp()
-    exp.Decode(params.exp)
-    params.exp = exp.getValue()
 
     return this.http.post(
       `${this.baseUrl}sf1`,

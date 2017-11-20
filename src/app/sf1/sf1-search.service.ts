@@ -794,4 +794,16 @@ export class SF1SearchExp {
     return ''
   }
 
+  getDisplayText(){
+    let r=''
+    let d=this.getDisplay()
+    d.forEach((di)=>{
+      if (r) {
+        r+=' '
+      }
+      r+=di.join(' ')
+    })
+    return r
+  }
+
 }

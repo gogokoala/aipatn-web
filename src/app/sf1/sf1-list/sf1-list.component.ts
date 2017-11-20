@@ -66,10 +66,15 @@ export class SF1ListComponent implements OnInit {
       this.sf1 = data.crisis
 
       this.lastParams = this.service.lastParams
+      
+      if (this.lastParams.jp){
+        this.exp.Decode(this.lastParams.jp)
+      }
 
       this.clear()
       this.initPages()
     })
+
     this.route.params.subscribe(q => {
       const status = q.status
       const message = q.message
@@ -114,7 +119,11 @@ export class SF1ListComponent implements OnInit {
     }
 
     this.exp.addSecGroup(this.searchKeys)
-    this.lastParams.exp = this.exp.Encode()
+
+    this.lastParams.exp = this.exp.getValue()
+    this.lastParams.dp=this.exp.getDisplayText()
+    this.lastParams.jp=this.exp.Encode()
+
     this.lastParams.from = 0
     this.lastParams.to = this.pageCnt
 
@@ -128,7 +137,9 @@ export class SF1ListComponent implements OnInit {
   }
 
   doPage(from: number) {
-    this.lastParams.exp = this.exp.Encode()
+    this.lastParams.exp = this.exp.getValue()
+    this.lastParams.dp=this.exp.getDisplayText()
+    this.lastParams.jp=this.exp.Encode()
     this.lastParams.from = from
     this.lastParams.to = from + this.pageCnt
 
