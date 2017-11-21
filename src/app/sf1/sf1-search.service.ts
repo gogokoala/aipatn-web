@@ -23,11 +23,13 @@ class SF1SearchCondition {
   name: Array<string>
   title: string
   items = Array<SF1SearchConditionItem>()
+  mode: string
 
-  constructor(id: number, name: Array<string>, title: string) {
+  constructor(id: number, name: Array<string>, title: string, mode:string) {
     this.id = id
     this.name = name
     this.title = title
+    this.mode = mode
 
     this.newItem()
   }
@@ -42,6 +44,12 @@ class SF1SearchCondition {
   }
 
   getValue() {
+    
+    switch(this.mode){
+      case '1':
+        return this.getDateValue();
+    }
+
     let v = ''
     let p = ''
 
@@ -78,7 +86,7 @@ class SF1SearchCondition {
     return r
   }
 
-  getDateValue() {
+  private getDateValue() {
     let v = ''
     let p = ''
 
@@ -197,9 +205,9 @@ export class SF1SearchExp {
     this.clear()
   }
 
-  private initGroup(data: any[], group: Array<SF1SearchCondition>) {
+  private initGroup(data: any[], group: Array<SF1SearchCondition>,mode:string) {
     for (let i = 0; i < data.length; i++) {
-      const cond = new SF1SearchCondition(data[i].id, data[i].name, data[i].title)
+      const cond = new SF1SearchCondition(data[i].id, data[i].name, data[i].title, mode)
       group.push(cond)
     }
   }
@@ -226,20 +234,20 @@ export class SF1SearchExp {
       { id: 6, name: ['权利要求书'], title: '权利要求' },
       { id: 8, name: ['说明书'], title: '说明书' },
     ]
-    this.initGroup(k, this.key_group)
+    this.initGroup(k, this.key_group, '0')
 
     const c: any[] = [
       { id: 1, name: ['申请号'], title: '申请号' },
       { id: 2, name: ['公开（公告）号'], title: '公开（公告）号' },
       { id: 3, name: ['优先权'], title: '优先权号' },
     ]
-    this.initGroup(c, this.code_group)
+    this.initGroup(c, this.code_group, '0')
 
     const t: any[] = [
       { id: 1, name: ['分类号'], title: '国际分类号（IPC）' },
       // { id: 2, name: [], title: '外观分类(Locarno)' },
     ]
-    this.initGroup(t, this.type_group)
+    this.initGroup(t, this.type_group, '0')
 
     const n: any[] = [
       { id: 1, name: ['申请（专利权）人'], title: '申请（专利权）人' },
@@ -250,14 +258,14 @@ export class SF1SearchExp {
       { id: 6, name: ['专利代理机构'], title: '代理机构' },
       { id: 8, name: ['地址'], title: '申请人地址' },
     ]
-    this.initGroup(n, this.name_group)
+    this.initGroup(n, this.name_group,'0')
 
     const d: any[] = [
       { id: 1, name: ['申请日'], title: '申请日' },
       { id: 2, name: ['公开（公告）日'], title: '公开（公告）日' },
       { id: 3, name: ['优先权日'], title: '授权日' },
     ]
-    this.initGroup(d, this.date_group)
+    this.initGroup(d, this.date_group, '1')
   }
 
   clearSecGroup() {
@@ -296,26 +304,6 @@ export class SF1SearchExp {
     return v
   }
 
-  private getDateValueByGroup(group: Array<SF1SearchCondition>) {
-    if (group == null) {
-      return ''
-    }
-
-    let v = ''
-
-    for (let i = 0; i < group.length; i++) {
-      const r = group[i].getDateValue()
-      if (r !== '') {
-        if (v !== '') {
-          v += ' '
-        }
-        v += r
-      }
-    }
-
-    return v
-  }
-
   getValue() {
     // let j=JSON.stringify(this.date_group)
 
@@ -323,7 +311,7 @@ export class SF1SearchExp {
     const c = this.getValueByGroup(this.code_group)
     const t = this.getValueByGroup(this.type_group)
     const n = this.getValueByGroup(this.name_group)
-    const d = this.getDateValueByGroup(this.date_group)
+    const d = this.getValueByGroup(this.date_group)
 
     let s = ''
     this.sec_group.forEach((g) => {
@@ -443,22 +431,22 @@ export class SF1SearchExp {
     let id = 1
 
     this.key_group.forEach((item) => {
-      g.push({ id: id, name: item.name, title: item.title })
+      g.push({ id: id, name: item.name, title: item.title, mode: item.mode })
       id++
     })
 
     this.code_group.forEach((item) => {
-      g.push({ id: id, name: item.name, title: item.title })
+      g.push({ id: id, name: item.name, title: item.title, mode: item.mode })
       id++
     })
 
     this.type_group.forEach((item) => {
-      g.push({ id: id, name: item.name, title: item.title })
+      g.push({ id: id, name: item.name, title: item.title, mode: item.mode })
       id++
     })
 
     this.name_group.forEach((item) => {
-      g.push({ id: id, name: item.name, title: item.title })
+      g.push({ id: id, name: item.name, title: item.title, mode: item.mode })
       id++
     })
 
@@ -471,7 +459,7 @@ export class SF1SearchExp {
 
     keys.forEach((k) => {
       if (k.value) {
-        let f = new SF1SearchCondition(id, k.field.name, k.field.title)
+        let f = new SF1SearchCondition(id, k.field.name, k.field.title, k.field.mode)
         f.items[0].op = k.op
         f.items[0].value = k.value
         g.push(f)
@@ -488,7 +476,7 @@ export class SF1SearchExp {
 
     keys.forEach((k) => {
       if (k.value) {
-        let f = new SF1SearchCondition(id, k.field.name, k.field.title)
+        let f = new SF1SearchCondition(id, k.field.name, k.field.title, k.field.mode)
         f.items[0].op = k.op
         f.items[0].value = k.value
         g.push(f)
@@ -642,7 +630,7 @@ export class SF1SearchExp {
     let g = new Array<SF1SearchCondition>()
 
     j.forEach((item) => {
-      let i = new SF1SearchCondition(item.id, item.name, item.title)
+      let i = new SF1SearchCondition(item.id, item.name, item.title, item.mode)
       i.items = item.items
       g.push(i)
     })
@@ -668,6 +656,11 @@ export class SF1SearchExp {
 
 
   private getItemDisplay(item: SF1SearchCondition) {
+    switch(item.mode){
+      case '1':
+        return this.getDateItemDisplay(item);
+    }
+    
     let k = item.title
     let op = ''
     let v = ''
@@ -702,7 +695,7 @@ export class SF1SearchExp {
       switch (vi.mode) {
         case '0':
           if (f && t) {
-            vs = '(from ' + moment(f).format('YYYYMMDD') + ' to ' + moment(t).format('YYYYMMDD') + ')'
+            vs = '(' + moment(f).format('YYYYMMDD') + ' to ' + moment(t).format('YYYYMMDD') + ')'
           }
           break
         case '1':
@@ -743,26 +736,13 @@ export class SF1SearchExp {
     return r
   }
 
-  private getDateDisplay(g: Array<SF1SearchCondition>) {
-    let r = new Array<string>()
-
-    g.forEach((c) => {
-      let v = this.getDateItemDisplay(c)
-      if (v) {
-        r.push(v)
-      }
-    })
-
-    return r
-  }
-
   getDisplay() {
     let r = new Array<string>()
     r = r.concat(this.getGroupDisplay(this.key_group))
     r = r.concat(this.getGroupDisplay(this.code_group))
     r = r.concat(this.getGroupDisplay(this.type_group))
     r = r.concat(this.getGroupDisplay(this.name_group))
-    r = r.concat(this.getDateDisplay(this.date_group))
+    r = r.concat(this.getGroupDisplay(this.date_group))
 
     if (r.length > 0) {
       if (r[0].startsWith('AND') || r[0].startsWith('NOT')) {

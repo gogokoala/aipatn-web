@@ -237,20 +237,21 @@ export class SF1ListComponent implements OnInit {
   private initDBFilter() {
     let dbs = []
 
-    this.lastParams.dbs.split(',').forEach((db) => {
-      let d = this.service.getDatabase(db)
+    this.sf1.sectionInfos.forEach((db) => {
+      let d = this.service.getDatabase(db.sectionName)
+
       if (d) {
         let data = {
-          code: db,
+          code: db.sectionName,
           name: d.name,
-          cnt: -1,
-          rate: 0
+          cnt: db.recordNum,
+          rate: (db.recordNum/this.sf1.total*100.0).toFixed(1),
+          mode: '9',
+          apply: false
         }
         dbs.push(data)
       }
     })
-
-
 
     return dbs
   }
@@ -265,7 +266,9 @@ export class SF1ListComponent implements OnInit {
         name: y - i,
         code: field + '=(' + (y - i) + '0101 to ' + (y - i) + '1231)',
         cnt: -1,
-        rate: 0
+        rate: 0,
+        mode: '1',
+        apply: false
       }
 
       r.push(d)
@@ -275,7 +278,9 @@ export class SF1ListComponent implements OnInit {
       name: (y - n).toString() + '及以前',
       code: field + '=(19700101 to ' + (y - 10) + '1231)',
       cnt: -1,
-      rate: 0
+      rate: 0,
+      mode:'1',
+      apply: false
     }
 
     r.push(d)
@@ -284,7 +289,7 @@ export class SF1ListComponent implements OnInit {
   }
 
   private getFilterCnt() {
-    for (let j = 0; j < 4; j++) {
+    for (let j = 1; j < 4; j++) {
       for (let i = 0; i < this.filter_items[j].items.length; i++) {
         let ji = this.filter_items[j].items[i]
 
@@ -336,7 +341,43 @@ export class SF1ListComponent implements OnInit {
     this.filter_items[3].items = this.initYearFilter('优先权日')
 
     this.getFilterCnt()
+  }
 
+  addFilter(ti) {
+    ti.apply=!ti.apply;
+  }
+
+  getFilterDisplay(ti){
+    let r=[]
+
+    this.filter_items.forEach((fi)=>{
+      let v=''
+      
+      fi.items.forEach((ti)=>{
+        if (ti.apply) {
+          if (v){
+            v+=','
+          }
+          v+=ti.name
+        }
+      })
+
+      if (v){
+        v='AND '+fi.name+'=('+v+')'
+        r.push(v)
+      }
+
+    })
+
+    return r.join(' ')
+  }
+
+  clearFilter(){
+    this.filter_items.forEach((fi)=>{
+      fi.items.forEach((ti)=>{
+        ti.apply=false
+      })
+    })
   }
 
 }

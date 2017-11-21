@@ -102,8 +102,8 @@ export class SF1Service {
 
   private headers = new Headers({ 'Content-Type': 'application/json' })
   // private baseUrl = 'http://www.aipatn.com/api/'
-  // private baseUrl = 'http://47.100.5.243/api/'
-  private baseUrl = 'http://192.168.0.216/api/'
+  private baseUrl = 'http://47.100.5.243/api/'
+  // private baseUrl = 'http://192.168.0.216/api/'
 
   private dbGroups: Array<PatentGroup> = [
     { name: '中国', code: 'CN' },
