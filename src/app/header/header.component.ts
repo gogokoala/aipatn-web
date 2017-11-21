@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  vcodeTitle: string
+
+  constructor() {
+    this.vcodeTitle = '获取验证码'
+  }
 
   ngOnInit() {
+  }
+
+  getVCode() {
+
   }
 
 }

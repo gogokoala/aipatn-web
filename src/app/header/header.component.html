@@ -1,5 +1,5 @@
 <div class="navbar navbar-default navbar-fixed-top navbar-transparent">
-  <div class="container">
+  <div class="container-fluid">
     <div class="navbar-header">
       <a href="./" class="navbar-brand"><img src="/assets/images/logo-nav.png">AiPatn</a>
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -22,9 +22,57 @@
           </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">登录</a></li>
-          <li><a href="#">注册</a></li>
+          <li><a href="#loginModel">登录</a></li>
+          <li><a href="#regModal" data-toggle="modal">注册</a></li>
       </ul>
+    </div>
+  </div><!-- container-fluid -->
+</div>
+
+<!-- Modal -->
+<div class="modal" id="regModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog container-fluid" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">新用户注册</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-md-2">
+              <label class="control-label">您的称呼:</label>
+            </div>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="username">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <label class="control-label">手机号:</label>
+            </div>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="phone">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <label class="control-label">验证码:</label>
+            </div>
+            <div class="col-md-5">
+              <input type="text" class="form-control" id="vcode">
+            </div>
+            <div class="col-md-5">
+              <button type="button" class="btn btn-default" (click)="getVCode()">{{vcodeTitle}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">注册</button>
+      </div>
     </div>
   </div>
 </div>
