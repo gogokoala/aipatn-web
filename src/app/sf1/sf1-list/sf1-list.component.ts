@@ -310,8 +310,7 @@ export class SF1ListComponent implements OnInit {
             console.log(d);
             if (d.status !== '0') {
               ji.cnt = 0
-            }
-            else if (d.results) {
+            } else if (d.results) {
               ji.cnt = d.total
               ji.rate = (d.total / this.sf1.total * 100).toFixed(1)
             }
