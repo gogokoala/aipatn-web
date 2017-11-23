@@ -38,7 +38,7 @@ export class SF1ListComponent implements OnInit {
     { id: 3, name: '授权日', items: [] }
   ]
 
-  searchKeys: Array<any>
+  secKey:any
   searchFields: Array<any>
 
   lastParams: SF1SearchParams
@@ -76,10 +76,12 @@ export class SF1ListComponent implements OnInit {
       this.sf1 = data.crisis
 
       this.lastParams = this.sf1.params;
+      
       if (this.lastParams.jp) {
         this.exp.Decode(this.lastParams.jp)
       }
 
+      this.exp.newLevel()
       this.clear()
       this.initPages()
       this.initFilter()
@@ -112,23 +114,23 @@ export class SF1ListComponent implements OnInit {
   }
 
   clear() {
-    this.searchKeys = []
-    this.addField()
+    this.secKey={
+      field:'所有字段',
+      op: 'AND',
+      value: ''
+    }
   }
 
-  getDisplay() {
-    return this.exp.buildSecondSearch(this.searchKeys)
-  }
+  addField(){
+    let v=Object.assign({},this.secKey)
 
+    if (v.value){
+      this.exp.addValue(v)
+      this.secKey.value=''
+    }
+  }
 
   doSearch() {
-    const v = this.exp.buildSecondSearch(this.searchKeys)
-
-    if (!v) {
-      return
-    }
-
-    this.exp.addSecGroup(this.searchKeys)
 
     this.lastParams.exp = this.exp.getValue()
     this.lastParams.dp = this.exp.getDisplayText()
@@ -137,7 +139,6 @@ export class SF1ListComponent implements OnInit {
     this.lastParams.from = 0
     this.lastParams.to = this.pageCnt
 
-    this.clear()
     this.service.redirectUrl = '/sf1/list'
 
     // Add a totally useless `t` parameter for kicks.
@@ -153,27 +154,12 @@ export class SF1ListComponent implements OnInit {
     this.lastParams.from = from
     this.lastParams.to = from + this.pageCnt
 
-    this.clear()
     this.service.redirectUrl = '/sf1/list'
 
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list
     this.router.navigate(['/sf1/list', { t: moment().valueOf() }],
       { queryParams: this.lastParams, relativeTo: this.route })
-  }
-
-  addField() {
-    const f = {
-      field: this.searchFields[0],
-      op: 'AND',
-      value: '',
-    }
-
-    this.searchKeys.push(f)
-  }
-
-  removeField(i: number) {
-    this.searchKeys.splice(i, 1)
   }
 
   initPages() {
@@ -205,11 +191,6 @@ export class SF1ListComponent implements OnInit {
 
     console.log(this.pages)
 
-  }
-
-  delSecGroup(id) {
-    this.exp.sec_group.splice(id - 1, 1)
-    this.doPage(0)
   }
 
   setPageCnt(cnt) {
