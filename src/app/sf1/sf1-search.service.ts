@@ -1,163 +1,14 @@
 import * as moment from 'moment'
 import { forEach } from '@angular/router/src/utils/collection'
 import * as crypt from 'crypt'
-
-class SF1SearchConditionItem {
-  op: string
-  value: string
-  mode: string
-  from: Date
-  to: Date
-
-  constructor() {
-    this.op = 'AND'
-    this.value = ''
-    this.mode = '0'
-    this.from = null
-    this.to = null
-  }
-}
-
-class SF1SearchCondition {
-  id: number
-  name: Array<string>
-  title: string
-  items = Array<SF1SearchConditionItem>()
-  mode: string
-
-  constructor(id: number, name: Array<string>, title: string, mode:string) {
-    this.id = id
-    this.name = name
-    this.title = title
-    this.mode = mode
-
-    this.newItem()
-  }
-
-  newItem() {
-    const v = new SF1SearchConditionItem()
-    this.items.push(v)
-  }
-
-  removeItemAt(index) {
-    this.items.splice(index, 1)
-  }
-
-  getValue() {
-    
-    switch(this.mode){
-      case '1':
-        return this.getDateValue();
-    }
-
-    let v = ''
-    let p = ''
-
-    for (let i = 0; i < this.items.length; i++) {
-      const it = this.items[i]
-      if (it.value.trim() !== '') {
-        if (v !== '') {
-          v += (' ' + it.op + ' ')
-        }
-        else {
-          p = it.op
-        }
-        v += it.value
-      }
-    }
-
-    if (v === '') {
-      return ''
-    }
-
-    let r = ''
-
-    for (let i = 0; i < this.name.length; i++) {
-      if (i > 0) {
-        r += ' or '
-      }
-      r += (this.name[i] + '=(' + v + ')')
-    }
-
-    if (r !== '') {
-      r = (p + ' (' + r + ')')
-    }
-
-    return r
-  }
-
-  private getDateValue() {
-    let v = ''
-    let p = ''
-
-    for (let i = 0; i < this.items.length; i++) {
-      const it = this.items[i]
-      let f = it.from
-      let t = it.to
-
-      let fs = ''
-      let ts = ''
-
-      switch (it.mode) {
-        case '1':
-          if (t !== null) {
-            f = new Date('1970-01-01')
-          }
-          break
-        case '2':
-          if (f !== null) {
-            t = new Date()
-          }
-          break
-        case '3':
-          if (f !== null) {
-            t = f
-          }
-          break
-      }
-
-      if (f !== null && t !== null) {
-        fs = moment(f).format('YYYYMMDD')
-        ts = moment(t).format('YYYYMMDD')
-
-        let r = ''
-
-        for (let j = 0; j < this.name.length; j++) {
-          if (r !== '') {
-            r += ' OR '
-          }
-          r += (this.name[j] + '=(' + fs + ' to ' + ts + ')')
-        }
-
-        if (r !== '') {
-          if (v !== '') {
-            v += (' ' + it.op + ' ')
-          }
-          else {
-            p = it.op
-          }
-          v += r
-        }
-      }
-    }
-
-    if (v !== '') {
-      v = (p + ' (' + v + ')')
-    }
-    return v
-  }
-}
+import { ValueTransformer } from '@angular/compiler/src/util';
+import { strictEqual } from 'assert';
 
 export class SF1SearchExp {
-  key_group: Array<SF1SearchCondition>
-  code_group: Array<SF1SearchCondition>
-  type_group: Array<SF1SearchCondition>
-  name_group: Array<SF1SearchCondition>
-  date_group: Array<SF1SearchCondition>
 
-  sec_group: Array<Array<SF1SearchCondition>>
-
-  lastKeyWord: string
+  fields=[]
+  
+  values=[]
 
   db_group: any[] = [
     { id: 0, name: '全部数据', sub_types: [] },
@@ -201,161 +52,43 @@ export class SF1SearchExp {
     },
   ]
 
-  constructor() {
+  lastKeyWord:string 
+
+  private nextID=0
+
+  constructor(){
+    this.initFields()
     this.clear()
   }
 
-  private initGroup(data: any[], group: Array<SF1SearchCondition>,mode:string) {
-    for (let i = 0; i < data.length; i++) {
-      const cond = new SF1SearchCondition(data[i].id, data[i].name, data[i].title, mode)
-      group.push(cond)
-    }
-  }
-
-  clear() {
-    this.lastKeyWord = ''
+  clear(){
+    this.values=[]
+    this.newLevel()
 
     this.db_group[0].checked = true
     this.dbCheckAll(true)
-
-    this.key_group = Array<SF1SearchCondition>()
-    this.code_group = Array<SF1SearchCondition>()
-    this.type_group = Array<SF1SearchCondition>()
-    this.name_group = Array<SF1SearchCondition>()
-    this.date_group = Array<SF1SearchCondition>()
-    this.sec_group = Array<Array<SF1SearchCondition>>()
-
-    const k: any[] = [
-      { id: 1, name: ['名称', '摘要', '权利要求书', '说明书'], title: '所有字段' },
-      { id: 2, name: ['名称', '摘要'], title: '专利名称/摘要' },
-      { id: 3, name: ['名称', '摘要', '权利要求书'], title: '专利名称/摘要/权利要求' },
-      { id: 4, name: ['名称'], title: '专利名称' },
-      { id: 5, name: ['摘要'], title: '摘要' },
-      { id: 6, name: ['权利要求书'], title: '权利要求' },
-      { id: 8, name: ['说明书'], title: '说明书' },
-    ]
-    this.initGroup(k, this.key_group, '0')
-
-    const c: any[] = [
-      { id: 1, name: ['申请号'], title: '申请号' },
-      { id: 2, name: ['公开（公告）号'], title: '公开（公告）号' },
-      { id: 3, name: ['优先权'], title: '优先权号' },
-    ]
-    this.initGroup(c, this.code_group, '0')
-
-    const t: any[] = [
-      { id: 1, name: ['分类号'], title: '国际分类号（IPC）' },
-      // { id: 2, name: [], title: '外观分类(Locarno)' },
-    ]
-    this.initGroup(t, this.type_group, '0')
-
-    const n: any[] = [
-      { id: 1, name: ['申请（专利权）人'], title: '申请（专利权）人' },
-      // { id: 2, name: [], title: '当前专利权人' },
-      // { id: 3, name: [], title: '股票代码' },
-      { id: 4, name: ['发明（设计）人'], title: '发明人' },
-      { id: 5, name: ['代理人'], title: '代理人' },
-      { id: 6, name: ['专利代理机构'], title: '代理机构' },
-      { id: 8, name: ['地址'], title: '申请人地址' },
-    ]
-    this.initGroup(n, this.name_group,'0')
-
-    const d: any[] = [
-      { id: 1, name: ['申请日'], title: '申请日' },
-      { id: 2, name: ['公开（公告）日'], title: '公开（公告）日' },
-      { id: 3, name: ['优先权日'], title: '授权日' },
-    ]
-    this.initGroup(d, this.date_group, '1')
   }
 
-  clearSecGroup() {
-    this.sec_group = Array<Array<SF1SearchCondition>>()
+  clearFilter(){
+    let l=this.values.length-1
+    if (l>0){
+      this.values.splice(1,l)
+    }
+    
   }
 
   buildKeySearch(text: string) {
     this.clear()
     this.lastKeyWord = text
-    this.key_group[0].items[0].value = text
+    this.addValue({field:'所有字段',op:'AND',value:text})
     return this.getValue()
   }
 
   buildCodeSearch(text: string) {
     this.clear()
     this.lastKeyWord = text
-    this.type_group[0].items[0].value = text
+    this.addValue({field:'国际分类号（IPC）',op:'AND',value:text})
     return this.getValue()
-  }
-
-  private getValueByGroup(group: Array<SF1SearchCondition>) {
-    if (group == null) {
-      return ''
-    }
-    let v = ''
-    for (let i = 0; i < group.length; i++) {
-      const r = group[i].getValue()
-      if (r !== '') {
-        if (v !== '') {
-          v += ' '
-        }
-        v += r
-      }
-    }
-
-    return v
-  }
-
-  getValue() {
-    // let j=JSON.stringify(this.date_group)
-
-    const k = this.getValueByGroup(this.key_group)
-    const c = this.getValueByGroup(this.code_group)
-    const t = this.getValueByGroup(this.type_group)
-    const n = this.getValueByGroup(this.name_group)
-    const d = this.getValueByGroup(this.date_group)
-
-    let s = ''
-    this.sec_group.forEach((g) => {
-      let gs = this.getValueByGroup(g)
-      if (gs) {
-        s += (' ' + gs)
-      }
-    })
-
-    let v = k
-
-    if (c !== '' && v !== '') {
-      v += ' '
-    }
-    v += c
-
-    if (t !== '' && v !== '') {
-      v += ' '
-    }
-    v += t
-
-    if (n !== '' && v !== '') {
-      v += ' '
-    }
-    v += n
-
-    if (d !== '' && v !== '') {
-      v += ' '
-    }
-    v += d
-
-    if (s != '' && v != '') {
-      v += ' '
-    }
-    v += s
-
-    if (v.startsWith('AND') || v.startsWith('NOT')) {
-      return v.substr(4, v.length - 4)
-    }
-    else if (v.startsWith('OR')) {
-      return v.substr(3, v.length - 3)
-    }
-
-    return v
   }
 
   dbCheckAll(bl: boolean) {
@@ -384,8 +117,6 @@ export class SF1SearchExp {
   }
 
   getDBValue() {
-    // let j=JSON.stringify(this.db_group[0])
-
     let r = ''
 
     this.db_group.forEach((g) => {
@@ -400,113 +131,7 @@ export class SF1SearchExp {
     return r
   }
 
-  private getKeyWordsFromGroup(group: Array<SF1SearchCondition>, s: Array<string>) {
-    group.forEach((v) => {
-      v.items.forEach((w) => {
-        if ((w.value === '') || (w.op === 'NOT')) {
-          return
-        }
-        const i = s.indexOf(w.value)
-        if (i < 0) {
-          s.push(w.value)
-        }
-      })
-
-    })
-  }
-
-  getKeyWords() {
-    const s = Array<string>()
-
-    this.getKeyWordsFromGroup(this.key_group, s)
-    this.getKeyWordsFromGroup(this.code_group, s)
-    this.getKeyWordsFromGroup(this.type_group, s)
-    this.getKeyWordsFromGroup(this.name_group, s)
-
-    return s
-  }
-
-  getFields() {
-    let g = new Array<any>()
-    let id = 1
-
-    this.key_group.forEach((item) => {
-      g.push({ id: id, name: item.name, title: item.title, mode: item.mode })
-      id++
-    })
-
-    this.code_group.forEach((item) => {
-      g.push({ id: id, name: item.name, title: item.title, mode: item.mode })
-      id++
-    })
-
-    this.type_group.forEach((item) => {
-      g.push({ id: id, name: item.name, title: item.title, mode: item.mode })
-      id++
-    })
-
-    this.name_group.forEach((item) => {
-      g.push({ id: id, name: item.name, title: item.title, mode: item.mode })
-      id++
-    })
-
-    return g
-  }
-
-  buildSecondSearch(keys: Array<any>) {
-    let g = new Array<SF1SearchCondition>()
-    let id = 1
-
-    keys.forEach((k) => {
-      if (k.value) {
-        let f = new SF1SearchCondition(id, k.field.name, k.field.title, k.field.mode)
-        f.items[0].op = k.op
-        f.items[0].value = k.value
-        g.push(f)
-        id++
-      }
-    })
-
-    return this.getGroupDisplay(g).join(' ')
-  }
-
-  addSecGroup(keys: Array<any>) {
-    let g = new Array<SF1SearchCondition>()
-    let id = 1
-
-    keys.forEach((k) => {
-      if (k.value) {
-        let f = new SF1SearchCondition(id, k.field.name, k.field.title, k.field.mode)
-        f.items[0].op = k.op
-        f.items[0].value = k.value
-        g.push(f)
-        id++
-      }
-    })
-
-    if (g.length > 0) {
-      this.sec_group.push(g)
-    }
-
-  }
-
-
-  private getGroupJson(g: Array<SF1SearchCondition>) {
-    let r = []
-    g.forEach((gi) => {
-      gi.items.forEach((v) => {
-        if (v.value || v.from || v.to) {
-          r.push({
-            title: gi.title,
-            value: v
-          })
-        }
-      })
-    })
-    return r
-  }
-
-  private getDBJson() {
+  private getDBFlag() {
     let r = 0xFFFFFFFF
     let f = 0x00000001
 
@@ -522,46 +147,7 @@ export class SF1SearchExp {
     return r
   }
 
-  private getJson() {
-    let d = {
-      key_group: this.getGroupJson(this.key_group),
-      code_group: this.getGroupJson(this.code_group),
-      type_group: this.getGroupJson(this.type_group),
-      name_group: this.getGroupJson(this.name_group),
-      date_group: this.getGroupJson(this.date_group),
-      db_group: this.getDBJson(),
-      sec_group: this.sec_group
-    }
-
-    return JSON.stringify(d)
-  }
-
-  Encode() {
-    const j = this.getJson()
-    const b = []
-
-    for (let i = 0; i < j.length; ++i) {
-      let c = j.charCodeAt(i)
-
-      if (c < 128) {
-        b.push(c)
-      }
-      else if (c < 2048) {
-        b.push((c >> 6) | 192)
-        b.push((c & 63) | 128)
-      }
-      else {
-        b.push((c >> 12) | 224)
-        b.push(((c >> 6) & 63) | 128)
-        b.push((c & 63) | 128)
-      }
-    }
-    const v = crypt.bytesToBase64(b)
-
-    return v
-  }
-
-  private setDBJson(j) {
+  private setDBFlag(j) {
     let f = 0x00000001
 
     this.dbCheckAll(true)
@@ -581,208 +167,470 @@ export class SF1SearchExp {
 
   }
 
-  private setJson(j) {
-    this.clear()
-    let d = JSON.parse(j)
-
-    this.sec_group = new Array<Array<SF1SearchCondition>>()
-
-    d.sec_group.forEach((g) => {
-      this.sec_group.push(this.setGroup(g))
-    })
-
-    this.setDBJson(d.db_group)
-
-    this.setGroupJson(this.key_group, d.key_group)
-    this.setGroupJson(this.code_group, d.code_group)
-    this.setGroupJson(this.type_group, d.type_group)
-    this.setGroupJson(this.name_group, d.name_group)
-    this.setGroupJson(this.date_group, d.date_group)
+  newLevel(){
+    let r=[]
+    this.values.push(r)
+    return r
   }
 
-  Decode(v: string) {
-    let b = crypt.base64ToBytes(v)
-    let j = ''
-    let i = 0
-    while (i < b.length) {
-      let c = b[i]
-      if (c < 128) {
-        j += String.fromCharCode(c)
-        i++
-      }
-      else if ((c > 191) && (c < 224)) {
-        let c2 = b[i + 1];
-        j += String.fromCharCode(((c & 31) << 6) | (c2 & 63))
-        i += 2
-      }
-      else {
-        let c2 = b[i + 1]
-        let c3 = b[i + 2]
-        j += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63))
-        i += 3
-      }
-    }
+  private initFields(){
 
-    this.setJson(j)
-  }
+    const k: any[] = [
+      { id: 1, name: ['名称', '摘要', '权利要求书', '说明书'], title: '所有字段' },
+      { id: 2, name: ['名称', '摘要'], title: '专利名称/摘要' },
+      { id: 3, name: ['名称', '摘要', '权利要求书'], title: '专利名称/摘要/权利要求' },
+      { id: 4, name: ['名称'], title: '专利名称' },
+      { id: 5, name: ['摘要'], title: '摘要' },
+      { id: 6, name: ['权利要求书'], title: '权利要求' },
+      { id: 8, name: ['说明书'], title: '说明书' },
 
-  private setGroup(j: Array<any>) {
-    let g = new Array<SF1SearchCondition>()
+      { id: 1, name: ['申请号'], title: '申请号' },
+      { id: 2, name: ['公开（公告）号'], title: '公开（公告）号' },
+      { id: 3, name: ['优先权'], title: '优先权号' },
 
-    j.forEach((item) => {
-      let i = new SF1SearchCondition(item.id, item.name, item.title, item.mode)
-      i.items = item.items
-      g.push(i)
-    })
+      { id: 1, name: ['分类号'], title: '国际分类号（IPC）' },
+      // { id: 2, name: [], title: '外观分类(Locarno)' },
 
-    return g
-  }
+      { id: 1, name: ['申请（专利权）人'], title: '申请（专利权）人' },
+      // { id: 2, name: [], title: '当前专利权人' },
+      // { id: 3, name: [], title: '股票代码' },
+      { id: 4, name: ['发明（设计）人'], title: '发明人' },
+      { id: 5, name: ['代理人'], title: '代理人' },
+      { id: 6, name: ['专利代理机构'], title: '代理机构' },
+      { id: 8, name: ['地址'], title: '申请人地址' },
+    ]
 
-  private setGroupJson(g: Array<SF1SearchCondition>, j: Array<any>) {
-    g.forEach((gi) => {
-      gi.items = []
-      j.forEach((ji) => {
-        if (ji.title === gi.title) {
-          gi.items.push(ji.value)
-        }
+    const d: any[] = [
+      { id: 1, name: ['申请日'], title: '申请日' },
+      { id: 2, name: ['公开（公告）日'], title: '公开（公告）日' },
+      { id: 3, name: ['优先权日'], title: '授权日' },
+    ]
+
+    k.forEach((ki)=>{
+      this.fields.push({
+        mode: 1, name: ki.name, title: ki.title
       })
+    })
 
-      if (gi.items.length === 0) {
-        gi.newItem()
+    d.forEach((di)=>{
+      this.fields.push({
+        mode: 2, name: di.name, title: di.title
+      })
+    })
+
+  }
+
+  findField(field:string){
+    for(let i=0;i<this.fields.length;i++){
+      let f=this.fields[i]
+      if (f.title===field){
+        return f
       }
+    }
+    return null
+  }
+
+  newID(){
+    let id=this.nextID
+    this.nextID++
+
+    return id
+  }
+
+  resetID(){
+    this.nextID=1
+    this.values.forEach((lv)=>{
+      lv.forEach((f)=>{
+        f.values.forEach((v)=>{
+          if (v.id>=this.nextID){
+            this.nextID=v.id+1
+          }
+        })
+      })
     })
   }
 
-
-
-  private getItemDisplay(item: SF1SearchCondition) {
-    switch(item.mode){
-      case '1':
-        return this.getDateItemDisplay(item);
-    }
-    
-    let k = item.title
-    let op = ''
-    let v = ''
-    item.items.forEach((vi) => {
-      if (vi.value) {
-        if (!op) {
-          op = vi.op
-        }
-        else {
-          v += ' ' + vi.op + ' '
-        }
-        v += vi.value
-      }
-    })
-
-    if (v) {
-      return op + ' ' + k + '=(' + v + ')'
-    }
-    else {
-      return ''
-    }
+  private getLastLevel(){
+      let i=this.values.length-1
+      return this.values[i]
   }
 
-  private getDateItemDisplay(item: SF1SearchCondition) {
-    let k = item.title
-    let v = ''
-    item.items.forEach((vi) => {
-      let f = vi.from
-      let t = vi.to
-      let vs = ''
-
-      switch (vi.mode) {
-        case '0':
-          if (f && t) {
-            vs = '(' + moment(f).format('YYYYMMDD') + ' to ' + moment(t).format('YYYYMMDD') + ')'
-          }
-          break
-        case '1':
-          if (t) {
-            vs = '(to ' + moment(t).format('YYYYMMDD') + ')'
-          }
-          break
-        case '2':
-          if (f) {
-            vs = '(from ' + moment(f).format('YYYYMMDD') + ')'
-          }
-          break
-        case '3':
-          if (f) {
-            vs = '(' + moment(f).format('YYYYMMDD') + ')'
-          }
-          break
+  private findLevelField(lv,field){
+    for (let i=0;i<lv.length;i++){
+      let f=lv[i]
+      if (f.field===field){
+        return f
       }
+    }
+    return null
+  }
 
-      if (vs) {
-        v += (' ' + vi.op + ' ' + k + '=' + vs)
-      }
-    })
+  makeValue(value){
+    let v={
+      id:this.newID(),
+      op:value.op,
+      mode: value.mode,
+      value: value.value,
+      from: value.from,
+      to: value.to
+    }
 
     return v
   }
 
-  private getGroupDisplay(g: Array<SF1SearchCondition>) {
-    let r = new Array<string>()
-
-    g.forEach((c) => {
-      let v = this.getItemDisplay(c)
-      if (v) {
-        r.push(v)
-      }
-    })
-
-    return r
+  emptyValue(){
+    return this.makeValue({op:'AND',mode:0,value:'',from:null,to:null})
   }
 
-  getDisplay() {
-    let r = new Array<string>()
-    r = r.concat(this.getGroupDisplay(this.key_group))
-    r = r.concat(this.getGroupDisplay(this.code_group))
-    r = r.concat(this.getGroupDisplay(this.type_group))
-    r = r.concat(this.getGroupDisplay(this.name_group))
-    r = r.concat(this.getGroupDisplay(this.date_group))
+  addValue(value) {
+    let lv = this.getLastLevel()
 
-    if (r.length > 0) {
-      if (r[0].startsWith('AND') || r[0].startsWith('NOT')) {
-        r[0] = r[0].substr(4, r[0].length - 4)
-      }
-      else if (r[0].startsWith('OR')) {
-        r[0] = r[0].substr(3, r[0].length - 3)
-      }
+    let f = this.findLevelField(lv,value.field)
+    if (!f) {
+      f = { field: value.field, values: [] }
+      lv.push(f)
     }
 
-    let rs = new Array<Array<string>>()
-    rs.push(r)
-    this.sec_group.forEach((g) => {
-      let gr = this.getGroupDisplay(g)
-      if (gr) {
-        rs.push(gr)
-      }
-    })
+    let v=this.makeValue(value)
+    f.values.push(v)
 
-    return rs
+    return v
   }
 
-  getDisplayAt(i) {
-    let r = this.getDisplay()
-    if (r.length > i) {
-      return r[i].join(' ')
+  removeValue(id: number) {
+    for (let l = 0; l < this.values.length; l++) {
+      let lv = this.values[l]
+      for (let i = 0; i < lv.length; i++) {
+        let f = lv[i]
+
+        for (let j = 0; j < f.values.length; j++) {
+          let v = f.values[j]
+
+          if (v.id === id) {
+            f.values.splice(j, 1)
+            if (f.values.length === 0) {
+              lv.splice(i, 1)
+            }
+            if (lv.length === 0 && l>0 && l<this.values.length-1 ) {
+              this.values.splice(l, 1)
+            }
+            return
+          }
+
+        }
+
+      }
     }
+  }
+
+  private getDateDisplay(v){
+    let mode=parseInt(v.mode)
+
+    if (mode===4) {
+      return v.value
+    }
+
+    let f = v.from
+    let t = v.to
+
+    switch (mode) {
+      case 0:
+        if (f && t){
+          return moment(f).format('YYYYMMDD')+' to '+moment(t).format('YYYYMMDD')
+        }
+        break
+      case 1:
+        if (t) {
+          return moment(t).format('YYYYMMDD')+'之前'
+        }
+        break
+      case 2:
+        if (f) {
+          return moment(f).format('YYYYMMDD')+'之后'
+        }
+        break
+      case 3:
+        if (f) {
+          return moment(f).format('YYYYMMDD')
+        }
+        break
+    }
+
     return ''
   }
 
-  getDisplayText() {
-    let r = ''
-    let d = this.getDisplay()
-    d.forEach((di) => {
-      if (r) {
-        r += ' '
+  private getFiledDisplay(f){
+    let df = { field: f.field, op: '', values: [] }
+    let field = this.findField(f.field)
+
+    f.values.forEach((v) => {
+      let dv = ''
+
+      switch (field.mode) {
+        case 1:
+          dv = v.value
+          break
+        case 2:
+          dv = this.getDateDisplay(v)
+          break
       }
-      r += di.join(' ')
+
+      if (dv) {
+        let op = v.op
+        if (df.op) {
+          dv = ' ' + op + ' ' + dv
+        }
+        else {
+          df.op = op
+        }
+
+        df.values.push({ id: v.id, text: dv })
+      }
     })
+
+    return df
+  }
+
+  private getLevelDisplay(lv) {
+    let d = []
+
+    lv.forEach((f) => {
+      let df=this.getFiledDisplay(f)
+      if (df.values.length > 0) {
+        d.push(df)
+      }
+    })
+
+    return d
+  }
+
+  getDisplay(){
+    let d=[]
+    this.values.forEach((lv)=>{
+      let dv=this.getLevelDisplay(lv)
+      if (dv.length>0){
+        d.push(dv)
+      }
+    })
+    return d
+  }
+
+  getDisplayText() {
+    let d = this.getDisplay()
+    let l = ''
+
+    d.forEach((lv) => {
+      let r=''
+      lv.forEach((f) => {
+        if (r) {
+          r += (' ' + f.op + ' ')
+        }
+
+        r += (f.field+'=(')
+
+        f.values.forEach((v) => {
+          r += v.text
+        })
+
+        r += ')'
+      })
+      if (l) {
+        l+=' AND '
+      }
+      l+=('('+r+')')
+    })
+
+    return l
+  }
+
+  Encode(){
+    let d={
+      values:this.values,
+      dbs:this.getDBFlag()
+    }
+    return JSON.stringify(d)
+  }
+
+  Decode(json){
+    let d=JSON.parse(json)
+
+    this.setDBFlag(d.dbs)
+    this.values=d.values
+  }
+
+  private getDateValue(v) {
+    let mode = parseInt(v.mode)
+
+    if (mode === 4) {
+      return v.value+'0101 to '+v.value+'1231'
+    }
+
+    let f = v.from
+    let t = v.to
+
+    switch (mode) {
+      case 0:
+        if (f && t) {
+          return moment(f).format('YYYYMMDD') + ' to ' + moment(t).format('YYYYMMDD')
+        }
+        break
+      case 1:
+        if (t) {
+          return '19700101 to '+moment(t).format('YYYYMMDD')
+        }
+        break
+      case 2:
+        if (f) {
+          return moment(f).format('YYYYMMDD') + ' to 22001231'
+        }
+        break
+      case 3:
+        if (f) {
+          return moment(f).format('YYYYMMDD')
+        }
+        break
+    }
+
+    return ''
+  }
+
+  private getFieldValue(field){
+      let r=''
+      let fop=''
+      let f=this.findField(field.field)
+
+      if (!f){
+        return ''
+      }
+
+      field.values.forEach((v)=>{
+        let dv=''
+        switch (f.mode){
+          case 1:
+            dv=v.value
+            break
+          case 2:
+            dv=this.getDateValue(v)
+            break
+        }
+        if (dv){
+          let op=v.op
+          if (!fop){
+            fop=op
+          }
+          else{
+            dv=' '+op+' '+dv
+          }
+
+          r+=dv
+        }
+      })
+
+      if (!r){
+        return ''
+      }
+
+      let v=''
+
+      f.name.forEach((n)=>{
+        if (v){
+          v+=' OR '
+        }
+
+        v+=(n+'=('+r+')')
+      })
+
+      if (f.name.length>1){
+        return fop +' ('+v+')'
+      }
+      else{
+        return fop + ' '+ v
+      }
+  }
+
+  private getLevelValue(lv){
+    let r=''
+
+    lv.forEach((f)=>{
+      let v=this.getFieldValue(f)
+      if (v) {
+        if (r) {
+          r+=' '
+        }
+        r+=v
+      }
+    })
+
+    if (r.startsWith('AND') || r.startsWith('NOT')){
+      return r.substr(4,r.length-4)
+    }
+    else if (r.startsWith('OR')) {
+      return r.substr(3,r.length-3)
+    }
+
     return r
   }
 
+  getValue(){
+    let r=''
+
+    this.values.forEach((lv)=>{
+      let l=this.getLevelValue(lv)
+      if (l){
+        if (r){
+          r+=' AND '
+        }
+        r+=('('+l+')')
+      }
+    })
+
+    return r
+  }
+
+  linkGroup(group){
+    let lv=this.getLastLevel()
+
+    group.forEach((g)=>{
+      let f=this.findLevelField(lv,g.title)
+      
+      if (!f){
+        this.addValue({field:g.title, mode:0, op:'AND', value:'', from:null,to:null})
+        f=this.findLevelField(lv,g.title)
+      }
+      
+      g.items=f.values
+    })
+  }
+
+  getKeyWords() {
+    let s=[]
+
+    this.values.forEach((lv)=>{
+      lv.forEach((f)=>{
+        f.values.forEach((v)=>{
+            if ((v.value === '') || (v.op === 'NOT')) {
+              return
+            }
+            const i = s.indexOf(v.value)
+            if (i < 0) {
+              s.push(v.value)
+            }
+        })
+      })
+    })
+    
+    return s
+  }
+
+  getFields() {
+    let g = new Array<any>()
+    let id = 1
+
+    this.fields.forEach((item) => {
+      g.push({ id: id, title: item.title, mode: item.mode })
+      id++
+    })
+
+    return g
+  }
 }

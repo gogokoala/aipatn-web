@@ -38,6 +38,43 @@ export class ComplexSearchComponent implements OnInit {
     doResultNum: false
   }
 
+  key_group = [
+    { id: 1, title: '所有字段' },
+    { id: 2, title: '专利名称/摘要' },
+    { id: 3, title: '专利名称/摘要/权利要求' },
+    { id: 4, title: '专利名称' },
+    { id: 5, title: '摘要' },
+    { id: 6, title: '权利要求' },
+    { id: 8, title: '说明书' },
+  ]
+
+  code_group = [
+    { id: 1, title: '申请号' },
+    { id: 2, title: '公开（公告）号' },
+    { id: 3, title: '优先权号' },
+  ]
+
+  type_group = [
+    { id: 1, title: '国际分类号（IPC）' },
+    // { id: 2, name: [], title: '外观分类(Locarno)' },
+  ]
+
+  name_group = [
+    { id: 1, title: '申请（专利权）人' },
+    // { id: 2, name: [], title: '当前专利权人' },
+    // { id: 3, name: [], title: '股票代码' },
+    { id: 4, title: '发明人' },
+    { id: 5, title: '代理人' },
+    { id: 6, title: '代理机构' },
+    { id: 8, title: '申请人地址' },
+  ]
+
+  date_group = [
+    { id: 1, title: '申请日' },
+    { id: 2, title: '公开（公告）日' },
+    { id: 3, title: '授权日' },
+  ]
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -50,7 +87,6 @@ export class ComplexSearchComponent implements OnInit {
 
   ngOnInit() {
     this.error = null
-    this.exp.clearSecGroup()
 
     this.route.queryParams.subscribe(q => {
       console.log(q)
@@ -62,13 +98,39 @@ export class ComplexSearchComponent implements OnInit {
       }
     })
 
-    // this.error = {
-    //   status: '401',
-    //   message: '检索结果为空'
-    // }
-    // setTimeout(() => { this.error = null }, 10000)
+    this.exp.clearFilter()
+    this.exp.resetID()
+
+    this.exp.linkGroup(this.key_group)
+    this.exp.linkGroup(this.code_group)
+    this.exp.linkGroup(this.name_group)
+    this.exp.linkGroup(this.type_group)
+    this.exp.linkGroup(this.date_group)
+  }
+
+  private clearGroup(group){
+    group.forEach((g)=>{
+      g.items.splice(0,g.items.length)
+      this.newItem(g)
+    })
+  }
+
+  clear(){
+    this.clearGroup(this.key_group) 
+    this.clearGroup(this.code_group) 
+    this.clearGroup(this.name_group) 
+    this.clearGroup(this.type_group) 
+    this.clearGroup(this.date_group) 
+  }
 
 
+  newItem(item) {
+    let v=this.exp.emptyValue()
+    item.items.push(v)
+  }
+
+  removeItemAt(item,index) {
+    item.items.splice(index, 1)
   }
 
   private makeParams(cnt) {
