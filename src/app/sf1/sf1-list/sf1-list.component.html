@@ -17,7 +17,7 @@
             </a>
           </p-accordionTab>
         </p-accordion>
-        
+
       </div>
     </div>
 
@@ -52,7 +52,7 @@
             <div class="col-lg-2" style="text-align:center">
                 <button class="btn btn-default btn-sm" (click)="addField()">加入过滤条件</button>
             </div>
-            
+
           </div>
         </div>
 
@@ -100,7 +100,7 @@
 
       <!-- Patent List -->
       <div class="list-group">
-      
+
         <div class="list-group-item active" >
           <div style="height:60px;margin-top:-18px;">
           <div class="dropdown" style="display:inline-block;">
@@ -114,7 +114,7 @@
               </li>
             </ul>
           </div>
-        
+
           <div class="dropdown" style="display:inline-block;">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{sortModeDesc[sortMode]}}
@@ -128,7 +128,7 @@
           </div>
 
           &nbsp;&nbsp;&nbsp;
-        
+
           <div class="dropdown" style="display:inline-block;">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               每页{{pageCnt}}条
@@ -146,7 +146,7 @@
               </li>
             </ul>
           </div>
-        
+
           <div style="display:inline-block;"  *ngIf="sf1.total>pageCnt">
             <ul class="pagination" style="vertical-align:middle">
               <li>
@@ -154,12 +154,12 @@
                   <span>&laquo;</span>
                 </a>
               </li>
-        
+
               <li *ngFor="let item of pages" [ngClass]="{'active':item.from==sf1.from}">
                 <a *ngIf="item.from!=sf1.from" style="cursor:pointer" (click)="doPage(item.from)">{{item.id}}</a>
                 <span *ngIf="item.from==sf1.from">{{item.id}}</span>
               </li>
-        
+
               <li>
                 <a style="cursor:pointer" (click)="doNextPage()">
                   <span>&raquo;</span>
@@ -170,9 +170,9 @@
 
           </div>
         </div>
-      
+
         <div class="list-group-item" *ngIf="sf1.results" [ngSwitch]="viewMode">
-      
+
           <table *ngSwitchCase="0" class="table">
             <tr>
               <th>
@@ -203,15 +203,21 @@
               <td>{{item.lprs}}</td>
             </tr>
           </table>
-      
+
           <div *ngSwitchCase="1">
             <div *ngFor="let item of sf1.results; let idx=index" class="list-group-item pat-item">
-              <div class="pat-header">
-                <span class="num">{{idx + 1}} </span>[{{getDbName(item.dbName)}}]
-                <a href="#" class="c-blue" target="_blank">{{item.appNumber}}</a>
-                <a href="" target="_blank" class="c-blue title">{{item.title}}</a>
-                <span class="label label-warning">{{item.lprs}}</span>
-                <div class="translatetitle"></div>
+              <div class="container-fluid pat-header">
+                <div class="row">
+                    <div class="col-xs-2">
+                      <span class=" badge badge-primary">{{idx + 1}}</span>
+                      <span class="label label-warning">{{getDbName(item.dbName)}}</span>
+                    </div>
+                    <div class="col-xs-10">
+                      <a href="#" class="c-blue" target="_blank">{{item.appNumber}}  {{item.title}}</a>
+                      <span class="label label-warning">{{item.lprs}}</span>
+                      <div class="translatetitle"></div>
+                    </div>
+                </div>
               </div>
               <div class="container-fluid pat-body">
                 <div class="row">
@@ -239,7 +245,7 @@
                           <strong>申请日：</strong>
                           <a href="#" target="_blank">{{item.appDate}}</a>
                         </p>
-      
+
                       </div>
                       <div class="col-xs-8">
                         <p>
@@ -265,19 +271,19 @@
                     </div>
                   </div>
                 </div>
-      
+
               </div>
             </div>
           </div>
-      
-      
-      
+
+
+
           <div *ngSwitchCase="2">
           </div>
-      
-      
+
+
         </div>
-      
+
         <div class="list-group-item active" >
             <div style="height:60px;margin-top:-18px;">
             <div class="dropup" style="display:inline-block;">
@@ -291,7 +297,7 @@
                 </li>
               </ul>
             </div>
-          
+
             <div class="dropup" style="display:inline-block;">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 {{sortModeDesc[sortMode]}}
@@ -303,9 +309,9 @@
                 </li>
               </ul>
             </div>
-  
+
             &nbsp;&nbsp;&nbsp;
-          
+
             <div class="dropup" style="display:inline-block;">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 每页{{pageCnt}}条
@@ -323,7 +329,7 @@
                 </li>
               </ul>
             </div>
-          
+
             <div style="display:inline-block;"  *ngIf="sf1.total>pageCnt">
               <ul class="pagination" style="vertical-align:middle">
                 <li>
@@ -331,12 +337,12 @@
                     <span>&laquo;</span>
                   </a>
                 </li>
-          
+
                 <li *ngFor="let item of pages" [ngClass]="{'active':item.from==sf1.from}">
                   <a *ngIf="item.from!=sf1.from" style="cursor:pointer" (click)="doPage(item.from)">{{item.id}}</a>
                   <span *ngIf="item.from==sf1.from">{{item.id}}</span>
                 </li>
-          
+
                 <li>
                   <a style="cursor:pointer" (click)="doNextPage()">
                     <span>&raquo;</span>
@@ -344,10 +350,10 @@
                 </li>
               </ul>
             </div>
-  
+
             </div>
           </div>
-      
+
       </div>
     </div>
 
