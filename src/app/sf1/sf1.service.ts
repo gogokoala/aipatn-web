@@ -8,41 +8,113 @@ import { SF1SearchExp } from './sf1-search.service';
 /**
  * 专利摘要数据
  */
-export interface SF1Data {
-  pid: string
-  sysid: string
-  appNumber: string
-  pubNumber: string
-  appDate: string
-  pubDate: string
-  title: string
-  ipc: Array<string>
-  applicantName: Array<string>
-  inventroName: Array<string>
-  priority: string
-  agencyName: Array<string>
-  agentName: string
-  addrProvince: string
-  addrCity: string
-  addrCounty: string
-  address: string
-  patType: string
-  iapp: string
-  ipub: string
-  den: string
-  abs: string
-  lprs: string
-  dbName: string
-  tifDistributePath: string
-  pages: string
-  relevance: string
-  proCode: string
-  appCoun: string
-  gazettePath: string
-  gazettePage: string
-  gazetteCount: string
-  statusCode: string
-  familyNo: string
+export interface Patent {
+    // sf1
+    // 专利信息ID
+    pid: string
+    sysid: string
+    // 申请号
+    appNumber: string
+    // 公开（公告）号'
+    pubNumber: string
+    // 申请日'
+    appDate: string
+    // 公开（公告）日'
+    pubDate: string
+    // 名称'
+    title: string
+    // 分类号'
+    ipc: string[]
+    // 申请（专利权）人'
+    applicantName: string[]
+    // 发明（设计）人'
+    inventroName: string[]
+    // 优先权'
+    priority: string
+    // 专利代理机构'
+    agencyName: string
+    // 代理人'
+    agentName: string
+    // 省'
+    addrProvince: string
+    // 市'
+    addrCity: string
+    // 县'
+    addrCounty: string
+    // 地址'
+    address: string
+    // 专利类型'
+    patType: number
+    // 国际申请'
+    iapp: string
+    // 国际公布'
+    ipub: string
+    // 进入国家日期'
+    den: string
+    // 摘要'
+    abs: string
+    // 最新法律状态'
+    lprs: string
+    // 摘要附图存储路径'
+    draws: string
+    // 专利所属库名'
+    dbName: string
+    // 发布路径'
+    tifDistributePath: string
+    // 页数'
+    pages: number
+    // 相似度'
+    relevance: string
+    // 国省代码'
+    proCode: string
+    // 申请国代码'
+    appCoun: string
+    // 公报发布路径'
+    gazettePath: string
+    // 公报所在页'
+    gazettePage: number
+    // 公报翻页信息'
+    gazetteCount: number
+    // 专利状态码'
+    statusCode: string
+    // 法律状态'
+    legalStatus: string
+    // 主分类号'
+    mainIpc: string
+    // 国家资源'
+    appResource: string
+    // 同族号'
+    familyNo: string
+    // 主权项'
+    cl: string
+    // 关键词'
+    patentWords: string
+
+    // sf2
+    // 自动摘要'
+    autoAbs: string
+    // 权利要求书'
+    claimsPath: string
+    //
+    cipPath: string
+    // 说明书'
+    instrPath: string
+    // 说明书附图'
+    instrTif: string
+    // 审查员'
+    censor: string
+    // 参考文献'
+    refDoc: string
+    // 优先权日'
+    priorityDate: string
+    // 颁证日'
+    issueDate: string
+    // 本国主分类号'
+    initMainIpc: string
+    // 本国分类号'
+    initIpc: string
+    // 分案原申请号'
+    divideInitAppNo: string
 }
 
 /**
@@ -62,7 +134,7 @@ export interface SF1Response {
   total: number
   from: number
   to: number
-  results: Array<SF1Data>
+  results: Array<Patent>
   sectionInfos: Array<SF1SectionInfo>
   t?: number
   params?: SF1SearchParams
