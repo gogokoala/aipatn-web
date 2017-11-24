@@ -35,8 +35,10 @@ export class SF1ListComponent implements OnInit {
     { id: 0, name: '数据库', items: [] },
     { id: 1, name: '申请日', items: [] },
     { id: 2, name: '公开日', items: [] },
-    { id: 3, name: '授权日', items: [] }
+    // { id: 3, name: '授权日', items: [] }
   ]
+
+  filterParam:any
 
   secKey:any
   searchFields: Array<any>
@@ -130,7 +132,21 @@ export class SF1ListComponent implements OnInit {
     }
   }
 
+  getDBS(){
+    let r=''
+    this.filter_items[0].items.forEach((db)=>{
+      if (db.checked){
+        if (r){
+          r+=','
+        }
+        r+=db.code
+      }
+    })
+    return r
+  }
+
   doSearch() {
+    this.filterParam=null
 
     this.lastParams.exp = this.exp.getValue()
     this.lastParams.dp = this.exp.getDisplayText()
@@ -138,6 +154,14 @@ export class SF1ListComponent implements OnInit {
 
     this.lastParams.from = 0
     this.lastParams.to = this.pageCnt
+
+    let dbs=this.getDBS()
+    if (dbs){
+      this.lastParams.dbs = dbs
+    }
+    
+
+    console.log(this.lastParams)
 
     this.service.redirectUrl = '/sf1/list'
 
@@ -148,6 +172,8 @@ export class SF1ListComponent implements OnInit {
   }
 
   doPage(from: number) {
+    this.filterParam=null
+
     this.lastParams.exp = this.exp.getValue()
     this.lastParams.dp = this.exp.getDisplayText()
     this.lastParams.jp = this.exp.Encode()
@@ -227,8 +253,9 @@ export class SF1ListComponent implements OnInit {
           name: d.name,
           cnt: db.recordNum,
           rate: (db.recordNum/this.sf1.total*100.0).toFixed(1),
-          mode: '9',
-          apply: false
+          checked:true,
+          mode:9,
+          vid:0
         }
         dbs.push(data)
       }
@@ -248,8 +275,15 @@ export class SF1ListComponent implements OnInit {
         code: field + '=(' + (y - i) + '0101 to ' + (y - i) + '1231)',
         cnt: -1,
         rate: 0,
-        mode: '1',
-        apply: false
+        mode: 1,
+        vid: 0,
+        exp: {
+          field:field,
+          value:'',
+          mode:0,
+          from: new Date(y-i,1,1),
+          to: new Date(y-i,12,31)
+        }
       }
 
       r.push(d)
@@ -257,11 +291,18 @@ export class SF1ListComponent implements OnInit {
 
     let d = {
       name: (y - n).toString() + '及以前',
-      code: field + '=(19700101 to ' + (y - 10) + '1231)',
+      code: field + '=(19700101 to ' + (y - n) + '1231)',
       cnt: -1,
       rate: 0,
-      mode:'1',
-      apply: false
+      mode:1,
+      vid: 0,
+      exp: {
+        field:field,
+        value:'',
+        mode:0,
+        from: new Date(1970,1,1),
+        to: new Date(y-n,12,31)
+      }
     }
 
     r.push(d)
@@ -270,13 +311,17 @@ export class SF1ListComponent implements OnInit {
   }
 
   private getFilterCnt() {
-    for (let j = 1; j < 4; j++) {
+    if (!this.filterParam) {
+      return
+    }
+
+    for (let j = 1; j < this.filter_items.length; j++) {
       for (let i = 0; i < this.filter_items[j].items.length; i++) {
         let ji = this.filter_items[j].items[i]
 
         if (ji.cnt < 0) {
 
-          let p = Object.assign({}, this.lastParams)
+          let p = Object.assign({}, this.filterParam)
 
           switch (j) {
             case 0:
@@ -293,8 +338,8 @@ export class SF1ListComponent implements OnInit {
           p.to = 1
 
           this.service.search(p).subscribe((d) => {
-            console.log(d);
             if (d.status !== '0') {
+              console.log(d);
               ji.cnt = 0
             } else if (d.results) {
               ji.cnt = d.total
@@ -319,46 +364,29 @@ export class SF1ListComponent implements OnInit {
 
     this.filter_items[1].items = this.initYearFilter('申请日')
     this.filter_items[2].items = this.initYearFilter('公开（公告）日')
-    this.filter_items[3].items = this.initYearFilter('优先权日')
+    //this.filter_items[3].items = this.initYearFilter('优先权日')
+
+    this.filterParam=Object.assign({}, this.lastParams)
 
     this.getFilterCnt()
   }
 
   addFilter(ti) {
-    ti.apply=!ti.apply;
-  }
-
-  getFilterDisplay(ti){
-    let r=[]
-
-    this.filter_items.forEach((fi)=>{
-      let v=''
-      
-      fi.items.forEach((ti)=>{
-        if (ti.apply) {
-          if (v){
-            v+=','
-          }
-          v+=ti.name
+    switch (ti.mode){
+      case 1:
+        if (ti.vid>0 && this.exp.findValue(ti.vid)){
+          this.exp.removeValue(ti.vid)
+          ti.vid=0
         }
-      })
-
-      if (v){
-        v='AND '+fi.name+'=('+v+')'
-        r.push(v)
-      }
-
-    })
-
-    return r.join(' ')
-  }
-
-  clearFilter(){
-    this.filter_items.forEach((fi)=>{
-      fi.items.forEach((ti)=>{
-        ti.apply=false
-      })
-    })
+        else{
+          let v=this.exp.addValue(ti.exp)
+          ti.vid=v.id
+        }
+        break
+      case 9:
+        ti.checked=false
+        break
+    }
   }
 
 }

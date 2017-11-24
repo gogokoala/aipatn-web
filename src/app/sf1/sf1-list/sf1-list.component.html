@@ -5,9 +5,10 @@
       <div class="list-group">
         <div class="list-group-item active">筛选项</div>
         <p-accordion>
-          <p-accordionTab *ngFor="let fi of filter_items" class="list-group" >
+          <p-accordionTab *ngFor="let fi of filter_items; let i=index" class="list-group" >
             <p-header style="font-size:16px" >{{fi.name}}</p-header>
             <a class="list-group-item" *ngFor="let ti of fi.items" style="cursor:pointer" (click)="addFilter(ti)">
+              <input type="checkbox" [(ngModel)]="ti.checked" *ngIf="i==0" >
               <span>{{ti.name}}</span>
               <span *ngIf="ti.cnt>99999" class="badge" style="background-color:gray">99999</span>
               <span *ngIf="ti.cnt>=0 && ti.cnt<=99999" class="badge" style="background-color:gray">{{ti.cnt}}</span>
@@ -65,19 +66,20 @@
           </div>
 
           <div id="filter_container" class="u-filter-containter">
-            <span *ngFor="let lv of exp.getDisplay(); let li=index">
-              <span *ngIf="li>0" class="exp-value">AND</span>
-              <span class="exp-value">(</span>
-              <span *ngFor="let f of lv">
-                <span class="exp-value">{{f.field}}=(</span>
+            <div *ngFor="let lv of exp.getDisplay(); let li=index" class="exp-level">
+              <span *ngIf="li>0">AND</span>
+              <span>(</span>
+              <span *ngFor="let f of lv; let vi=index">
+                <span *ngIf="vi>0">{{f.op}}</span>
+                <span><b>{{f.field}}</b>=(</span>
                 <span *ngFor="let v of f.values" class="exp-value">
                   {{v.text}}
-                  <i class="fa fa-times fa-lg iconfont-plus" (click)="exp.removeValue(v.id)">&nbsp;</i>
+                  <i class="fa fa-times fa-lg iconfont-plus" (click)="exp.removeValue(v.id)" style="cursor:pointer" >&nbsp;</i>
                 </span>
-                <span class="exp-value">)</span>
+                <span >)</span>
               </span>
-              <span class="exp-value">)</span>
-            </span>
+              <span>)</span>
+            </div>
 
             <!-- <div  style="display:inline-block; padding:4px; margin:4px;  border-width:1px; border-style:solid; border-color:gray" >
               {{item.join(' ')}}

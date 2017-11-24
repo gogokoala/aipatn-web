@@ -323,6 +323,26 @@ export class SF1SearchExp {
     }
   }
 
+  findValue(id: number) {
+    for (let l = 0; l < this.values.length; l++) {
+      let lv = this.values[l]
+      for (let i = 0; i < lv.length; i++) {
+        let f = lv[i]
+
+        for (let j = 0; j < f.values.length; j++) {
+          let v = f.values[j]
+
+          if (v.id === id) {
+            return v
+          }
+
+        }
+
+      }
+    }
+    return null
+  }
+
   private getDateDisplay(v){
     let mode=parseInt(v.mode)
 

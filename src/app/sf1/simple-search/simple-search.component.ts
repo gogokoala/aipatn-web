@@ -30,6 +30,7 @@ export class SimpleSearchComponent implements OnInit {
       const message = q.message
       if (status && status !== '0') {
         this.error = { status, message }
+        console.log(this.error)
         setTimeout(() => { this.error = null }, 10000)
       }
     })

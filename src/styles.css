@@ -63,11 +63,24 @@ body .fn-hide {
   padding-left: 5px;
 }
 
+.exp-level{
+  padding: 1px;
+  margin: 0px 1px;
+  display: inline-block;
+  background-color: #F5F5DC;
+}
+
 .exp-value{
   border-style: solid;
   border-color: #666;
   border-width: thin;
+  color:blue;
   padding: 1px;
   margin: 0px 1px;
-  display: inline-block;
+}
+
+.exp-value .fa{
+  color:gray;
+  font-size: smaller;
+  vertical-align: middle;
 }
