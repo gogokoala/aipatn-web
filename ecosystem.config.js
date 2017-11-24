@@ -10,9 +10,9 @@ module.exports = {
       name      : 'WEB',
       script    : './dist/index.js',
       watch     : true,
-      error_file: '../shared/logs/web-err.log',
-      out_file  : '../shared/logs/web-out.log',
-      pid_file  : '../shared/pids/web.pid',
+      error_file: '/mnt/disk1/www/logs/web-err.log',
+      out_file  : '/mnt/disk1/www/logs/web-out.log',
+      pid_file  : '/mnt/disk1/www/shared/pids/web.pid',
       env: {
         NODE_ENV: 'development',
         DEBUG: '*'
