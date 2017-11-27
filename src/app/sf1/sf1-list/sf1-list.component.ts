@@ -76,6 +76,10 @@ export class SF1ListComponent implements OnInit {
       console.log(data.crisis)
 
       this.sf1 = data.crisis
+      if (this.sf1.status && this.sf1.status !== '0') {
+        this.error = { status: this.sf1.status, message: this.sf1.message }
+        setTimeout(() => { this.error = null }, 30000)
+      }
 
       if (this.service.lastParams){
         this.lastParams = this.service.lastParams;
@@ -165,7 +169,7 @@ export class SF1ListComponent implements OnInit {
 
     console.log(this.lastParams)
 
-    this.service.redirectUrl = '/sf1/list'
+    this.service.redirectUrl = null
 
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list

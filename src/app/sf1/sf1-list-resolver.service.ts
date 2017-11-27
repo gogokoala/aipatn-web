@@ -49,17 +49,21 @@ export class SF1ListResolver implements Resolve<SF1Response> {
         if (this.sf1.redirectUrl) {
 
           const t = moment().valueOf()
+          this.router.navigate([this.sf1.redirectUrl], { queryParams: Object.assign({ t }, res) })
 
           if (this.sf1.lastParams) {
             console.log('redirect to ' + this.sf1.redirectUrl)
-            this.router.navigate([this.sf1.redirectUrl], { queryParams: Object.assign({ t }, res, this.sf1.lastParams) })
+            // this.router.navigate([this.sf1.redirectUrl], { queryParams: Object.assign({ t }, res, this.sf1.lastParams) })
             return null
           }
+        } else {
+          return res
         }
-
+/*
         console.log('redirect to /sf1/simple')
         this.router.navigate([this.sf1.defaultSearchRedirectUrl])
         return null
+*/        
       }
     })
   }
