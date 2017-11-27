@@ -30,7 +30,7 @@ export interface Patent {
     // 发明（设计）人'
     inventroName: string[]
     // 优先权'
-    priority: string
+    priority: string[]
     // 专利代理机构'
     agencyName: string
     // 代理人'
