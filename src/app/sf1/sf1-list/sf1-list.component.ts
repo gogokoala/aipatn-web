@@ -94,7 +94,7 @@ export class SF1ListComponent implements OnInit {
       const message = q.message
       if (status && status !== '0') {
         this.error = { status, message }
-        setTimeout(() => { this.error = null }, 10000)
+        setTimeout(() => { this.error = null }, 30000)
       }
     })
   }
@@ -279,10 +279,11 @@ export class SF1ListComponent implements OnInit {
         vid: 0,
         exp: {
           field:field,
+          op: 'OR',
           value:'',
           mode:0,
-          from: new Date(y-i,1,1),
-          to: new Date(y-i,12,31)
+          from: new Date(y-i,0,1),
+          to: new Date(y-i,11,31)
         }
       }
 
@@ -300,8 +301,8 @@ export class SF1ListComponent implements OnInit {
         field:field,
         value:'',
         mode:0,
-        from: new Date(1970,1,1),
-        to: new Date(y-n,12,31)
+        from: new Date(1970,0,1),
+        to: new Date(y-n,11,31)
       }
     }
 
