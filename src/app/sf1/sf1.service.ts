@@ -30,7 +30,7 @@ export interface Patent {
     // 发明（设计）人'
     inventroName: string[]
     // 优先权'
-    priority: string
+    priority: string[]
     // 专利代理机构'
     agencyName: string
     // 代理人'
@@ -216,20 +216,22 @@ export class SF1Service {
 
   lastParams: SF1SearchParams
   redirectUrl: string
+  defaultSearchRedirectUrl = '/sf1/simple'
+
 
   constructor(private http: Http) {
     this.redirectUrl = ''
   }
-
-  /**
-   *
-   * @param searchConditions (string) 查询条件
-   */
+/*
   getList(params: SF1SearchParams): Observable<SF1Response> {
     this.lastParams = Object.assign({}, params)
     return this.search(params)
   }
-
+*/
+  /**
+   *
+   * @param searchConditions (string) 查询条件
+   */
   search(params: SF1SearchParams): Observable<SF1Response> {
     return this.http.post(
       `${this.baseUrl}sf1`,
@@ -237,7 +239,7 @@ export class SF1Service {
       { headers: this.headers }
     ).map(response => {
       const res = response.json()
-      //console.log(res)
+      // console.log(res)
       if (res.code === 0 && res.data) {
         return res.data as SF1Response
       }

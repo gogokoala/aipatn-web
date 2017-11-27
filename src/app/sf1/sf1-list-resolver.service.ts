@@ -25,7 +25,8 @@ export class SF1ListResolver implements Resolve<SF1Response> {
     const jp = route.queryParamMap.get('jp')
 
     if (!exp) {
-      this.router.navigate([this.sf1.redirectUrl])
+      console.log('invalid exp param!!')
+      this.router.navigate([this.sf1.defaultSearchRedirectUrl])
       return null
     }
 
@@ -39,19 +40,25 @@ export class SF1ListResolver implements Resolve<SF1Response> {
     params.dp = dp
     params.jp = jp
 
-    return this.sf1.getList(params).map(res => {
+    return this.sf1.search(params).map(res => {
       if (res && res.status === '0') {
-
-        res.params = params
-        res.t = 0
-
+        console.log('search ok!!')
+        this.sf1.lastParams = params
         return res
       } else { // id not found
+        if (this.sf1.redirectUrl) {
 
-        const t = moment().valueOf()
-        res.t = t
+          const t = moment().valueOf()
 
-        this.router.navigate([this.sf1.redirectUrl], { queryParams: res })
+          if (this.sf1.lastParams) {
+            console.log('redirect to ' + this.sf1.redirectUrl)
+            this.router.navigate([this.sf1.redirectUrl], { queryParams: Object.assign({ t }, res, this.sf1.lastParams) })
+            return null
+          }
+        }
+
+        console.log('redirect to /sf1/simple')
+        this.router.navigate([this.sf1.defaultSearchRedirectUrl])
         return null
       }
     })
