@@ -77,16 +77,18 @@ export class SF1ListComponent implements OnInit {
 
       this.sf1 = data.crisis
 
-      this.lastParams = this.sf1.params;
-      
-      if (this.lastParams.jp) {
-        this.exp.Decode(this.lastParams.jp)
+      if (this.service.lastParams){
+        this.lastParams = this.service.lastParams;
+        
+        if (this.lastParams.jp) {
+          this.exp.Decode(this.lastParams.jp)
+        }
+  
+        this.exp.newLevel()
+        this.clear()
+        this.initPages()
+        this.initFilter()
       }
-
-      this.exp.newLevel()
-      this.clear()
-      this.initPages()
-      this.initFilter()
     })
 
     this.route.queryParams.subscribe(q => {
