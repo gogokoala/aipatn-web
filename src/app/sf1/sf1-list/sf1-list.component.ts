@@ -75,11 +75,15 @@ export class SF1ListComponent implements OnInit {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
 
-      this.sf1 = data.crisis
-      if (this.sf1.status && this.sf1.status !== '0') {
-        this.error = { status: this.sf1.status, message: this.sf1.message }
+      var sf1=data.crisis
+
+      if (sf1.status && sf1.status !== '0') {
+        this.error = { status: sf1.status, message: sf1.message }
         setTimeout(() => { this.error = null }, 30000)
+        return
       }
+
+      this.sf1 = sf1
 
       if (this.service.lastParams){
         this.lastParams = this.service.lastParams;
