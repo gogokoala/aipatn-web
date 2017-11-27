@@ -168,7 +168,7 @@ export class SF1ListComponent implements OnInit {
     // Add a totally useless `t` parameter for kicks.
     // Relative navigation back to the /sf1/list
     this.router.navigate(['/sf1/list', { t: moment().valueOf() }],
-      { queryParams: this.lastParams, relativeTo: this.route })
+      { queryParams: this.lastParams })
   }
 
   doPage(from: number) {
