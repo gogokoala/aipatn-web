@@ -45,7 +45,8 @@ export class SF1ListResolver implements Resolve<SF1Response> {
         console.log('search ok!!')
         this.sf1.lastParams = params
         return res
-      } else { // id not found
+      } else { 
+        // data not found
         if (this.sf1.redirectUrl) {
 
           const t = moment().valueOf()

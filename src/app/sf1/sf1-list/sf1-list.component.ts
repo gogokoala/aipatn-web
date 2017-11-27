@@ -38,21 +38,21 @@ export class SF1ListComponent implements OnInit {
     // { id: 3, name: '授权日', items: [] }
   ]
 
-  filterParam:any
+  filterParam: any
 
-  secKey:any
+  secKey: any
   searchFields: Array<any>
 
   lastParams: SF1SearchParams
   sf1: SF1Response
 
   pages: Array<any>
-  pageCnt: number = 10
+  pageCnt = 10
 
-  viewMode: number = 1
+  viewMode = 1
   viewModeDesc: string[] = ['列表模式', '图文模式'] // ,'首图模式'
 
-  sortMode: number = 0
+  sortMode = 0
   sortModeDesc: string[] = ['按相关度排序', '按公开日升序', '按公开日降序', '按申请日升序', '按申请日降序']
 
   exp: SF1SearchExp
@@ -75,23 +75,23 @@ export class SF1ListComponent implements OnInit {
     this.route.data.subscribe((data: { crisis: SF1Response }) => {
       console.log(data.crisis)
 
-      var sf1=data.crisis
+      const sf1Res = data.crisis
 
-      if (sf1.status && sf1.status !== '0') {
-        this.error = { status: sf1.status, message: sf1.message }
+      if (sf1Res.status && sf1Res.status !== '0') {
+        this.error = { status: sf1Res.status, message: sf1Res.message }
         setTimeout(() => { this.error = null }, 30000)
         return
       }
 
-      this.sf1 = sf1
+      this.sf1 = sf1Res
 
-      if (this.service.lastParams){
+      if (this.service.lastParams) {
         this.lastParams = this.service.lastParams;
-        
+
         if (this.lastParams.jp) {
           this.exp.Decode(this.lastParams.jp)
         }
-  
+
         this.exp.newLevel()
         this.clear()
         this.initPages()
@@ -126,37 +126,37 @@ export class SF1ListComponent implements OnInit {
   }
 
   clear() {
-    this.secKey={
-      field:'所有字段',
+    this.secKey = {
+      field: '所有字段',
       op: 'AND',
       value: ''
     }
   }
 
-  addField(){
-    let v=Object.assign({},this.secKey)
+  addField() {
+    const v = Object.assign({}, this.secKey)
 
-    if (v.value){
+    if (v.value) {
       this.exp.addValue(v)
-      this.secKey.value=''
+      this.secKey.value = ''
     }
   }
 
-  getDBS(){
-    let r=''
-    this.filter_items[0].items.forEach((db)=>{
-      if (db.checked){
-        if (r){
-          r+=','
+  getDBS() {
+    let r = ''
+    this.filter_items[0].items.forEach((db) => {
+      if (db.checked) {
+        if (r) {
+          r += ','
         }
-        r+=db.code
+        r += db.code
       }
     })
     return r
   }
 
   doSearch() {
-    this.filterParam=null
+    this.filterParam = null
 
     this.lastParams.exp = this.exp.getValue()
     this.lastParams.dp = this.exp.getDisplayText()
@@ -165,11 +165,11 @@ export class SF1ListComponent implements OnInit {
     this.lastParams.from = 0
     this.lastParams.to = this.pageCnt
 
-    let dbs=this.getDBS()
-    if (dbs){
+    const dbs = this.getDBS()
+    if (dbs) {
       this.lastParams.dbs = dbs
     }
-    
+
 
     console.log(this.lastParams)
 
@@ -182,7 +182,7 @@ export class SF1ListComponent implements OnInit {
   }
 
   doPage(from: number) {
-    this.filterParam=null
+    this.filterParam = null
 
     this.lastParams.exp = this.exp.getValue()
     this.lastParams.dp = this.exp.getDisplayText()
@@ -232,40 +232,40 @@ export class SF1ListComponent implements OnInit {
   setPageCnt(cnt) {
     if (this.pageCnt !== cnt) {
       this.pageCnt = cnt
-      let f = Math.trunc(this.lastParams.from / cnt) * cnt
+      const f = Math.trunc(this.lastParams.from / cnt) * cnt
       this.doPage(f)
     }
   }
 
   doPrePage() {
-    let f: number = this.lastParams.from - this.pageCnt
+    const f: number = this.lastParams.from - this.pageCnt
     if (f >= 0) {
       this.doPage(f)
     }
   }
 
   doNextPage() {
-    let f: number = this.lastParams.from - 0 + this.pageCnt
+    const f: number = this.lastParams.from - 0 + this.pageCnt
     if (f < this.sf1.total) {
       this.doPage(f)
     }
   }
 
   private initDBFilter() {
-    let dbs = []
+    const dbs = []
 
     this.sf1.sectionInfos.forEach((db) => {
-      let d = this.service.getDatabase(db.sectionName)
+      const d = this.service.getDatabase(db.sectionName)
 
       if (d) {
-        let data = {
+        const data = {
           code: db.sectionName,
           name: d.name,
           cnt: db.recordNum,
-          rate: (db.recordNum/this.sf1.total*100.0).toFixed(1),
-          checked:true,
-          mode:9,
-          vid:0
+          rate: (db.recordNum / this.sf1.total * 100.0).toFixed(1),
+          checked: true,
+          mode: 9,
+          vid: 0
         }
         dbs.push(data)
       }
@@ -276,11 +276,11 @@ export class SF1ListComponent implements OnInit {
 
   private initYearFilter(field: string) {
     const n = 10
-    let r = []
-    let y = moment().year()
+    const r = []
+    const y = moment().year()
 
     for (let i = 0; i < n; i++) {
-      let d = {
+      const d = {
         name: y - i,
         code: field + '=(' + (y - i) + '0101 to ' + (y - i) + '1231)',
         cnt: -1,
@@ -288,31 +288,31 @@ export class SF1ListComponent implements OnInit {
         mode: 1,
         vid: 0,
         exp: {
-          field:field,
+          field: field,
           op: 'OR',
-          value:'',
-          mode:0,
-          from: new Date(y-i,0,1),
-          to: new Date(y-i,11,31)
+          value: '',
+          mode: 0,
+          from: new Date(y - i, 0, 1),
+          to: new Date(y - i, 11, 31)
         }
       }
 
       r.push(d)
     }
 
-    let d = {
+    const d = {
       name: (y - n).toString() + '及以前',
       code: field + '=(19700101 to ' + (y - n) + '1231)',
       cnt: -1,
       rate: 0,
-      mode:1,
+      mode: 1,
       vid: 0,
       exp: {
-        field:field,
-        value:'',
-        mode:0,
-        from: new Date(1970,0,1),
-        to: new Date(y-n,11,31)
+        field: field,
+        value: '',
+        mode: 0,
+        from: new Date(1970, 0, 1),
+        to: new Date(y - n, 11, 31)
       }
     }
 
@@ -328,11 +328,11 @@ export class SF1ListComponent implements OnInit {
 
     for (let j = 1; j < this.filter_items.length; j++) {
       for (let i = 0; i < this.filter_items[j].items.length; i++) {
-        let ji = this.filter_items[j].items[i]
+        const ji = this.filter_items[j].items[i]
 
         if (ji.cnt < 0) {
 
-          let p = Object.assign({}, this.filterParam)
+          const p = Object.assign({}, this.filterParam)
 
           switch (j) {
             case 0:
@@ -375,27 +375,26 @@ export class SF1ListComponent implements OnInit {
 
     this.filter_items[1].items = this.initYearFilter('申请日')
     this.filter_items[2].items = this.initYearFilter('公开（公告）日')
-    //this.filter_items[3].items = this.initYearFilter('优先权日')
+    // this.filter_items[3].items = this.initYearFilter('优先权日')
 
-    this.filterParam=Object.assign({}, this.lastParams)
+    this.filterParam = Object.assign({}, this.lastParams)
 
     this.getFilterCnt()
   }
 
   addFilter(ti) {
-    switch (ti.mode){
+    switch (ti.mode) {
       case 1:
-        if (ti.vid>0 && this.exp.findValue(ti.vid)){
+        if (ti.vid > 0 && this.exp.findValue(ti.vid)) {
           this.exp.removeValue(ti.vid)
-          ti.vid=0
-        }
-        else{
-          let v=this.exp.addValue(ti.exp)
-          ti.vid=v.id
+          ti.vid = 0
+        } else {
+          const v = this.exp.addValue(ti.exp)
+          ti.vid = v.id
         }
         break
       case 9:
-        ti.checked=false
+        ti.checked = false
         break
     }
   }

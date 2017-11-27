@@ -9,112 +9,112 @@ import { SF1SearchExp } from './sf1-search.service';
  * 专利摘要数据
  */
 export interface Patent {
-    // sf1
-    // 专利信息ID
-    pid: string
-    sysid: string
-    // 申请号
-    appNumber: string
-    // 公开（公告）号'
-    pubNumber: string
-    // 申请日'
-    appDate: string
-    // 公开（公告）日'
-    pubDate: string
-    // 名称'
-    title: string
-    // 分类号'
-    ipc: string[]
-    // 申请（专利权）人'
-    applicantName: string[]
-    // 发明（设计）人'
-    inventroName: string[]
-    // 优先权'
-    priority: string[]
-    // 专利代理机构'
-    agencyName: string
-    // 代理人'
-    agentName: string
-    // 省'
-    addrProvince: string
-    // 市'
-    addrCity: string
-    // 县'
-    addrCounty: string
-    // 地址'
-    address: string
-    // 专利类型'
-    patType: number
-    // 国际申请'
-    iapp: string
-    // 国际公布'
-    ipub: string
-    // 进入国家日期'
-    den: string
-    // 摘要'
-    abs: string
-    // 最新法律状态'
-    lprs: string
-    // 摘要附图存储路径'
-    draws: string
-    // 专利所属库名'
-    dbName: string
-    // 发布路径'
-    tifDistributePath: string
-    // 页数'
-    pages: number
-    // 相似度'
-    relevance: string
-    // 国省代码'
-    proCode: string
-    // 申请国代码'
-    appCoun: string
-    // 公报发布路径'
-    gazettePath: string
-    // 公报所在页'
-    gazettePage: number
-    // 公报翻页信息'
-    gazetteCount: number
-    // 专利状态码'
-    statusCode: string
-    // 法律状态'
-    legalStatus: string
-    // 主分类号'
-    mainIpc: string
-    // 国家资源'
-    appResource: string
-    // 同族号'
-    familyNo: string
-    // 主权项'
-    cl: string
-    // 关键词'
-    patentWords: string
+  // sf1
+  // 专利信息ID
+  pid: string
+  sysid: string
+  // 申请号
+  appNumber: string
+  // 公开（公告）号'
+  pubNumber: string
+  // 申请日'
+  appDate: string
+  // 公开（公告）日'
+  pubDate: string
+  // 名称'
+  title: string
+  // 分类号'
+  ipc: string[]
+  // 申请（专利权）人'
+  applicantName: string[]
+  // 发明（设计）人'
+  inventroName: string[]
+  // 优先权'
+  priority: string[]
+  // 专利代理机构'
+  agencyName: string
+  // 代理人'
+  agentName: string
+  // 省'
+  addrProvince: string
+  // 市'
+  addrCity: string
+  // 县'
+  addrCounty: string
+  // 地址'
+  address: string
+  // 专利类型'
+  patType: number
+  // 国际申请'
+  iapp: string
+  // 国际公布'
+  ipub: string
+  // 进入国家日期'
+  den: string
+  // 摘要'
+  abs: string
+  // 最新法律状态'
+  lprs: string
+  // 摘要附图存储路径'
+  draws: string
+  // 专利所属库名'
+  dbName: string
+  // 发布路径'
+  tifDistributePath: string
+  // 页数'
+  pages: number
+  // 相似度'
+  relevance: string
+  // 国省代码'
+  proCode: string
+  // 申请国代码'
+  appCoun: string
+  // 公报发布路径'
+  gazettePath: string
+  // 公报所在页'
+  gazettePage: number
+  // 公报翻页信息'
+  gazetteCount: number
+  // 专利状态码'
+  statusCode: string
+  // 法律状态'
+  legalStatus: string
+  // 主分类号'
+  mainIpc: string
+  // 国家资源'
+  appResource: string
+  // 同族号'
+  familyNo: string
+  // 主权项'
+  cl: string
+  // 关键词'
+  patentWords: string
 
-    // sf2
-    // 自动摘要'
-    autoAbs: string
-    // 权利要求书'
-    claimsPath: string
-    //
-    cipPath: string
-    // 说明书'
-    instrPath: string
-    // 说明书附图'
-    instrTif: string
-    // 审查员'
-    censor: string
-    // 参考文献'
-    refDoc: string
-    // 优先权日'
-    priorityDate: string
-    // 颁证日'
-    issueDate: string
-    // 本国主分类号'
-    initMainIpc: string
-    // 本国分类号'
-    initIpc: string
-    // 分案原申请号'
-    divideInitAppNo: string
+  // sf2
+  // 自动摘要'
+  autoAbs: string
+  // 权利要求书'
+  claimsPath: string
+  //
+  cipPath: string
+  // 说明书'
+  instrPath: string
+  // 说明书附图'
+  instrTif: string
+  // 审查员'
+  censor: string
+  // 参考文献'
+  refDoc: string
+  // 优先权日'
+  priorityDate: string
+  // 颁证日'
+  issueDate: string
+  // 本国主分类号'
+  initMainIpc: string
+  // 本国分类号'
+  initIpc: string
+  // 分案原申请号'
+  divideInitAppNo: string
 }
 
 /**
@@ -175,7 +175,7 @@ export class SF1Service {
   private headers = new Headers({ 'Content-Type': 'application/json' })
   // private baseUrl = 'http://www.aipatn.com/api/'
   private baseUrl = 'http://47.100.5.243/api/'
-  //private baseUrl = 'http://192.168.0.216/api/'
+  // private baseUrl = 'http://192.168.0.216/api/'
 
   private dbGroups: Array<PatentGroup> = [
     { name: '中国', code: 'CN' },
@@ -222,12 +222,12 @@ export class SF1Service {
   constructor(private http: Http) {
     this.redirectUrl = ''
   }
-/*
-  getList(params: SF1SearchParams): Observable<SF1Response> {
-    this.lastParams = Object.assign({}, params)
-    return this.search(params)
-  }
-*/
+  /*
+    getList(params: SF1SearchParams): Observable<SF1Response> {
+      this.lastParams = Object.assign({}, params)
+      return this.search(params)
+    }
+  */
   /**
    *
    * @param searchConditions (string) 查询条件
