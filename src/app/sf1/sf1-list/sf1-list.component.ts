@@ -59,6 +59,8 @@ export class SF1ListComponent implements OnInit {
 
   error: any
 
+  private currentKeywords: string[]
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -96,6 +98,9 @@ export class SF1ListComponent implements OnInit {
         this.clear()
         this.initPages()
         this.initFilter()
+
+        // 供文本高亮使用
+        this.currentKeywords = this.exp.getKeyWords()
       }
     })
 
@@ -397,6 +402,11 @@ export class SF1ListComponent implements OnInit {
         ti.checked = false
         break
     }
+  }
+
+
+  highLightText(s: string): string {
+    return this.service.formatString(s, this.currentKeywords)
   }
 
 }

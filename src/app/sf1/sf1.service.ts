@@ -12,6 +12,7 @@ export interface Patent {
   // sf1
   // 专利信息ID
   pid: string
+  // sysid
   sysid: string
   // 申请号
   appNumber: string
@@ -214,20 +215,18 @@ export class SF1Service {
     { code: 'OTHERPATENT', name: '更多其它国家', group: 'OTHERS' },
   ]
 
+  // 最后一次检索条件
   lastParams: SF1SearchParams
+  // 检索失败时的重定向地址
   redirectUrl: string
+  // 无法重定向时，使用默认重定向
   defaultSearchRedirectUrl = '/sf1/simple'
 
 
   constructor(private http: Http) {
     this.redirectUrl = ''
   }
-  /*
-    getList(params: SF1SearchParams): Observable<SF1Response> {
-      this.lastParams = Object.assign({}, params)
-      return this.search(params)
-    }
-  */
+
   /**
    *
    * @param searchConditions (string) 查询条件
@@ -264,13 +263,39 @@ export class SF1Service {
     return undefined
   }
 
+
+  /**
+   * 转义正则特殊字符 （$()*+.[]?\^{},|）
+   *
+   * @param keyword
+   * @return
+   */
+  escapeExprSpecialWord(keyword: string) {
+    if (keyword) {
+      const fbsArr: string[] = ['\\', '$', '(', ')', '*', '+', '.', '[', ']', '?', '^', '{', '}', '|' ]
+      fbsArr.forEach(key => {
+        if (keyword.indexOf(key) >= 0) {
+          keyword = keyword.replace(key, '')
+        }
+      })
+    }
+
+    return keyword
+  }
+
   /**
    * 格式化文本，突出显示关键字
    * @param s 文本
    * @param keywords 关键字数组
    */
-  formatString(s: string, keywords: Array<string>): string {
+  formatString(s: any, keywords: Array<string>): string {
     if (s && keywords) {
+      let text: string = s.toString()
+      keywords.forEach(word => {
+        const w = this.escapeExprSpecialWord(word)
+        text = text.replace(w, '<span class="m-highlight">' + w + '</span>')
+      })
+      return text
     }
 
     return ''
