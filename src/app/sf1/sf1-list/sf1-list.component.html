@@ -230,13 +230,15 @@
                       <div class="col-xs-4">
                         <p>
                           <strong>公开（公告）号：</strong>
-                          <a href="#" class="c-blue" target="_blank">{{item.pubNumber}}</a>
+                          <a href="#" class="c-blue" target="_blank">
+                            <span [appHighlightText]="item.pubNumber"></span>
+                          </a>
                         </p>
                       </div>
                       <div class="col-xs-8">
                         <p>
                           <strong>申请（专利权）人：</strong>
-                          <a href="#" target="_blank" class="">{{item.applicantName}}</a>
+                          <span [appHighlightText]="item.applicantName"></span>
                         </p>
                       </div>
                     </div>
@@ -244,14 +246,16 @@
                       <div class="col-xs-4">
                         <p>
                           <strong>申请日：</strong>
-                          <a href="#" target="_blank">{{item.appDate}}</a>
+                          {{item.appDate}}
                         </p>
 
                       </div>
                       <div class="col-xs-8">
                         <p>
                           <strong>主分类号：</strong>
-                          <a href="#" target="_blank">{{item.mainIpc}}</a>
+                          <a href="#" class="c-blue" target="_blank">
+                              <span [appHighlightText]="item.mainIpc"></span>
+                          </a>
                         </p>
                       </div>
                     </div>
@@ -259,7 +263,7 @@
                       <div class="col-xs-4">
                         <p>
                           <strong>公开（公告）日：</strong>
-                          <a href="#" target="_blank">{{item.pubDate}}</a>
+                          {{item.pubDate}}
                         </p>
                       </div>
                       <div class="col-xs-8">
@@ -267,7 +271,8 @@
                     </div>
                     <div class="row">
                       <div class="col-xs-12">
-                        <strong>摘要：</strong>{{item.abs}}
+                        <strong>摘要：</strong>
+                        <span [appHighlightText]="item.abs"></span>
                       </div>
                     </div>
                   </div>

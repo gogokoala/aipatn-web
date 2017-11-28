@@ -15,12 +15,7 @@ export class HighlightTextDirective  {
     setTimeout(() => {
       console.dir(this.appHighlightText)
 //      const span = this.getHighLightElement(this.appHighlightText)
-      const span = this.getHighLightElement('飞机飞式飞机式工工工工飞机工工工城墙飞机')
-      if (span) {
-        console.log('h!!')
-        console.dir(span)
-        this.renderer.appendChild(this.el.nativeElement, span)
-      }
+      this.getHighLightElement(this.appHighlightText)
     }, 30);
   }
 
@@ -54,48 +49,41 @@ export class HighlightTextDirective  {
       const text: string = s.toString()
       elementArr = [ text ]
 
-      const span = this.renderer.createText(text)
+      const div = this.renderer.createElement('div')
 
       keywords.forEach(word => {
         const w = this.escapeExprSpecialWord(word)
-        let rr: any[] = []
+        const rr: any[] = []
         elementArr.forEach(el => {
           if (typeof el === 'string') {
             const res = this.highlightKeyword(el, w)
             res.forEach(el1 => {
               rr.push(el1)
             })
-            console.log('result')
-            console.dir(res)
-            rr.concat(res)
-            console.log('result1')
-            console.dir(rr)
+//            console.log('result rr')
+//            console.dir(rr)
           } else {
             rr.push(el)
           }
         })
         elementArr = rr
-        console.dir(elementArr)
+//        console.dir(elementArr)
 //        text = text.replace(w, '<span class="m-highlight">' + w + '</span>')
       })
 
       elementArr.forEach(el => {
         if (typeof el === 'string') {
           const textNode = this.renderer.createText(el)
-          console.log('text node:')
-          console.dir(textNode)
-          this.renderer.appendChild(span, textNode)
+//          console.log('text node:')
+//          console.dir(textNode)
+          this.renderer.appendChild(this.el.nativeElement, textNode)
         } else {
-          console.log('highlight node')
-          console.dir(el)
-          this.renderer.appendChild(span, el)
+//          console.log('highlight node')
+//          console.dir(el)
+          this.renderer.appendChild(this.el.nativeElement, el)
         }
       })
-
-      return span
     }
-
-    return null
   }
 
   highlightKeyword(s: string, keyword: string) {
