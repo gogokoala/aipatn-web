@@ -25,6 +25,7 @@
     "core-js": "^2.4.1",
     "debug": "^3.1.0",
     "font-awesome": "^4.7.0",
+    "g": "^2.0.1",
     "knex": "^0.13.0",
     "moment": "^2.18.1",
     "mysql": "^2.15.0",
@@ -53,6 +54,6 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.3.2",
-    "typescript": "~2.3.3"
+    "typescript": "^2.3.4"
   }
 }

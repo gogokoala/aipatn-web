@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { SF1Service, SF1Response, SF1SearchParams } from '../sf1.service'
 import { SF1SearchExp } from '../sf1-search.service'
 import * as moment from 'moment'
+// import { Renderer2, Renderer } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-sf1-list',
   templateUrl: './sf1-list.component.html',
   styleUrls: ['./sf1-list.component.css']
 })
-export class SF1ListComponent implements OnInit {
+export class SF1ListComponent implements OnInit, AfterViewInit {
 
   // filter_items: any[] = [
   //   { id: 1, name: '国家' },
@@ -59,13 +61,16 @@ export class SF1ListComponent implements OnInit {
 
   error: any
 
-  private currentKeywords: string[]
+  @ViewChild('hightlight')
+  hightlightSpan: ElementRef
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private service: SF1Service,
-    private sf1exp: SF1SearchExp
+    private sf1exp: SF1SearchExp,
+//    private elementRef: ElementRef,
+//    private renderer: Renderer2
   ) {
     this.exp = sf1exp
     this.searchFields = this.exp.getFields()
@@ -100,7 +105,7 @@ export class SF1ListComponent implements OnInit {
         this.initFilter()
 
         // 供文本高亮使用
-        this.currentKeywords = this.exp.getKeyWords()
+        this.service.currentKeywords = this.exp.getKeyWords()
       }
     })
 
@@ -112,6 +117,13 @@ export class SF1ListComponent implements OnInit {
         setTimeout(() => { this.error = null }, 30000)
       }
     })
+  }
+
+  ngAfterViewInit() {
+//    this.renderer.createText(this.hightlightSpan.nativeElement, 'AAA')
+//    console.dir(this.elementRef.nativeElement.querySelector('hightlight'));
+    // let greetDiv: HTMLElement = this.elementRef.nativeElement.querySelector('div');
+    // greetDiv.style.backgroundColor = 'red';
   }
 
   getDbName(code: string) {
@@ -402,11 +414,6 @@ export class SF1ListComponent implements OnInit {
         ti.checked = false
         break
     }
-  }
-
-
-  highLightText(s: string): string {
-    return this.service.formatString(s, this.currentKeywords)
   }
 
 }

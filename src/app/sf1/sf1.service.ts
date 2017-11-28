@@ -221,6 +221,8 @@ export class SF1Service {
   redirectUrl: string
   // 无法重定向时，使用默认重定向
   defaultSearchRedirectUrl = '/sf1/simple'
+  // 突出显示关键字
+  currentKeywords: string[]
 
 
   constructor(private http: Http) {
@@ -263,42 +265,5 @@ export class SF1Service {
     return undefined
   }
 
-
-  /**
-   * 转义正则特殊字符 （$()*+.[]?\^{},|）
-   *
-   * @param keyword
-   * @return
-   */
-  escapeExprSpecialWord(keyword: string) {
-    if (keyword) {
-      const fbsArr: string[] = ['\\', '$', '(', ')', '*', '+', '.', '[', ']', '?', '^', '{', '}', '|' ]
-      fbsArr.forEach(key => {
-        if (keyword.indexOf(key) >= 0) {
-          keyword = keyword.replace(key, '')
-        }
-      })
-    }
-
-    return keyword
-  }
-
-  /**
-   * 格式化文本，突出显示关键字
-   * @param s 文本
-   * @param keywords 关键字数组
-   */
-  formatString(s: any, keywords: Array<string>): string {
-    if (s && keywords) {
-      let text: string = s.toString()
-      keywords.forEach(word => {
-        const w = this.escapeExprSpecialWord(word)
-        text = text.replace(w, '<span class="m-highlight">' + w + '</span>')
-      })
-      return text
-    }
-
-    return ''
-  }
 }
 
