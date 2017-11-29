@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import {PreloadAllModules, RouterModule,  Routes} from '@angular/router';
 import { TestComponent } from './test/test.component'
 
 const appRoutes: Routes = [
@@ -11,7 +11,11 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [ RouterModule.forRoot(
     appRoutes,
-    { enableTracing: true } // <-- debugging purposes only
+    {
+      enableTracing: true, // <-- debugging purposes only
+      preloadingStrategy: PreloadAllModules,
+      useHash: true
+    }
 ) ],
   exports: [ RouterModule ]
 })
