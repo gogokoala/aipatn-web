@@ -7,8 +7,7 @@
             "name": "Launch Chrome (windows)",
             "preLaunchTask": "startServer",
             "disableNetworkCache": true,
-            "internalConsoleOptions": "",
-            "url": "http://localhost:8100",
+            "url": "http://localhost:8100/#/test",
             "webRoot": "${workspaceRoot}",
             "runtimeExecutable": "C:\\Users\\Administrator\\AppData\\Local\\Chromium\\Application\\chrome.exe"
         }
