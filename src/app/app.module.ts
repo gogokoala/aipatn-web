@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http'
 
 /* App Component */
 import { AppComponent } from './app.component'
-import { HeaderComponent } from './header/header.component'
+// import { HeaderComponent } from './header/header.component'
 // import { FooterComponent } from './footer/footer.component'
 
 /* Routing Module */
@@ -15,25 +15,33 @@ import { AppRoutingModule } from './app-routing.module'
 import { SF1Module } from './sf1/sf1.module'
 
 /* Service */
-import { UserService } from './services/user.service'
-import { TestComponent } from './test/test.component'
+import { UserService } from './services/user.service';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component'
+// import { TestComponent } from './test/test.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-//    FooterComponent,
-    TestComponent,
+    HomeComponent,
+    LoginComponent,
+    //    HeaderComponent,
+    //    FooterComponent,
+    //    TestComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpModule,
-    SF1Module
+    SF1Module,
   ],
-  providers: [UserService],
-  bootstrap: [AppComponent]
+  providers: [
+    UserService,
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 
 export class AppModule { }

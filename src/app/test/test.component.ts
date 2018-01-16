@@ -27,20 +27,20 @@ export class TestComponent implements OnInit {
   private a: BClass
   private b: BClass
 
-  private showPdf(url){
-    let pdfView=document.getElementById('pdfView');
-    pdfView.innerHTML='';
-    
+  private showPdf(url) {
+    let pdfView = document.getElementById('pdfView');
+    pdfView.innerHTML = '';
+
     PDFJS.getDocument('/assets/pdfjs/test.pdf').then(function (pdf) {
       console.log(pdf.numPages)
-      let curPage=1
+      let curPage = 1
       showPage()
 
-      function showPage(){
+      function showPage() {
         pdf.getPage(curPage).then(function (page) {
           let cav = document.createElement('canvas') as HTMLCanvasElement
-          cav.style.margin='4px'
-          cav.style.display='block'
+          cav.style.margin = '4px'
+          cav.style.display = 'block'
           pdfView.appendChild(cav)
 
           let context = cav.getContext('2d');
@@ -48,7 +48,7 @@ export class TestComponent implements OnInit {
           let viewport = page.getViewport(1);
           cav.height = viewport.height;
           cav.width = viewport.width;
-    
+
           // Render PDF page into canvas context.
           var renderContext = {
             canvasContext: context,
@@ -57,13 +57,13 @@ export class TestComponent implements OnInit {
           page.render(renderContext);
 
           curPage++
-          if (curPage<=pdf.numPages){
+          if (curPage <= pdf.numPages) {
             showPage()
-          } 
-        })    
+          }
+        })
       }
 
-    }) 
+    })
   }
 
   ngOnInit() {
