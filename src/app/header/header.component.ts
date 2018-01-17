@@ -10,6 +10,8 @@ import { UserService } from '../services/user.service'
 export class HeaderComponent implements OnInit {
 
   homeTitle = '律政派拓源'
+  companyEMail = 'support@aipatn.com'
+  companyHotLine = '4000-000-000'
 
   constructor(
     private router: Router,

@@ -1,5 +1,17 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-color">
   <div class="container-fluid">
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <img src="/assets/images/mail.jpg" width="43" height="32" class="style4" /><span class="style3">{{companyEMail}}</span>
+        </li>
+        <li>
+          <img src="/assets/images/tel.jpg" width="32" height="31"/><span class="style3">{{companyHotLine}}</span>
+        </li>
+      </ul>
+    </div>
+
     <div class="navbar-header">
       <a href="./" class="navbar-brand"><img src="/assets/images/logo-nav.png">{{homeTitle}}</a>
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -9,7 +21,7 @@
       </button>
     </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+    <div class="collapse navbar-collapse" id="navbar-collapse-2">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#login" (click)="doLogin()">登录</a></li>
         <li><a href="#signin" (click)="doSignIn()">注册</a></li>
