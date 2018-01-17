@@ -1,15 +1,1 @@
 /* You can add global styles to this file, and also import other style files */
-html,
-body {
-  width:100%;
-  height:100%;
-  overflow-x:hidden;
-  overflow-y:hidden;
-  position: relative;
-}
-body {
-  text-align: center;
-}
-ol, ul {
-  list-style: none;
-}

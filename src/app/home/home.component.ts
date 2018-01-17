@@ -9,6 +9,8 @@ import { UserService } from '../services/user.service'
 })
 export class HomeComponent implements OnInit {
 
+  searchKeyword: string
+
   constructor(
     private router: Router,
     private user: UserService
@@ -25,6 +27,17 @@ export class HomeComponent implements OnInit {
   doSignIn() {
     const action = 'signin'
     this.router.navigate(['/login'], { queryParams: { action } });
+  }
+
+  doSearch() {
+    if (this.searchKeyword) {
+    }
+  }
+
+  doClear() {
+    if (this.searchKeyword) {
+      this.searchKeyword = ''
+    }
   }
 
 }

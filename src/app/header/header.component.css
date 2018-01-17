@@ -8,15 +8,15 @@
 
 .navbar-comm {
   color: #fff;
-  background-color: #373d41;
-  border-color: #373737;
+  background-color: #000;
+  border-color: #000;
   min-height: auto;
 }
 
 .navbar-title {
   color: #fff;
-  background-color: #113f6c;
-  border-color: #073255;
+  background-color: #003366;
+  border-color: #003366;
 }
 
 .navbar-brand {

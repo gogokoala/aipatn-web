@@ -4,9 +4,10 @@
 
 /* footer */
 .footer {
-  background-color:#373d41;
+  background-color:#333333;
   width:100%;
   text-align: left;
+  height: 300px;
 }
 
 .footer .copyright {
@@ -20,7 +21,7 @@
   line-height: 24px;
   display: inline-block;
   margin-right: 30px;
-  color: rgb(155, 158, 160);
+  color: #fff;
   text-decoration: none;
 }
 
@@ -29,11 +30,10 @@
 }
 
 .footer .copyright .link a {
-  font-size:14px;
   line-height: 21px;
   display: inline-block;
   margin-right: 10px;
-  color: rgb(115, 119, 122);
+  color: #999999;
   text-decoration: none;
 }
 
@@ -44,12 +44,20 @@
 .footer .copyright .info span{
   font-size: 14px;
   line-height: 21px;
-  color:rgb(115, 119, 122);
+  color:#999999;
   display: block;
 }
 
-.footer .copyright .info a{
-  vertical-align: top;
+.footer .copyright .info a {
+  font-size:14px;
+  line-height: 21px;
+  display: inline-block;
+  color: #999999;
+  text-decoration: none;
+}
+
+.footer .copyright .info a:hover{
+  color:#00a2ca;
 }
 
 .miit-logo {
