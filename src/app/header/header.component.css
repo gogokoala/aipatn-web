@@ -33,14 +33,4 @@
   .navbar-right {
     margin-right: 0;
   }
-  .modal-dialog {
-      margin: 150px auto;
-  }
-  .modal-dialog label {
-    color: #000000;
-  }
-  .modal-dialog .row {
-    height: 50px;
-  }
-
 }

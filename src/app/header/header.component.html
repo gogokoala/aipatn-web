@@ -1,7 +1,34 @@
-<div class="navbar navbar-default navbar-fixed-top navbar-transparent">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pricing</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="navbar-header">
-      <a href="./" class="navbar-brand"><img src="/assets/images/logo-nav.png">AiPatn</a>
+      <a href="./" class="navbar-brand"><img src="/assets/images/logo-nav.png">{{homeTitle}}</a>
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -9,70 +36,9 @@
       </button>
     </div>
     <div class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
-          <li><a href="">首页</a></li>
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">专利检索<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a routerLink="/sf1" routerLinkActive="active">简单检索</a></li>
-                <li><a routerLink="/sf1/complex" routerLinkActive="active">高级检索</a></li>
-                <li class="divider"></li>
-                <li><a href="#">法律检索</a></li>
-              </ul>
-          </li>
-      </ul>
       <ul class="nav navbar-nav navbar-right">
-          <li><a href="#loginModel">登录</a></li>
-          <li><a href="#regModal" data-toggle="modal">注册</a></li>
+        <li><a href="#login" (click)="doLogin()">登录</a></li>
+        <li><a href="#signin" (click)="doSignIn()">注册</a></li>
       </ul>
     </div>
-  </div><!-- container-fluid -->
-</div>
-
-<!-- Modal -->
-<div class="modal" id="regModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog container-fluid" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">新用户注册</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="row">
-            <div class="col-md-2">
-              <label class="control-label">您的称呼:</label>
-            </div>
-            <div class="col-md-10">
-              <input type="text" class="form-control" id="username">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2">
-              <label class="control-label">手机号:</label>
-            </div>
-            <div class="col-md-10">
-              <input type="text" class="form-control" id="phone">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2">
-              <label class="control-label">验证码:</label>
-            </div>
-            <div class="col-md-5">
-              <input type="text" class="form-control" id="vcode">
-            </div>
-            <div class="col-md-5">
-              <button type="button" class="btn btn-default" (click)="getVCode()">{{vcodeTitle}}</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">注册</button>
-      </div>
-    </div>
-  </div>
-</div>
+</nav>

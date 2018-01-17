@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core'
 export class FooterComponent implements OnInit {
 
   company = '江苏派拓源信息技术有限公司'
-  address = '江苏省无锡市'
+  address = '江苏省无锡市新吴区菱湖大道111号'
   hotline = '4001-185-185'
   icp = '苏ICP备17071099号-1'
   about_url = '#'

@@ -5,8 +5,8 @@ import { HttpModule } from '@angular/http'
 
 /* App Component */
 import { AppComponent } from './app.component'
-// import { HeaderComponent } from './header/header.component'
-// import { FooterComponent } from './footer/footer.component'
+import { HeaderComponent } from './header/header.component'
+import { FooterComponent } from './footer/footer.component'
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module'
@@ -15,8 +15,8 @@ import { AppRoutingModule } from './app-routing.module'
 import { SF1Module } from './sf1/sf1.module'
 
 /* Service */
-import { UserService } from './services/user.service';
-import { HomeComponent } from './home/home.component';
+import { UserService } from './services/user.service'
+import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login.component'
 // import { TestComponent } from './test/test.component'
 
@@ -25,8 +25,8 @@ import { LoginComponent } from './login/login.component'
     AppComponent,
     HomeComponent,
     LoginComponent,
-    //    HeaderComponent,
-    //    FooterComponent,
+    HeaderComponent,
+    FooterComponent,
     //    TestComponent,
   ],
   imports: [

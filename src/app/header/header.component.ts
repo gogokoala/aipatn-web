@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { Router, ActivatedRoute } from '@angular/router'
+import { UserService } from '../services/user.service'
 
 @Component({
   selector: 'app-header',
@@ -7,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  vcodeTitle: string
+  homeTitle = '律政派拓源'
 
-  constructor() {
-    this.vcodeTitle = '获取验证码'
+  constructor(
+    private router: Router,
+    private user: UserService
+  ) {
   }
 
   ngOnInit() {
@@ -19,5 +23,16 @@ export class HeaderComponent implements OnInit {
   getVCode() {
 
   }
+
+  doLogin() {
+    const action = 'login'
+    this.router.navigate(['/login'], { queryParams: { action } });
+  }
+
+  doSignIn() {
+    const action = 'signin'
+    this.router.navigate(['/login'], { queryParams: { action } });
+  }
+
 
 }
