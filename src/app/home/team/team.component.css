@@ -1,0 +1,36 @@
+.team {
+  width: 100%;
+  background-color: #003366;
+  text-align: center;
+  display: block;
+}
+
+.team-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 60px;
+  border-top: #000 none 0px;
+  border-left: #000 none 0px;
+  border-right: #000 none 0px;
+  border-bottom: #00cd63 solid 2px;
+}
+
+.team-intro {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 25px;
+}
+
+.team-pic {
+  height: 400px;
+  background: url(/assets/images/home/team.jpg) no-repeat;
+  background-size: 100% auto;
+}
+
+.team-leaders {
+  padding-top: 15px;
+  color: #fff;
+}
+

@@ -1,0 +1,31 @@
+.business {
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
+}
+
+.b-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333333;
+  line-height: 60px;
+  border-top: #000 none 0px;
+  border-left: #000 none 0px;
+  border-right: #000 none 0px;
+  border-bottom: #00cd63 solid 2px;
+}
+
+.b-cards-row {}
+
+.b-card {
+  text-align: center;
+}
+
+.b-card .panel-body {
+  display: block;
+}
+
+.consult-btn {
+  margin-top: 20px;
+}
+

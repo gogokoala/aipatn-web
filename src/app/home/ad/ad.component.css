@@ -1,0 +1,11 @@
+.ad {
+  width: 100%;
+  background: url(/assets/images/home/ad1.jpg) no-repeat;
+  background-size: 100% auto;
+/*  -webkit-filter: grayscale(100%); */
+/*  filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); */
+}
+
+.ad .context {
+  height: 560px;
+}
