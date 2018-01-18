@@ -7,6 +7,8 @@
   width: 100%;
   background: url(/assets/images/home/ad1.jpg) no-repeat;
   background-size: 100% auto;
+  -webkit-filter: grayscale(100%);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
 }
 
 .pat-home .ad .context {
@@ -18,25 +20,30 @@
 .pat-home .search {
   height: 80px;
   width: 100%;
-  background-color: #ccc;
+  background-color: #003366;
   text-align: center;
 }
 
 .pat-home .business {
   width: 100%;
-  background-color: #003366;
+  background-color: #fff;
   text-align: center;
 }
 
 .pat-home .team {
-  height: 560px;
-  background-color: #ccc;
+  height: 820px;
+  width: 100%;
+  background-color: #003366;
+  text-align: center;
+  display: block;
 }
 
-.pat-home .doc {
+.pat-home .news {
   height: 560px;
   width: 100%;
   background-color: #fff;
+  text-align: center;
+  display: block;
 }
 
 /* search */
@@ -100,14 +107,14 @@
 
 /* business */
 .b-title {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
-    color: #fff;
+    color: #333333;
     line-height: 60px;
-    border: 3px;
-    border-color: #00cd63;
-    border-top: none;
-    border-bottom: none;
+    border-top: #000 none 0px;
+    border-left: #000 none 0px;
+    border-right: #000 none 0px;
+    border-bottom: #00cd63 solid 2px;
 }
 
 .b-cards-row {
@@ -115,5 +122,70 @@
 }
 
 .b-card {
-    text-align: left;
+    text-align: center;
+}
+
+.b-card .panel-body {
+  display: block;
+}
+
+.consult-btn {
+  margin-top: 20px;
+}
+
+/* team */
+.team-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 60px;
+  border-top: #000 none 0px;
+  border-left: #000 none 0px;
+  border-right: #000 none 0px;
+  border-bottom: #00cd63 solid 2px;
+}
+
+.team-intro {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 25px;
+}
+
+.team-pic {
+  height: 400px;
+  background: url(/assets/images/home/team.jpg) no-repeat;
+  background-size: 100% auto;
+}
+
+.team-leaders {
+  padding-top: 15px;
+  color: #fff;
+}
+
+/* news */
+.news-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  line-height: 60px;
+  border-top: #000 none 0px;
+  border-left: #000 none 0px;
+  border-right: #000 none 0px;
+  border-bottom: #00cd63 solid 2px;
+}
+
+.news-item {
+  height: 400px;
+  border: #00cd63 solid 1px;
+  padding: 10px;
+}
+
+.news-item > h1 {
+  font-size: 24px;
+}
+
+.news-item > p {
+  font-size: 14px;
+  text-align: left;
 }
