@@ -28,7 +28,8 @@ export class HeaderComponent implements OnInit {
 
   doLogin() {
     const action = 'login'
-    this.router.navigate(['/login'], { queryParams: { action } });
+//    this.router.navigate(['/login'], { queryParams: { action } });
+    this.router.navigate(['/userdesk'], {});
   }
 
   doSignIn() {

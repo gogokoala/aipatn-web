@@ -16,13 +16,17 @@ import { SF1Module } from './sf1/sf1.module'
 
 /* Service */
 import { UserService } from './services/user.service'
-import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login.component';
+
+/* Home Components */
+import { HomeComponent } from './home/home.component'
 import { AdComponent } from './home/ad/ad.component';
 import { SearchComponent } from './home/search/search.component';
 import { NewsComponent } from './home/news/news.component';
 import { BusinessComponent } from './home/business/business.component';
-import { TeamComponent } from './home/team/team.component'
+import { TeamComponent } from './home/team/team.component';
+
+import { UserDeskComponent } from './userdesk/userdesk.component'
 // import { TestComponent } from './test/test.component'
 
 @NgModule({
@@ -37,6 +41,7 @@ import { TeamComponent } from './home/team/team.component'
     NewsComponent,
     BusinessComponent,
     TeamComponent,
+    UserDeskComponent,
     //    TestComponent,
   ],
   imports: [
