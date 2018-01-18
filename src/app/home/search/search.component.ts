@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
+  searchKeyword: string
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  doSearch() {
+    if (this.searchKeyword) {
+    }
+  }
+
+  doClear() {
+    if (this.searchKeyword) {
+      this.searchKeyword = ''
+    }
   }
 
 }
