@@ -27,8 +27,9 @@
 /* module */
 .pat-module {
   width: 100%;
-  min-width: 1200px;
   padding: 76px 0px;
+  background: url(/assets/images/desk/bg1.jpg) repeat-y;
+  background-size: 100% auto;
 }
 
 .pat-module .head {
@@ -52,18 +53,18 @@
 }
 
 .pat-module .main {
-  width: 1200px;
-  height: 480px;
+  width: 65%;
   margin: 0px auto;
 }
 
 .pat-module .main .cell {
   display: inline-block;
-  width: 390px;
-  height: 200px;
+  min-width: 300px;
+  height: 240px;
   margin: 10px 0px;
   text-align: center;
-
+  border: #00a2ca solid 1px;
+  vertical-align: top;
 }
 
 .pat-module .main .cell>a {
@@ -76,8 +77,8 @@
 .pat-module .main .cell>a h2 {
   font-size: 20px;
   line-height: 30px;
-  font-weight: 700;
-  color: rgb(55, 61, 65);
+  font-weight: bold;
+  color: #000;
 }
 
 .pat-module .main .cell>a h2:hover{
@@ -111,7 +112,7 @@
 }
 
 .pat-module .main .cell .list a{
-  color: rgb(169, 176, 180);
+  color: #000;
   text-decoration: none;
 }
 
