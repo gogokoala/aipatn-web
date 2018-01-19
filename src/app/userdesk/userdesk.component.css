@@ -3,6 +3,7 @@
   background-color: #fff;
 }
 
+/* menu */
 .pat-menu {
   color: #fff;
   background-color: #003366;
@@ -13,4 +14,107 @@
 
 .pat-menu a {
   color: #fff;
+}
+
+.pat-menu .dropdown-toggle {
+  color: #fff;
+}
+
+.pat-menu .dropdown-menu a {
+  color: #333;
+}
+
+/* module */
+.pat-module {
+  width: 100%;
+  min-width: 1200px;
+  padding: 76px 0px;
+}
+
+.pat-module .head {
+  text-align: center;
+}
+
+.pat-module .head h1 {
+  line-height: 36px;
+  font-size: 24px;
+}
+
+.pat-module .head a {
+  text-decoration: none;
+  color: rgb(95, 99, 103);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.pat-module a:hover {
+  color: #00a2ca;
+}
+
+.pat-module .main {
+  width: 1200px;
+  height: 480px;
+  margin: 0px auto;
+}
+
+.pat-module .main .cell {
+  display: inline-block;
+  width: 390px;
+  height: 200px;
+  margin: 10px 0px;
+  text-align: center;
+
+}
+
+.pat-module .main .cell>a {
+  display: block;
+  width: 100px;
+  margin: 0px auto;
+  text-decoration: none;
+}
+
+.pat-module .main .cell>a h2 {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 700;
+  color: rgb(55, 61, 65);
+}
+
+.pat-module .main .cell>a h2:hover{
+  color: #00a2ca;
+}
+
+.pat-module .main .cell .image {
+  background-position: 0px 0px;
+  background-size: 75px;
+  height: 75px;
+  width: 75px;
+  margin: 0px auto;
+
+}
+
+/* .pat-module .main .cell .image:hover {
+  background-position: 0px -4425px;
+} */
+
+.pat-module .main .cell .list{
+  list-style-type: none;
+  text-align: center;
+  padding-top: 10px;
+  display: block;
+}
+
+.pat-module .main .cell .list li{
+  display: inline-block;
+  text-align: center;
+  color: rgb(51, 51, 51);
+}
+
+.pat-module .main .cell .list a{
+  color: rgb(169, 176, 180);
+  text-decoration: none;
+}
+
+.pat-module .main .cell .list a:hover{
+  color: #00a2ca;
 }
