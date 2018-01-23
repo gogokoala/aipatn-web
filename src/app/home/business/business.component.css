@@ -21,6 +21,10 @@
   text-align: center;
 }
 
+.b-card .panel-title {
+  font-weight: bold;
+}
+
 .b-card .panel-body {
   display: block;
 }
