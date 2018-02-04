@@ -2,3 +2,300 @@
   display: block;
   background-color: #fff;
 }
+
+.login,
+.register
+{
+    width: 990px;
+    margin: 76px auto;    
+}
+
+.login a,
+.register a
+{
+    text-decoration: none;
+}
+
+.login .txt,
+.register .txt
+{
+    color:#ffffff;
+    line-height: 36px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.login .txt h1,
+.register .txt h1
+{
+    margin-bottom: 19px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.login .txt ul,
+.register .txt ul
+{
+    list-style-type: none;
+}
+
+.login .txt li,
+.register .txt li
+{
+    font-size: 14px;
+}
+
+.login .main,
+.register .main
+{
+    margin-left: 250px;
+    background-color: #ffffff;
+    width: 380px;
+    height: 360px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.login .main .box,
+.register .main .box
+{
+    width: 90%;
+    margin: 5% auto;
+    position: relative;
+}
+
+.login .main .corner{
+    position: absolute;
+    cursor: pointer;
+    top:0px;
+    right:0px;
+    width: 40px;
+    height: 40px;
+    background-size: 40px;
+}
+
+.login .main .tip{
+    position: absolute;
+    top: 0px;
+    right: 45px;
+
+    background-color:rgb(230, 249, 252);
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(20, 194, 221);
+
+    padding: 5px 10px;
+}
+
+.login .main .tip .arrow{
+    position:absolute;
+    top:8px;
+    right:0px;
+}
+
+.login .main .tip .arrow em{
+    border-color: transparent;
+    border-style: solid;
+    border-width: 6px;
+    border-left-color: rgb(20, 194, 221);
+    position: absolute;
+    top:0px;
+    left:1px;
+}
+
+.login .main .tip .arrow span{
+    border-color: transparent;
+    border-style: solid;
+    border-width: 6px;
+    border-left-color: rgb(230, 249, 252);
+    position: absolute;
+    top:0px;
+    left:0px;
+}
+
+.login .main .tip>span{
+    font-size: 12px;
+    line-height: 16px;
+    color:rgb(20, 194, 221);
+}
+
+.login .lgnform,
+.register .regform
+{
+    color: rgb(115, 119, 122);
+    line-height: 24px;
+}
+
+.login .lgnform .title,
+.register .regform .title
+{
+    font-size: 18px;
+}
+
+.login .lgnform .info,
+.register .regform .info{
+    font-size: 12px;
+    margin: 25px 0px 15px 0px;
+}
+
+.login .lgnform>input[type=text],
+.login .lgnform>input[type=password],
+.register .regform>input[type=text],
+.register .regform>input[type=password]
+{
+    border-style: solid;
+    border-color: rgb(215, 216, 217);
+    border-width: 1px;
+    color: rgb(89, 89, 89);
+    line-height: 40px;
+    height: 40px;
+    width: 100%;
+    padding: 0px 10px;
+    margin-bottom: 20px;
+}
+
+.login .lgnform .pwdwrap,
+.register .regform .pwdwrap
+{
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    
+}
+
+.login .lgnform .pwdwrap>input[type=text],
+.register .regform .pwdwrap>input[type=text]
+{
+    border-style: solid;
+    border-color: rgb(215, 216, 217);
+    border-width: 1px;
+    color: rgb(89, 89, 89);
+    line-height: 40px;
+    height: 40px;
+    width: 70%;
+    padding: 0px 10px;
+    vertical-align:middle;
+}
+
+.login .lgnform .pwdwrap>button,
+.register .regform .pwdwrap>button
+{
+    width: 29%;
+    line-height: 40px;
+    height: 40px;
+    border-style: solid;
+    border-color:lightgray;
+    border-width: 1px;
+    background-color: lightgray;
+    color: gray;
+    font-size: 14px;
+    text-align: center;
+    vertical-align:middle;
+}
+
+.login .lgnform input:hover,
+.login .lgnform .pwdwrap input:hover,
+.register .regform input:hover,
+.register .regform .pwdwrap input:hover
+{
+    border-color: rgb(20, 194, 221);
+}
+
+.login .lgnform .submit,
+.register .regform .submit
+{
+    display: block;
+    border-style: solid;
+    border-color: rgb(0, 193, 222);
+    border-width: 1px;
+    background-color: rgb(0, 193, 222);
+    font-size: 14px;
+    color: #ffffff;
+    height:40px;
+    width:100%;
+    line-height: 40px;
+    text-align: center;
+}
+
+.login .lgnform .submit:hover,
+.login .lgnform button:hover,
+.register .regform .submit:hover,
+.register .regform button:hover
+{
+    background-color: rgb(0, 183, 211);
+    border-color: rgb(0, 183, 211);
+    color: #ffffff;
+}
+
+.login .lgnform .links
+{
+    margin: 10px 0px;
+    width:100%;
+}
+
+.login .lgnform .links a{
+    display: block;
+    float: right;
+    text-decoration: none;
+    margin-left: 10px;
+    color: rgb(155, 158, 160);
+    font-size: 12px;
+}
+
+.login .lgnform .links a:hover{
+    color: #00a2ca;
+}
+
+.login .lgnform .other {
+    margin: 50px 0px;
+    width:100%;
+    color:rgb(55, 61, 65);
+    font-size: 12px;
+}
+
+.login .lgnform .other a{
+    display: inline-block;
+    margin: 0px 2px;
+    width: 22px;
+    height: 22px;
+    background-size: contain;
+    vertical-align: middle;
+}
+
+.login .lgnform .code {
+    width: 140px;
+    height: 140px;
+    margin: 35px auto 10px auto;
+}
+
+.login .lgnform .code img{
+    width:100%;
+    height:100%;
+}
+
+.login .lgnform .desc {
+    width:100%;
+    text-align: center;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.login .lgnform .desc a{
+    text-decoration: none;
+    color:#00a2ca;
+}
+
+@keyframes fadein
+{
+    from { 
+        opacity: 0; 
+        transform: translateY(20px);
+    }
+
+    to { 
+        opacity: 1; 
+    }
+}

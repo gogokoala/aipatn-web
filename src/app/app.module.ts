@@ -26,7 +26,7 @@ import { NewsComponent } from './home/news/news.component';
 import { BusinessComponent } from './home/business/business.component';
 import { TeamComponent } from './home/team/team.component';
 
-import { UserDeskComponent } from './userdesk/userdesk.component'
+import { UserDeskComponent } from './userdesk/userdesk.component';
 // import { TestComponent } from './test/test.component'
 
 @NgModule({
