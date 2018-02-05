@@ -1,23 +1,17 @@
-.pat-login {
-  display: block;
-  background-color: #fff;
-}
-
-.login,
-.register
+.login
 {
+    display: block;
+    background-color: #fff;
     width: 990px;
-    margin: 76px auto;    
+    margin: 76px auto;
 }
 
-.login a,
-.register a
+.login a
 {
     text-decoration: none;
 }
 
-.login .txt,
-.register .txt
+.login .txt
 {
     color:#ffffff;
     line-height: 36px;
@@ -25,28 +19,24 @@
     vertical-align: top;
 }
 
-.login .txt h1,
-.register .txt h1
+.login .txt h1
 {
     margin-bottom: 19px;
     font-size: 30px;
     font-weight: 700;
 }
 
-.login .txt ul,
-.register .txt ul
+.login .txt ul
 {
     list-style-type: none;
 }
 
-.login .txt li,
-.register .txt li
+.login .txt li
 {
     font-size: 14px;
 }
 
-.login .main,
-.register .main
+.login .main
 {
     margin-left: 250px;
     background-color: #ffffff;
@@ -56,8 +46,7 @@
     vertical-align: top;
 }
 
-.login .main .box,
-.register .main .box
+.login .main .box
 {
     width: 90%;
     margin: 5% auto;
@@ -120,29 +109,25 @@
     color:rgb(20, 194, 221);
 }
 
-.login .lgnform,
-.register .regform
+.login .lgnform
 {
     color: rgb(115, 119, 122);
     line-height: 24px;
 }
 
-.login .lgnform .title,
-.register .regform .title
+.login .lgnform .title
 {
     font-size: 18px;
 }
 
-.login .lgnform .info,
-.register .regform .info{
+.login .lgnform .info
+{
     font-size: 12px;
     margin: 25px 0px 15px 0px;
 }
 
 .login .lgnform>input[type=text],
-.login .lgnform>input[type=password],
-.register .regform>input[type=text],
-.register .regform>input[type=password]
+.login .lgnform>input[type=password]
 {
     border-style: solid;
     border-color: rgb(215, 216, 217);
@@ -155,19 +140,17 @@
     margin-bottom: 20px;
 }
 
-.login .lgnform .pwdwrap,
-.register .regform .pwdwrap
+.login .lgnform .pwdwrap
 {
     height: 40px;
     line-height: 40px;
     width: 100%;
     margin-bottom: 20px;
     white-space: nowrap;
-    
+
 }
 
-.login .lgnform .pwdwrap>input[type=text],
-.register .regform .pwdwrap>input[type=text]
+.login .lgnform .pwdwrap>input[type=text]
 {
     border-style: solid;
     border-color: rgb(215, 216, 217);
@@ -180,8 +163,7 @@
     vertical-align:middle;
 }
 
-.login .lgnform .pwdwrap>button,
-.register .regform .pwdwrap>button
+.login .lgnform .pwdwrap>button
 {
     width: 29%;
     line-height: 40px;
@@ -197,15 +179,12 @@
 }
 
 .login .lgnform input:hover,
-.login .lgnform .pwdwrap input:hover,
-.register .regform input:hover,
-.register .regform .pwdwrap input:hover
+.login .lgnform .pwdwrap input:hover
 {
     border-color: rgb(20, 194, 221);
 }
 
-.login .lgnform .submit,
-.register .regform .submit
+.login .lgnform .submit
 {
     display: block;
     border-style: solid;
@@ -221,9 +200,7 @@
 }
 
 .login .lgnform .submit:hover,
-.login .lgnform button:hover,
-.register .regform .submit:hover,
-.register .regform button:hover
+.login .lgnform button:hover
 {
     background-color: rgb(0, 183, 211);
     border-color: rgb(0, 183, 211);
@@ -290,12 +267,12 @@
 
 @keyframes fadein
 {
-    from { 
-        opacity: 0; 
+    from {
+        opacity: 0;
         transform: translateY(20px);
     }
 
-    to { 
-        opacity: 1; 
+    to {
+        opacity: 1;
     }
 }

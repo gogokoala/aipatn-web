@@ -1,0 +1,163 @@
+.register
+{
+    display: block;
+    background-color: #fff;
+    width: 990px;
+    margin: 76px auto;
+}
+
+.register a
+{
+    text-decoration: none;
+}
+
+.register .txt
+{
+    color:#ffffff;
+    line-height: 36px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.register .txt h1
+{
+    margin-bottom: 19px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.register .txt ul
+{
+    list-style-type: none;
+}
+
+.register .txt li
+{
+    font-size: 14px;
+}
+
+.register .main
+{
+    margin-left: 250px;
+    background-color: #ffffff;
+    width: 380px;
+    height: 360px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.register .main .box
+{
+    width: 90%;
+    margin: 5% auto;
+    position: relative;
+}
+
+.register .regform
+{
+    color: rgb(115, 119, 122);
+    line-height: 24px;
+}
+
+.register .regform .title
+{
+    font-size: 18px;
+}
+
+.register .regform .info{
+    font-size: 12px;
+    margin: 25px 0px 15px 0px;
+}
+
+.register .regform>input[type=text],
+.register .regform>input[type=password]
+{
+    border-style: solid;
+    border-color: rgb(215, 216, 217);
+    border-width: 1px;
+    color: rgb(89, 89, 89);
+    line-height: 40px;
+    height: 40px;
+    width: 100%;
+    padding: 0px 10px;
+    margin-bottom: 20px;
+}
+
+.register .regform .pwdwrap
+{
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+    white-space: nowrap;
+
+}
+
+.register .regform .pwdwrap>input[type=text]
+{
+    border-style: solid;
+    border-color: rgb(215, 216, 217);
+    border-width: 1px;
+    color: rgb(89, 89, 89);
+    line-height: 40px;
+    height: 40px;
+    width: 70%;
+    padding: 0px 10px;
+    vertical-align:middle;
+}
+
+.register .regform .pwdwrap>button
+{
+    width: 29%;
+    line-height: 40px;
+    height: 40px;
+    border-style: solid;
+    border-color:lightgray;
+    border-width: 1px;
+    background-color: lightgray;
+    color: gray;
+    font-size: 14px;
+    text-align: center;
+    vertical-align:middle;
+}
+
+.register .regform input:hover,
+.register .regform .pwdwrap input:hover
+{
+    border-color: rgb(20, 194, 221);
+}
+
+.register .regform .submit
+{
+    display: block;
+    border-style: solid;
+    border-color: rgb(0, 193, 222);
+    border-width: 1px;
+    background-color: rgb(0, 193, 222);
+    font-size: 14px;
+    color: #ffffff;
+    height:40px;
+    width:100%;
+    line-height: 40px;
+    text-align: center;
+}
+
+.register .regform .submit:hover,
+.register .regform button:hover
+{
+    background-color: rgb(0, 183, 211);
+    border-color: rgb(0, 183, 211);
+    color: #ffffff;
+}
+
+@keyframes fadein
+{
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+    }
+}

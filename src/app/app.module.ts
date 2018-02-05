@@ -27,6 +27,7 @@ import { BusinessComponent } from './home/business/business.component';
 import { TeamComponent } from './home/team/team.component';
 
 import { UserDeskComponent } from './userdesk/userdesk.component';
+import { RegisterComponent } from './register/register.component';
 // import { TestComponent } from './test/test.component'
 
 @NgModule({
@@ -42,6 +43,7 @@ import { UserDeskComponent } from './userdesk/userdesk.component';
     BusinessComponent,
     TeamComponent,
     UserDeskComponent,
+    RegisterComponent,
     //    TestComponent,
   ],
   imports: [
