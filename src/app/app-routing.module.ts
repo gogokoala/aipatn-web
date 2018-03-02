@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core'
-import {PreloadAllModules, RouterModule,  Routes} from '@angular/router'
+import { PreloadAllModules, RouterModule,  Routes } from '@angular/router'
 import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login.component'
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './register/register.component'
 import { UserDeskComponent } from './userdesk/userdesk.component'
+import { FilemngrComponent } from './files/filemngr/filemngr.component'
+
 // import { TestComponent } from './test/test.component'
 
 const appRoutes: Routes = [
@@ -13,7 +15,8 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'userdesk', component: UserDeskComponent },
 //  { path: 'test', component: TestComponent },
-  { path: 'sf1', loadChildren: 'app/sf1/sf1.module#SF1Module' }
+  { path: 'sf1', loadChildren: 'app/sf1/sf1.module#SF1Module' },
+  { path: 'filemngr', component: FilemngrComponent },
 ]
 
 @NgModule({
