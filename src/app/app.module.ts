@@ -11,7 +11,11 @@ import { FooterComponent } from './footer/footer.component'
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module'
 
+/* ng2-file-upload */
 import { FileUploadModule } from 'ng2-file-upload';
+
+/* primeng */
+import { CalendarModule, AccordionModule, TabViewModule } from 'primeng/primeng'
 
 /* Feature Modules */
 import { SF1Module } from './sf1/sf1.module'
@@ -31,6 +35,7 @@ import { TeamComponent } from './home/team/team.component';
 import { UserDeskComponent } from './userdesk/userdesk.component';
 import { RegisterComponent } from './register/register.component';
 import { FilemngrComponent } from './files/filemngr/filemngr.component';
+import { NavmenuComponent } from './navmenu/navmenu.component';
 // import { TestComponent } from './test/test.component'
 
 @NgModule({
@@ -48,6 +53,7 @@ import { FilemngrComponent } from './files/filemngr/filemngr.component';
     UserDeskComponent,
     RegisterComponent,
     FilemngrComponent,
+    NavmenuComponent,
     //    TestComponent,
   ],
   imports: [
@@ -55,6 +61,12 @@ import { FilemngrComponent } from './files/filemngr/filemngr.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     FileUploadModule,
+    
+    //primeng
+    CalendarModule,
+    AccordionModule,
+    TabViewModule,
+
     HttpModule,
     SF1Module,
   ],

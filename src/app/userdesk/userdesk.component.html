@@ -1,149 +1,8 @@
 <app-header></app-header>
 
-<div class="pat-desk">
-  <div class="pat-menu">
-    <ul class="nav navbar-nav">
-      <li>
-        <a href="">首页</a>
-      </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">专利检索
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a routerLink="#" routerLinkActive="active">简单检索</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">高级检索</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">检索文件夹</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">专有库</a>
-          </li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">专利报告
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a routerLink="#" routerLinkActive="active">报告文件夹</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">报告上传</a>
-          </li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">案件管理
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a routerLink="#" routerLinkActive="active">案件处置</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">案件进展</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">案件费用</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">结案评价</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">售后服务</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">统计分析</a>
-          </li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">文章管理
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a routerLink="#" routerLinkActive="active">文章发布</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">图片管理</a>
-          </li>
-          <li>
-            <a routerLink="/filemngr" routerLinkActive="active">文件管理</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">问答互动</a>
-          </li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">会员资料
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a routerLink="#" routerLinkActive="active">基本资料</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">实名认证</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">联系方法</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">帐户安全</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">帐号绑定</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">会员积分</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">我的任务</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">消息邮件</a>
-          </li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">系统维护
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a routerLink="#" routerLinkActive="active">会员维护</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">角色设置</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">授权项目</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">会员任务</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">宣传图片</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">主营业务</a>
-          </li>
-          <li>
-            <a routerLink="#" routerLinkActive="active">友情链接</a>
-          </li>
-        </ul>
-      </li>
+<app-navmenu></app-navmenu>
 
-    </ul>
-  </div>
+<div class="pat-desk">
 
   <div class="pat-module">
     <div class="head">
@@ -274,7 +133,7 @@
           <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
 
           <li>
-            <a href="#">文件管理</a>
+            <a routerLink="/filemngr">文件管理</a>
           </li>
           <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
 

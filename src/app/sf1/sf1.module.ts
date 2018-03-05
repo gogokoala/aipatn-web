@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
+
 import { CalendarModule, AccordionModule } from 'primeng/primeng'
 
 import { SF1Service } from './sf1.service'
@@ -13,15 +14,18 @@ import { SF1DetailComponent } from './sf1-detail/sf1-detail.component'
 import { SF1SearchExp } from './sf1-search.service'
 
 // import { FooterComponent } from '../footer/footer.component';
-import { HighlightTextDirective } from './highlight-text.directive';
+import { HighlightTextDirective } from './highlight-text.directive'
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    
+    //primeng
     CalendarModule,
     AccordionModule,
+    
     SF1RoutingModule
   ],
   declarations: [

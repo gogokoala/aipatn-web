@@ -1,60 +1,8 @@
-.pat-desk {
-  display: block;
-  background-color: #fff;
-}
 
-/* menu */
-.pat-menu {
-  color: #fff;
-  background-color: #003366;
-  border-top: #aaaaaa solid 1px;
-  line-height: 50px;
-  height: 50px;
-}
-
-.pat-menu a {
-  color: #fff;
-}
-
-.pat-menu .dropdown-toggle {
-  color: #fff;
-}
-
-.pat-menu .dropdown-menu a {
-  color: #333;
-}
 
 /* module */
 .pat-module {
-  width: 100%;
-  padding: 76px 0px;
   background: url(/assets/images/desk/bg1.jpg) repeat-y;
-  background-size: 100% auto;
-}
-
-.pat-module .head {
-  text-align: center;
-}
-
-.pat-module .head h1 {
-  line-height: 36px;
-  font-size: 24px;
-}
-
-.pat-module .head a {
-  text-decoration: none;
-  color: rgb(95, 99, 103);
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.pat-module a:hover {
-  color: #00a2ca;
-}
-
-.pat-module .main {
-  width: 65%;
-  margin: 0px auto;
 }
 
 .pat-module .main .cell {

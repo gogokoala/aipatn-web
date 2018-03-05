@@ -1,0 +1,21 @@
+/* menu */
+.pat-menu {
+    color: #fff;
+    background-color: #003366;
+    border-top: #aaaaaa solid 1px;
+    line-height: 50px;
+    height: 50px;
+  }
+  
+  .pat-menu a {
+    color: #fff;
+  }
+  
+  .pat-menu .dropdown-toggle {
+    color: #fff;
+  }
+  
+  .pat-menu .dropdown-menu a {
+    color: #333;
+  }
+  
