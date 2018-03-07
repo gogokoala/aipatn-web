@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
 // const URL = '/api/';
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+// const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+const URL = 'http://192.168.0.216:3000/upload/';
 
 @Component({
   selector: 'app-filemngr',
@@ -11,8 +12,8 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 })
 export class FilemngrComponent implements OnInit {
 
-  public uploader:FileUploader = new FileUploader({url: URL});
-  
+  public uploader: FileUploader = new FileUploader({url: URL});
+
   constructor() { }
 
   ngOnInit() {
