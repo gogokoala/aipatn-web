@@ -8,7 +8,11 @@
             "preLaunchTask": "startServer",
             "disableNetworkCache": true,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "url": "http://localhost:8100/#/userdesk",
+=======
+            "url": "http://localhost:8100/#/",
+>>>>>>> Stashed changes
 =======
             "url": "http://localhost:8100/#/",
 >>>>>>> Stashed changes
