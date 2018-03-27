@@ -36,6 +36,7 @@ import { UserDeskComponent } from './userdesk/userdesk.component';
 import { RegisterComponent } from './register/register.component';
 import { FilemngrComponent } from './files/filemngr/filemngr.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
+import { TopbarComponent } from './topbar/topbar/topbar.component';
 // import { TestComponent } from './test/test.component'
 
 @NgModule({
@@ -54,6 +55,7 @@ import { NavmenuComponent } from './navmenu/navmenu.component';
     RegisterComponent,
     FilemngrComponent,
     NavmenuComponent,
+    TopbarComponent,
     //    TestComponent,
   ],
   imports: [
