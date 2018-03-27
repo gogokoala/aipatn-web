@@ -1,0 +1,96 @@
+a {
+    color: lightgrey;
+    text-decoration-line: none;
+}
+
+a:hover {
+    color: white;
+}
+
+.user {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    vertical-align: middle;
+}
+
+.user-panel {
+    position: absolute;
+    display: block;
+    top: 100%;
+    right: 0px;
+    width: 270px;
+    height: 310px;
+    border: 1px solid lightgray;
+    background-color: white;
+    overflow: hidden;
+    transition: height 0.2s ease;
+}
+
+.hide-menu .user-panel {
+    height: 0px!important;
+    border: none;
+}
+
+
+
+.top {
+    display: block;
+    width: 100%;
+    line-height: 50px;
+    cursor: default;
+}
+
+.top p {
+    line-height: 12px;
+    font-size: 12px;
+    color: black;
+}
+
+.body {
+    display: block;
+    width: 100%;
+    padding: 2px;
+    text-align: center;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.body a {
+    display: inline-block;
+    width: 30%;
+    padding: 8px;
+    color: #808080;
+}
+
+.body a i {
+    display: block;
+    font-size: 24px;
+    line-height: 50px;
+}
+
+.body a span {
+    display: block;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.body a:hover {
+    background-color: #f5f5f5;
+}
+
+.bottom {
+    display: block;
+    width: 100%;
+    background: lightgray;
+    height: 50px;
+    line-height: 50px;
+}
+
+.bottom a {
+    color: #808080;
+}
+
+.bottom a:hover {
+    color: black;
+}

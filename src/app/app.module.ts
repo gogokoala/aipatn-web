@@ -37,6 +37,9 @@ import { RegisterComponent } from './register/register.component';
 import { FilemngrComponent } from './files/filemngr/filemngr.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
 import { TopbarComponent } from './topbar/topbar/topbar.component';
+import { TopbarUserComponent } from './topbar/topbar-user/topbar-user.component';
+import { TopbarNoticeComponent } from './topbar/topbar-notice/topbar-notice.component';
+import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 // import { TestComponent } from './test/test.component'
 
 @NgModule({
@@ -56,6 +59,9 @@ import { TopbarComponent } from './topbar/topbar/topbar.component';
     FilemngrComponent,
     NavmenuComponent,
     TopbarComponent,
+    TopbarUserComponent,
+    TopbarNoticeComponent,
+    SidebarComponent,
     //    TestComponent,
   ],
   imports: [

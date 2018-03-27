@@ -1,0 +1,20 @@
+<div class="sidebar bgnormal">
+    <div class="fold bglight">
+        <i class="fas fa-bars fa-rotate-90"></i>
+    </div>
+
+    <div class="nav" *ngFor="let menu of menus;let mi=index" [ngClass]="{'collapse':activeIndex!=mi}"  >
+        <div class="title" (click)="menuOnClick(mi)">
+            <i class="fas fa-caret-right"></i>
+            <span class="sidebar-title-text">{{menu.group}}</span>
+        </div>
+        <ul [style.height.px]="menu.links.length*40">
+            <li *ngFor="let link of menu.links;let li=index">
+                <a href="#">
+                    <i class="far fa-bookmark"></i>
+                    <span>{{link.text}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

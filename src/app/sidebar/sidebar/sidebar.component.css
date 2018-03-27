@@ -1,0 +1,110 @@
+.bgnormal{
+    background-color: #003366;
+}
+
+.bgdark{
+    background-color: #001133;
+}
+
+.bghover{
+    background-color: #003366;
+}
+
+.bghover:hover{
+    background-color: #001133;
+}
+
+.bglight{
+    background-color: #004488;
+}
+
+.sidebar {
+    position: fixed;
+    width: 180px;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: 109;
+    overflow: auto;
+}
+
+.sidebar .fold {
+    height: 30px;
+    width: 100%;
+    color: lightgray;
+    text-align: center;
+    line-height: 30px!important;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.sidebar .fold:hover {
+    color: white;
+}
+
+.sidebar .nav {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidebar .title {
+    line-height: 40px;
+    cursor: pointer;
+    color: lightgray
+}
+
+.sidebar .title:hover, .sidebar a:hover {
+    color: white;
+}
+
+.sidebar i {
+    margin: 0 8px 0 20px;
+    vertical-align: middle;
+}
+
+.sidebar .nav {
+    overflow: hidden;
+}
+
+.sidebar .nav ul {
+    list-style: none;
+    width: 200px;
+    margin: 0px;
+    padding: 0px;
+    transition: height 0.2s ease;
+}
+
+.sidebar .nav li {
+    line-height: 40px;
+    margin-left: 6px;
+    padding: 0px;
+}
+
+.sidebar .nav ul a {
+    display: block;
+    width: 100%;
+    color: lightgray;
+    text-decoration-line: none;
+}
+
+.sidebar .nav ul a:hover, .sidebar .nav ul a.active {
+    color: white;
+    background-color: rgb(0, 193, 222);
+}
+
+.sidebar .nav .title i {
+    transform: rotate(90deg);
+}
+
+.sidebar .nav.collapse {
+    display: block;
+}
+
+.sidebar .nav.collapse ul {
+    height: 0px!important;
+}
+
+.sidebar .nav.nav.collapse .title i {
+    transform: rotate(0deg);
+}
