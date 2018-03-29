@@ -1,7 +1,7 @@
 <app-topbar></app-topbar>
 <app-sidebar></app-sidebar>
 
-<div class="pat-desk">
+<div class="pat-frame">
   <div class="pat-module">
     <div class="head">
       <h1>更精准、更专业、更权威的服务</h1>
@@ -9,253 +9,27 @@
     </div>
 
     <div class="main">
-      <div class="cell">
-        <a href="#">
-          <div class="image" style="background-image: url('/assets/images/desk/cell01.jpg'); ">
+      
+      <div class="cell" *ngFor="let menu of menus;let mi=index">
+        <a>
+          <div class="image"  [style.backgroundImage]="menu.img">
           </div>
-          <h2>专利检索</h2>
+          <h2>{{menu.group}}</h2>
         </a>
 
         <ul class="list">
-          <li>
-            <a href="#">简单检索</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">高级检索</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">检索文件夹</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <br>
-
-          <li>
-            <a href="#">专有库</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
+          <ng-template ngFor let-link [ngForOf]="menu.links" let-li="index">
+            <li >
+              <a [href]="link.href">{{link.text}}</a>
+            </li>
+            <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
+            <br *ngIf="(li+1) % 3==0" />
+          </ng-template>
         </ul>
       </div>
-
-
-      <div class="cell">
-        <a href="#">
-          <div class="image" style="background-image: url('/assets/images/desk/cell02.jpg'); ">
-          </div>
-          <h2>专利报告</h2>
-        </a>
-
-        <ul class="list">
-
-          <li>
-            <a href="#">报告文件夹</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">报告上传</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-        </ul>
-      </div>
-
-
-      <div class="cell">
-        <a href="#">
-          <div class="image" style="background-image: url('/assets/images/desk/cell03.jpg'); ">
-          </div>
-          <h2>案件管理</h2>
-        </a>
-
-        <ul class="list">
-
-          <li>
-            <a href="#">案件处置</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">案件进展</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">案件费用</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <br>
-
-          <li>
-            <a href="#">结案评价</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">售后服务</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">统计分析</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-        </ul>
-      </div>
-
-
-      <div class="cell">
-        <a href="#">
-          <div class="image" style="background-image: url('/assets/images/desk/cell06.jpg'); ">
-          </div>
-          <h2>文章管理</h2>
-        </a>
-
-        <ul class="list">
-
-          <li>
-            <a href="#">文章发布</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">图片管理</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a routerLink="/filemngr">文件管理</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <br>
-
-          <li>
-            <a href="#">问答互动</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-        </ul>
-      </div>
-
-      <div class="cell">
-        <a href="#">
-          <div class="image" style="background-image: url('/assets/images/desk/cell04.jpg'); ">
-          </div>
-          <h2>会员资料</h2>
-        </a>
-
-        <ul class="list">
-
-          <li>
-            <a href="#">基本资料</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">实名认证</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">联系方法</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <br>
-
-          <li>
-            <a href="#">帐户安全</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">帐号绑定</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">会员积分</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <br>
-
-          <li>
-            <a href="#">我的任务</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">消息邮件</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-        </ul>
-      </div>
-
-
-      <div class="cell">
-        <a href="#">
-          <div class="image" style="background-image: url('/assets/images/desk/cell05.jpg'); ">
-          </div>
-          <h2>系统维护</h2>
-        </a>
-
-        <ul class="list">
-
-          <li>
-            <a href="#">会员维护</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">角色设置</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">授权项目</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <br>
-
-          <li>
-            <a href="#">会员任务</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">宣传图片</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <li>
-            <a href="#">主营业务</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-
-          <br>
-
-          <li>
-            <a href="#">友情链接</a>
-          </li>
-          <span style="font-size: 14px;color:#dcddde">&nbsp;|&nbsp;</span>
-        </ul>
-      </div>
-
-    </div>
-
+      
   </div>
-
 </div>
+
 
 <app-footer></app-footer>

@@ -40,6 +40,7 @@ import { TopbarComponent } from './topbar/topbar/topbar.component';
 import { TopbarUserComponent } from './topbar/topbar-user/topbar-user.component';
 import { TopbarNoticeComponent } from './topbar/topbar-notice/topbar-notice.component';
 import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
+import { CommonService } from './services/common.service';
 // import { TestComponent } from './test/test.component'
 
 @NgModule({
@@ -80,6 +81,7 @@ import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
   ],
   providers: [
     UserService,
+    CommonService,
   ],
   bootstrap: [
     AppComponent

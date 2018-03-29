@@ -10,7 +10,7 @@
         </div>
         <ul [style.height.px]="menu.links.length*40">
             <li *ngFor="let link of menu.links;let li=index">
-                <a href="#">
+                <a [href]="link.href">
                     <i class="far fa-bookmark"></i>
                     <span>{{link.text}}</span>
                 </a>

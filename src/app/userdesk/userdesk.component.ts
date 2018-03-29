@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-userdesk',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDeskComponent implements OnInit {
 
-  constructor() { }
+  menus:any;
+
+  constructor(
+    private common:CommonService
+  ) {
+    this.menus=common.menus
+  }
 
   ngOnInit() {
   }
