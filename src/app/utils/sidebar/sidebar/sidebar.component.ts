@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../../services/common.service';
+import { UtilsService } from '../../utils.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,9 +12,9 @@ export class SidebarComponent implements OnInit {
   menus:any;
 
   constructor(
-    private common:CommonService
+    private utils:UtilsService
   ) { 
-    this.menus=common.menus;
+    this.menus=utils.menus;
   }
 
   ngOnInit() {

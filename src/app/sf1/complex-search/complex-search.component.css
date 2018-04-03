@@ -1,4 +1,13 @@
 /* complex search */
+.fr-main{
+  width:100%;
+  padding-left: 180px;
+}
+
+.fr-disp{
+  margin: 4px;
+  padding: 64px 0px;
+}
 
 .fr-left .cs-database-list {
   padding-left: 10px;
@@ -19,8 +28,8 @@
 }
 
 .m-expr {
-  position: absolute;
-  max-height: 100%!important;
+  /* position: absolute; */
+  /* max-height: 100%!important; */
   width: 100%;
   padding-right: 10px;
 }
@@ -75,7 +84,7 @@
   cursor: pointer;
   padding-top: 5px;
 }
-p-calendar{
+.p-calendar{
   font-size: 14px;
   display: block;
   float: left;

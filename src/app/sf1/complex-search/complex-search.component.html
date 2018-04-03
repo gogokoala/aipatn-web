@@ -1,11 +1,13 @@
-<div class="container-fluid fr-main">
+<app-topbar></app-topbar>
+<app-sidebar></app-sidebar>
+
+<div class="fr-main">
   <div class="row fr-disp">
     <div class="col-xs-2 fr-left">
 
-
       <div *ngFor="let g of exp.db_group" class="panel panel-primary">
         <div class="panel-heading">
-          <input type="checkbox" [(ngModel)]="g.checked" (change)="exp.onDBGroupChange(g)" >
+          <input type="checkbox" [(ngModel)]="g.checked" (change)="exp.onDBGroupChange(g)">
           <span class="panel-title">{{g.name}}</span>
         </div>
         <div class="panel-body">
@@ -45,7 +47,8 @@
                   <span>这段时间一般是自申请日起几个月到几十个月，过段时间再来查吧。</span>
                 </p>
                 <p>· 检索条件不正确。
-                  <span>请您核对搜索条件。</span></p>
+                  <span>请您核对搜索条件。</span>
+                </p>
                 <p>· 搜索关键词范围太窄。
                   <span>请尝试使用其他关键词或近义词、使用含义更为宽泛的关键词。</span>
                 </p>
@@ -61,8 +64,10 @@
                 <button (click)="doSearch()" class="btn btn-primary">检索</button>
                 <a class="btn btn-default" (click)="clear()">清空</a>
                 <a class="btn btn-default" (click)="doResultNum()">查看命中条数
-                  <span *ngIf="!flg.doResultNum"  class="badge">{{result_num|number:0}}</span>
-                  <span *ngIf="flg.doResultNum"  class="badge"><i class="fa fa-spinner fa-spin"></i></span>
+                  <span *ngIf="!flg.doResultNum" class="badge">{{result_num|number:0}}</span>
+                  <span *ngIf="flg.doResultNum" class="badge">
+                    <i class="fa fa-spinner fa-spin"></i>
+                  </span>
                 </a>
               </div>
             </div>

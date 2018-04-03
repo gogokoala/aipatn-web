@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../services/common.service';
+import { UtilsService } from '../utils/utils.service';
 
 @Component({
   selector: 'app-userdesk',
@@ -11,9 +11,9 @@ export class UserDeskComponent implements OnInit {
   menus:any;
 
   constructor(
-    private common:CommonService
+    private utils:UtilsService
   ) {
-    this.menus=common.menus
+    this.menus=utils.menus
   }
 
   ngOnInit() {

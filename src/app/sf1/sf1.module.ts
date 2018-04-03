@@ -16,24 +16,25 @@ import { SF1SearchExp } from './sf1-search.service'
 // import { FooterComponent } from '../footer/footer.component';
 import { HighlightTextDirective } from './highlight-text.directive'
 
+import { UtilsModule } from '../utils/utils.module';
 
 @NgModule({
   imports: [
-    CommonModule,
     FormsModule,
+    CommonModule,
     
     //primeng
     CalendarModule,
     AccordionModule,
     
-    SF1RoutingModule
+    SF1RoutingModule,
+    UtilsModule
   ],
   declarations: [
     SimpleSearchComponent,
     ComplexSearchComponent,
     SF1ListComponent,
     SF1DetailComponent,
-//    FooterComponent,
     HighlightTextDirective,
   ],
   providers: [

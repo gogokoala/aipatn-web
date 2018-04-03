@@ -36,11 +36,8 @@ import { UserDeskComponent } from './userdesk/userdesk.component';
 import { RegisterComponent } from './register/register.component';
 import { FilemngrComponent } from './files/filemngr/filemngr.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
-import { TopbarComponent } from './topbar/topbar/topbar.component';
-import { TopbarUserComponent } from './topbar/topbar-user/topbar-user.component';
-import { TopbarNoticeComponent } from './topbar/topbar-notice/topbar-notice.component';
-import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
-import { CommonService } from './services/common.service';
+
+import { UtilsModule } from './utils/utils.module';
 // import { TestComponent } from './test/test.component'
 
 @NgModule({
@@ -59,10 +56,6 @@ import { CommonService } from './services/common.service';
     RegisterComponent,
     FilemngrComponent,
     NavmenuComponent,
-    TopbarComponent,
-    TopbarUserComponent,
-    TopbarNoticeComponent,
-    SidebarComponent,
     //    TestComponent,
   ],
   imports: [
@@ -77,11 +70,10 @@ import { CommonService } from './services/common.service';
     TabViewModule,
 
     HttpModule,
-    SF1Module,
+    UtilsModule
   ],
   providers: [
     UserService,
-    CommonService,
   ],
   bootstrap: [
     AppComponent
