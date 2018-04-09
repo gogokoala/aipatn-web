@@ -1,34 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
-.pat-desk {
-    display: block;
-    background-color: #fff;
-  }
-  
-  /* module */
-.pat-module {
-  width: 100%;
-  padding: 76px 0px;
-  background: url(/assets/images/desk/bg1.jpg) repeat-y;
-  background-size: 100% auto;
+.pat-frame{
+  width:100%;
+  padding-left: 180px;
+  margin-top: 50px;
 }
 
-.pat-module .head {
+.pat-module {
+  width: 100%;
+  background-size: 100% auto;
+  padding: 4px;
+}
+
+.pat-module .head{
   text-align: center;
 }
 
-.pat-module .head h1 {
+.pat-module .head h1{
   line-height: 36px;
   font-size: 24px;
 }
 
-.pat-module .head a {
-  text-decoration: none;
-  color: rgb(95, 99, 103);
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.pat-module .main {
-  width: 65%;
+.pat-module .main{
+  width: 100%;
   margin: 0px auto;
 }

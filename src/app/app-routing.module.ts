@@ -16,6 +16,7 @@ const appRoutes: Routes = [
   { path: 'userdesk', component: UserDeskComponent },
 //  { path: 'test', component: TestComponent },
   { path: 'sf1', loadChildren: 'app/sf1/sf1.module#SF1Module' },
+  { path: 'sysmain', loadChildren: 'app/sysmain/sysmain.module#SysmainModule' },
   { path: 'filemngr', component: FilemngrComponent },
 ]
 

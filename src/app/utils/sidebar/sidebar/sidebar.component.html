@@ -1,7 +1,7 @@
 <div class="sidebar bgnormal">
-    <div class="fold bglight">
+    <a class="fold bglight" href="#/userdesk">
         <i class="fas fa-bars fa-rotate-90"></i>
-    </div>
+    </a>
 
     <div class="nav" *ngFor="let menu of menus;let mi=index" [ngClass]="{'collapse':activeIndex!=mi}"  >
         <div class="title" (click)="menuOnClick(mi)">

@@ -1,0 +1,45 @@
+<app-topbar></app-topbar>
+<app-sidebar></app-sidebar>
+
+<div class="pat-frame">
+  <div class="pat-module">
+    <div class="head">
+      <h1>会员维护</h1>
+    </div>
+
+    <p-dataTable [value]="list" [rows]="20" [paginator]="true" [pageLinks]="10"  [(selection)]="curItems" 
+      resizableColumns="true" datakey="id" >
+        <p-header >
+          <div style="text-align: left;">会员列表</div>
+        </p-header>
+        <p-footer >
+          <div class="ui-helper-clearfix" style="width:100%">
+            <button type="button" pButton style="float:left" (click)="addItem()">
+                <i class="fas fa-plus" style="color: black"></i>
+                <span>新增</span>
+            </button>
+
+            <button type="button" pButton style="float:left" (click)="delItems()" 
+              [disabled]="curItems.length==0" [style.color]="curItems.length==0?'gray':'black'" >
+              <i class="fas fa-minus" ></i>
+              <span>删除</span>
+            </button>
+          </div>
+        </p-footer>
+
+        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+        <p-column field="id" header="ID"></p-column>
+        <p-column field="name" header="姓名"></p-column>
+        <p-column field="code" header="手机号"></p-column>
+        <p-column field="roles" header="角色"></p-column>
+
+        <p-column styleClass="col-button" [style]="{'width':'48px'}">
+            <ng-template let-item="rowData" pTemplate="body">
+                <button type="button" pButton (click)="editItem(item)"><i class="fas fa-edit" style="color: black"></i></button>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+   
+  </div>
+</div>
+

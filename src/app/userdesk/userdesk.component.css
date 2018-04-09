@@ -1,26 +1,6 @@
-.pat-frame{
-    width:100%;
-    padding-left: 180px;
-}
 
 .pat-module {
-    width: 100%;
     background: url(/assets/images/desk/bg1.jpg) repeat-y;
-    background-size: 100% auto;
-}
-
-.pat-module .head{
-    text-align: center;
-}
-
-.pat-module .head h1{
-    line-height: 36px;
-    font-size: 24px;
-}
-
-.pat-module .main{
-    width: 100%;
-    margin: 0px auto;
 }
 
 .pat-module .main .cell{

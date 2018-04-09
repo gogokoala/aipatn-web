@@ -3,6 +3,12 @@ import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpModule } from '@angular/http'
 
+/* primeng */
+import { CalendarModule, AccordionModule, TabViewModule, PanelModule } from 'primeng/primeng'
+
+/* ng2-file-upload */
+import { FileUploadModule } from 'ng2-file-upload'
+
 /* App Component */
 import { AppComponent } from './app.component'
 import { HeaderComponent } from './header/header.component'
@@ -10,12 +16,6 @@ import { FooterComponent } from './footer/footer.component'
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module'
-
-/* ng2-file-upload */
-import { FileUploadModule } from 'ng2-file-upload';
-
-/* primeng */
-import { CalendarModule, AccordionModule, TabViewModule } from 'primeng/primeng'
 
 /* Feature Modules */
 import { SF1Module } from './sf1/sf1.module'
@@ -68,6 +68,7 @@ import { UtilsModule } from './utils/utils.module';
     CalendarModule,
     AccordionModule,
     TabViewModule,
+    PanelModule,
 
     HttpModule,
     UtilsModule

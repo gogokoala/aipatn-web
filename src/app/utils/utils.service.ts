@@ -62,7 +62,7 @@ export class UtilsService {
       group:"系统维护",
       img:"url('assets/images/desk/cell06.jpg')",
       links:[
-        {text:"会员维护", href:"#"},
+        {text:"会员维护", href:"#/sysmain/accountmng"},
         {text:"角色设置", href:"#"},
         {text:"授权项目", href:"#"},
         {text:"会员任务", href:"#"},
