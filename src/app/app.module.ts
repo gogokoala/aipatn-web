@@ -3,9 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpModule } from '@angular/http'
 
-/* primeng */
-import { CalendarModule, AccordionModule, TabViewModule, PanelModule } from 'primeng/primeng'
-
+import { TabViewModule } from 'primeng/tabview'
 /* ng2-file-upload */
 import { FileUploadModule } from 'ng2-file-upload'
 
@@ -62,13 +60,10 @@ import { UtilsModule } from './utils/utils.module';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    
     FileUploadModule,
     
-    //primeng
-    CalendarModule,
-    AccordionModule,
     TabViewModule,
-    PanelModule,
 
     HttpModule,
     UtilsModule
