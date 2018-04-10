@@ -1,0 +1,43 @@
+<p-dialog header="会员信息" [(visible)]="show" showEffect="fade" [modal]="true" [width]="640">
+    <div class="ui-grid ui-grid-responsive ui-fluid" style="overflow-y:scroll">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="id">ID</label></div>
+        <div class="ui-grid-col-10"><input pInputText id="id" [(ngModel)]="data.id" readonly /></div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="name">姓名</label></div>
+        <div class="ui-grid-col-8"><input pInputText id="name" [(ngModel)]="data.name" /></div>
+        <div class="ui-grid-col-2"><p-dropdown [options]="sexList" [(ngModel)]="data.sex" [style]="{'width':'100%'}" ></p-dropdown></div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="code">手机号</label></div>
+        <div class="ui-grid-col-10"><input pInputText id="code" [(ngModel)]="data.code" /></div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="mail">邮件地址</label></div>
+        <div class="ui-grid-col-10"><input pInputText id="mail" [(ngModel)]="data.mail" /></div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="role">角色</label></div>
+        <div class="ui-grid-col-10 ui-g" style="border: 1px lightgray solid">
+            <div class="ui-g-6" *ngFor="let r of roleList" >
+              <p-checkbox name="role" [label]="r.label" [value]="r.label" [(ngModel)]="data.roles" ></p-checkbox>
+            </div>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-2"><label for="role">服务权限</label></div>
+          <div class="ui-grid-col-2">
+              <button type="button" pButton  icon="fa-coge" (click)="setPower()" label="设置"></button>
+          </div>
+      </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton  icon="fa-close" (click)="cancel()" label="取消"></button>
+          <button type="button" pButton  icon="fa-check" (click)="onSave()" label="保存"></button>
+        </div>
+    </p-footer>
+  </p-dialog>
+  
+  <app-account-power-editor></app-account-power-editor>

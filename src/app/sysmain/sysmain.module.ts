@@ -3,19 +3,24 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 
 /* primeng */
-import { DataTableModule } from 'primeng/datatable'
-import { DialogModule } from 'primeng/dialog'
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button'
-import { DropdownModule } from 'primeng/dropdown'
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ListboxModule } from 'primeng/listbox';
+import {     
+  DataTableModule,
+  DialogModule,
+  InputTextModule,
+  ButtonModule,
+  DropdownModule,
+  MultiSelectModule,
+  ListboxModule,
+  CheckboxModule
+} from 'primeng/primeng'
 
 import { UtilsModule } from '../utils/utils.module'
 
 import { SysmainRoutingModule } from './sysmain-routing.module'
 
-import { AccountMngComponent } from './account-mng/account-mng.component'
+import { AccountMngComponent } from './account-mng/account-mng.component';
+import { AccountEditorComponent } from './account-editor/account-editor.component';
+import { AccountPowerEditorComponent } from './account-power-editor/account-power-editor.component'
 
 @NgModule({
   imports: [
@@ -29,13 +34,16 @@ import { AccountMngComponent } from './account-mng/account-mng.component'
     DropdownModule,
     MultiSelectModule,
     ListboxModule,
+    CheckboxModule,
 
     UtilsModule,
 
     SysmainRoutingModule
   ],
   declarations: [
-    AccountMngComponent
+    AccountMngComponent,
+    AccountEditorComponent,
+    AccountPowerEditorComponent
   ]
 })
 export class SysmainModule {

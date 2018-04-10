@@ -15,7 +15,13 @@
                 "8100",
                 "--disable-host-check"
             ],
-            "isBackground": true
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "problemMatcher": []
         }
     ]
 }

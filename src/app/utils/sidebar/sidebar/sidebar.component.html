@@ -1,17 +1,17 @@
 <div class="sidebar bgnormal">
     <a class="fold bglight" href="#/userdesk">
-        <i class="fas fa-bars fa-rotate-90"></i>
+        <i class="fa fa-bars fa-rotate-90"></i>
     </a>
 
     <div class="nav" *ngFor="let menu of menus;let mi=index" [ngClass]="{'collapse':activeIndex!=mi}"  >
         <div class="title" (click)="menuOnClick(mi)">
-            <i class="fas fa-caret-right"></i>
+            <i class="fa fa-caret-right"></i>
             <span class="sidebar-title-text">{{menu.group}}</span>
         </div>
         <ul [style.height.px]="menu.links.length*40">
             <li *ngFor="let link of menu.links;let li=index">
                 <a [href]="link.href">
-                    <i class="far fa-bookmark"></i>
+                    <i class="fa fa-bookmark-o"></i>
                     <span>{{link.text}}</span>
                 </a>
             </li>

@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpModule } from '@angular/http'
 
-import { TabViewModule } from 'primeng/tabview'
+import { TabViewModule } from 'primeng/primeng'
+
 /* ng2-file-upload */
 import { FileUploadModule } from 'ng2-file-upload'
 

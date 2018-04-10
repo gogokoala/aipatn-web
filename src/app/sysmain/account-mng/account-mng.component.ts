@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { UtilsService } from '../../utils/utils.service'
+import { AccountEditorComponent } from '../account-editor/account-editor.component';
 
 @Component({
   selector: 'app-account-mng',
@@ -11,21 +13,13 @@ export class AccountMngComponent implements OnInit {
   curItems:Array<any>=[]
   first:number=0
 
-  editor={
-    item:null,
-    show:false,
-    data:{}
-  }
+  editValue:any
 
-  sexList:Array<any>=[
-    {value:1,label:'先生'},{value:2,label:'女士'}
-  ]
+  @ViewChild(AccountEditorComponent) editorForm:AccountEditorComponent
 
-  roleList:Array<any>=[
-    {value:1,label:'系统管理员'},{value:2,label:'一般用户'},{value:3,label:'白金会员'}
-  ]
-
-  constructor(){
+  constructor(
+    utils:UtilsService
+  ){
     for (let i=1;i<=120;i++){
       
       this.list.push({
@@ -33,7 +27,7 @@ export class AccountMngComponent implements OnInit {
         name:"姓名"+i,
         code:'12345678910',
         mail:'12345678910@qq.com',
-        roles:i<10?'系统管理员':'一般用户'
+        roles:i<10?['系统管理']:['一般用户']
       })
     }
   }
@@ -42,9 +36,10 @@ export class AccountMngComponent implements OnInit {
   }
 
   editItem(item:any){
-    this.editor.item=item;
-    this.editor.data=Object.assign({},item);
-    this.editor.show=true
+    this.editValue=item;
+    let data=Object.assign({},item)
+
+    this.editorForm.open(data)
   }
 
   delItems(){
@@ -61,31 +56,27 @@ export class AccountMngComponent implements OnInit {
   }
 
   addItem(){
-    this.editor.item=null
-    this.editor.data={
+    this.editValue=null
+    let data={
       id:this.list[this.list.length-1].id+1
     }
-    this.editor.show=true;
+    this.editorForm.open(data)
   }
 
   cancel(){
-    this.editor.show=false;
+    this.editValue.show=false;
   }
 
-  save(){
-    if (this.editor.item!=null){
-      Object.assign(this.editor.item,this.editor.data)
+  save(data:any){
+    if (this.editValue!=null){
+      Object.assign(this.editValue,data)
     }
     else{
       let list=[...this.list]
-      list.push(this.editor.data)
+      list.push(data)
       this.list=list
       this.first=Math.ceil((this.list.length-1)/20)*20
     }
-    this.editor.show=false 
-    
   }
-
-
 
 }

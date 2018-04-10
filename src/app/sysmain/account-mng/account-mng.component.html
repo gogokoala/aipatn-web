@@ -40,37 +40,5 @@
   </div>
 </div>
 
-<p-dialog header="会员信息" [(visible)]="editor.show" showEffect="fade" [modal]="true" [width]="512">
-  <div class="ui-grid ui-grid-responsive ui-fluid" style="overflow-y:scroll">
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2"><label for="id">ID</label></div>
-      <div class="ui-grid-col-10"><input pInputText id="id" [(ngModel)]="editor.data.id" readonly /></div>
-    </div>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2"><label for="name">姓名</label></div>
-      <div class="ui-grid-col-8"><input pInputText id="name" [(ngModel)]="editor.data.name" /></div>
-      <div class="ui-grid-col-2"><p-dropdown [options]="sexList" [(ngModel)]="editor.data.sex" [style]="{'width':'100%'}" ></p-dropdown></div>
-    </div>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2"><label for="code">手机号</label></div>
-      <div class="ui-grid-col-10"><input pInputText id="code" [(ngModel)]="editor.data.code" /></div>
-    </div>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2"><label for="mail">邮件地址</label></div>
-      <div class="ui-grid-col-10"><input pInputText id="mail" [(ngModel)]="editor.data.mail" /></div>
-    </div>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2"><label for="role">角色</label></div>
-      <div class="ui-grid-col-10">
-        <!-- <p-multiSelect id="role" [options]="roleList" [(ngModel)]="editor.data.role" [filter]="false" [style]="{'width':'100%'}"></p-multiSelect> -->
-        <p-listbox id="role" [options]="roleList" [(ngModel)]="editor.data.role" multiple="multiple" checkbox="checkbox" ></p-listbox>
-      </div>
-    </div>
-  </div>
-  <p-footer>
-      <div class="ui-dialog-buttonpane ui-helper-clearfix">
-        <button type="button" pButton  icon="fa-close" (click)="cancel()" label="取消"></button>
-        <button type="button" pButton  icon="fa-check" (click)="save()" label="保存"></button>
-      </div>
-  </p-footer>
-</p-dialog>
+<app-account-editor (save)="save($event)"></app-account-editor>
+
