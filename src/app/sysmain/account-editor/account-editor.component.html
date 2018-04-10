@@ -1,4 +1,4 @@
-<p-dialog header="会员信息" [(visible)]="show" showEffect="fade" [modal]="true" [width]="640">
+<p-dialog header="会员信息" [(visible)]="show" [modal]="true" [width]="640">
     <div class="ui-grid ui-grid-responsive ui-fluid" style="overflow-y:scroll">
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label for="id">ID</label></div>
@@ -35,7 +35,7 @@
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
           <button type="button" pButton  icon="fa-close" (click)="cancel()" label="取消"></button>
-          <button type="button" pButton  icon="fa-check" (click)="onSave()" label="保存"></button>
+          <button type="button" pButton  icon="fa-check" (click)="ok()" label="保存"></button>
         </div>
     </p-footer>
   </p-dialog>

@@ -42,7 +42,7 @@ export class AccountEditorComponent implements OnInit {
     this.show=false
   }
 
-  private onSave(){
+  private ok(){
     this.show=false
     this.save.next(this.data)
     

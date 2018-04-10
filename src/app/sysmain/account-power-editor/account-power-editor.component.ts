@@ -21,4 +21,12 @@ export class AccountPowerEditorComponent implements OnInit {
     this.show=true
   }
 
+  cancel(){
+    this.show=false
+  }
+
+  ok(){
+    this.show=false
+  }
+
 }
