@@ -87,7 +87,6 @@ export class UtilsService {
   constructor() { }
 
   public getPowerList(roles:Array<any>){
-    console.log(roles)
 
     if (roles.indexOf('一般用户')<0 && roles.indexOf('内部用户')<0){
       return []
@@ -100,7 +99,7 @@ export class UtilsService {
       m.links.forEach(l=>{
         if (l.kind==1){
           r.push({
-            group:m.group,item:l.text,active:p>0, data:p
+            group:m.group,item:l.text,active:p>0?1:0, data:p
           })
         }
       })

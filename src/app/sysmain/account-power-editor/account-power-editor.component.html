@@ -1,17 +1,23 @@
-<p-dialog header="服务权限设置" [(visible)]="show" [modal]="true" [width]="512">
-    <p-dataTable [value]="data" [rows]="15" [paginator]="true" [pageLinks]="10"  resizableColumns="true">
+<p-dialog header="服务权限设置" [(visible)]="show" modal="true" width="640">
+  <div style="max-height:520px;overflow: hidden;">
+    <p-dataTable [value]="data" [rows]="15" [paginator]="true" [pageLinks]="10" resizableColumns="true">
 
       <p-column field="group" header="分组"></p-column>
       <p-column field="item" header="功能"></p-column>
-      <p-column field="active" header="启用"></p-column>
+      <p-column header="权限">
+        <ng-template let-item="rowData" pTemplate="body">
+          <p-radioButton [name]="item.group+'.'+item.item" value="1" label="启用" [(ngModel)]="item.active"></p-radioButton>
+          <p-radioButton [name]="item.group+'.'+item.item" value="0" label="禁止" [(ngModel)]="item.active"></p-radioButton>
+        </ng-template>
+      </p-column>
       <p-column field="data" header="使用期限"></p-column>
 
     </p-dataTable>
-
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-          <button type="button" pButton  icon="fa-close" (click)="cancel()" label="取消"></button>
-          <button type="button" pButton  icon="fa-check" (click)="ok()" label="确定"></button>
-        </div>
-    </p-footer>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa-close" (click)="cancel()" label="取消"></button>
+      <button type="button" pButton icon="fa-check" (click)="ok()" label="确定"></button>
+    </div>
+  </p-footer>
 </p-dialog>

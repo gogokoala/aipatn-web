@@ -54,10 +54,7 @@ export class AccountEditorComponent implements OnInit {
   }
 
   public setPower(){
-    if ((!this.data.power) || this.data.power.length==0){
-      this.data.power=this.utils.getPowerList(this.data.roles)
-    }
-    
+    this.data.power=this.utils.getPowerList(this.data.roles)
     this.powerEditor.open(this.data.power)
   }
 

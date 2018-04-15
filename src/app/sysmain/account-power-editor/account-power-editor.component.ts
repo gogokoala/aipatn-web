@@ -9,6 +9,10 @@ export class AccountPowerEditorComponent implements OnInit {
 
   show:boolean=false
   data:Array<any>
+  activeList:Array<any>=[
+    {value:0,label:"禁止"},
+    {value:1,label:"启用"}
+  ]
 
   constructor() { }
 
