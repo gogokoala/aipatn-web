@@ -63,7 +63,7 @@ export class UtilsService {
       img:"url('assets/images/desk/cell06.jpg')",
       links:[
         {text:"会员维护", href:"#/sysmain/accountmng", kind: 2},
-        {text:"角色设置", href:"#", kind: 2},
+        {text:"角色设置", href:"#/sysmain/rolesmng", kind: 2},
         {text:"授权项目", href:"#", kind: 2},
         {text:"会员任务", href:"#", kind: 2},
         {text:"宣传图片", href:"#", kind: 2},
@@ -100,6 +100,22 @@ export class UtilsService {
         if (l.kind==1){
           r.push({
             group:m.group,item:l.text,active:p>0?1:0, data:p
+          })
+        }
+      })
+    });
+
+    return r
+  }
+
+  public getFuncList(){
+    let r=[]
+
+    this.menus.forEach(m=>{
+      m.links.forEach(l=>{
+        if (l.kind==2){
+          r.push({
+            group:m.group, label:l.text, value:l.text
           })
         }
       })

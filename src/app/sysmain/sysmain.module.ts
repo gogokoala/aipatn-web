@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 
-/* primeng */
-import {     
+import {
   DataTableModule,
   DialogModule,
   InputTextModule,
@@ -12,8 +11,12 @@ import {
   DropdownModule,
   MultiSelectModule,
   ListboxModule,
-  CheckboxModule
+  CheckboxModule,
+  ToolbarModule,
+  ConfirmDialogModule
 } from 'primeng/primeng'
+
+import{ ConfirmationService} from 'primeng/primeng'
 
 import { UtilsModule } from '../utils/utils.module'
 
@@ -21,7 +24,9 @@ import { SysmainRoutingModule } from './sysmain-routing.module'
 
 import { AccountMngComponent } from './account-mng/account-mng.component';
 import { AccountEditorComponent } from './account-editor/account-editor.component';
-import { AccountPowerEditorComponent } from './account-power-editor/account-power-editor.component'
+import { AccountPowerEditorComponent } from './account-power-editor/account-power-editor.component';
+
+import { RolesMngComponent } from './roles-mng/roles-mng.component'
 
 @NgModule({
   imports: [
@@ -37,6 +42,8 @@ import { AccountPowerEditorComponent } from './account-power-editor/account-powe
     MultiSelectModule,
     ListboxModule,
     CheckboxModule,
+    ToolbarModule,
+    ConfirmDialogModule,
 
     UtilsModule,
 
@@ -45,10 +52,13 @@ import { AccountPowerEditorComponent } from './account-power-editor/account-powe
   declarations: [
     AccountMngComponent,
     AccountEditorComponent,
-    AccountPowerEditorComponent
+    AccountPowerEditorComponent,
+    RolesMngComponent
+  ],
+  providers:[
+    ConfirmationService
   ]
 })
 export class SysmainModule {
-  
 
 }
