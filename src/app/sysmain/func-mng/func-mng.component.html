@@ -1,0 +1,88 @@
+<app-topbar></app-topbar>
+<app-sidebar></app-sidebar>
+
+<div class="pat-frame">
+  <div class="pat-module">
+    <div class="head">
+      <h1>授权项目</h1>
+    </div>
+
+    <p-dataTable [value]="curFunc.links"  [(selection)]="curItems" resizableColumns="true" datakey="text" >
+
+      <p-header >
+        <div style="text-align: left;" class="ui-g">
+          <label class="ui-g-1" style="margin: 4px">功能模块:</label>
+          <div class="ui-g-2">
+              <p-dropdown [options]="funcList" optionLabel="group" [(ngModel)]="curFunc" [style]="{'width':'100%'}"  ></p-dropdown>
+          </div>
+          
+        </div>
+      </p-header>
+
+      <p-footer >
+        <div class="ui-helper-clearfix" style="width:100%">
+          <button type="button" pButton style="float:left" icon="fa-plus" label="新增" (click)="doAdd()">
+          </button>
+
+          <button type="button" pButton style="float:left" icon="fa-minus" label="删除" (click)="doRemove()" 
+            [disabled]="curItems.length==0"  >
+          </button>
+        </div>
+      </p-footer>
+
+      <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+      <p-column field="text" header="功能名称"></p-column>
+      <p-column field="href" header="页面链接"></p-column>
+      <p-column field="kind" header="功能分类"></p-column>
+      <p-column field="pay" header="计费方式"></p-column>
+      
+      <p-column styleClass="col-button" [style]="{'width':'48px'}">
+          <ng-template let-item="rowData" pTemplate="body">
+              <button type="button" pButton icon="fa-edit"  (click)="doEdit(item)"></button>
+          </ng-template>
+      </p-column>
+
+    </p-dataTable>
+    
+  </div>
+</div>
+
+<p-dialog header="权限信息" [(visible)]="editor.show" modal="true" width="640">
+  
+  <div class="ui-g ui-fluid">
+      <div class="ui-g-2"><label>模块分组:</label></div>
+      <div class="ui-g-10">{{curFunc.group}}</div>
+
+      <div class="ui-g-2"><label for="text">功能名称:</label></div>
+      <div class="ui-g-10"><input pInputText id="text" [(ngModel)]="editor.data.text" /></div>
+
+      <div class="ui-g-2"><label for="text">页面链接:</label></div>
+      <div class="ui-g-10"><input pInputText id="href" [(ngModel)]="editor.data.href" /></div>
+
+      <div class="ui-g-2"><label for="kind">功能分类:</label></div>
+      <div class="ui-g-10">
+        <div class="ui-g" style="border: 1px lightgray solid">
+          <div *ngFor="let item of kindList" class="ui-g-4">
+            <p-radioButton  name="kind" [value]="item.value" [label]="item.label" [(ngModel)]="editor.data.kind"></p-radioButton>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-g-2"><label for="pay">计费方式:</label></div>
+      <div class="ui-g-10">
+        <div class="ui-g" style="border: 1px lightgray solid">
+          <div *ngFor="let item of payList" class="ui-g-4">
+            <p-radioButton  name="pay" [value]="item.value" [label]="item.label" [(ngModel)]="editor.data.pay"></p-radioButton>
+          </div>
+        </div>
+      </div>
+
+  </div>
+  
+  <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton  icon="fa-close" (click)="editor.show=false" label="取消"></button>
+          <button type="button" pButton  icon="fa-check" (click)="editorOK()" label="保存"></button>
+        </div>
+    </p-footer>
+</p-dialog>

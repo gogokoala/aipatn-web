@@ -26,7 +26,8 @@ import { AccountMngComponent } from './account-mng/account-mng.component';
 import { AccountEditorComponent } from './account-editor/account-editor.component';
 import { AccountPowerEditorComponent } from './account-power-editor/account-power-editor.component';
 
-import { RolesMngComponent } from './roles-mng/roles-mng.component'
+import { RolesMngComponent } from './roles-mng/roles-mng.component';
+import { FuncMngComponent } from './func-mng/func-mng.component'
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { RolesMngComponent } from './roles-mng/roles-mng.component'
     AccountMngComponent,
     AccountEditorComponent,
     AccountPowerEditorComponent,
-    RolesMngComponent
+    RolesMngComponent,
+    FuncMngComponent
   ],
   providers:[
     ConfirmationService

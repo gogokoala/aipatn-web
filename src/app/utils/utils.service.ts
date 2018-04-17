@@ -64,7 +64,7 @@ export class UtilsService {
       links:[
         {text:"会员维护", href:"#/sysmain/accountmng", kind: 2},
         {text:"角色设置", href:"#/sysmain/rolesmng", kind: 2},
-        {text:"授权项目", href:"#", kind: 2},
+        {text:"授权项目", href:"#/sysmain/funcmng", kind: 2},
         {text:"会员任务", href:"#", kind: 2},
         {text:"宣传图片", href:"#", kind: 2},
         {text:"主营业务", href:"#", kind: 2},
