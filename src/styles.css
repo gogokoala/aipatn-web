@@ -8,11 +8,21 @@
 .pat-module {
   width: 100%;
   background-size: 100% auto;
-  padding: 4px;
+  padding: 5px!important;
+  margin: 0px;
 }
 
 .pat-module .head{
-  text-align: center;
+  display: block;
+  text-align: left;
+  width: 100%;
+  background-color: #004488;
+}
+
+.pat-module .head>h1{
+  margin-left: 12px;
+  font-size: 16px!important;
+  color: white;
 }
 
 .pat-module .head h1{
@@ -23,4 +33,5 @@
 .pat-module .main{
   width: 100%;
   margin: 0px auto;
+  padding: 2px ;
 }
