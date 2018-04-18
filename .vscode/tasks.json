@@ -18,6 +18,7 @@
             "isBackground": true,
             "problemMatcher": []
         },
+        
         {
             "type": "npm",
             "script": "build",

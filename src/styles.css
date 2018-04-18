@@ -8,7 +8,7 @@
 .pat-module {
   width: 100%;
   background-size: 100% auto;
-  padding: 5px!important;
+  padding: 5px;
   margin: 0px;
 }
 
@@ -20,14 +20,11 @@
 }
 
 .pat-module .head>h1{
-  margin-left: 12px;
-  font-size: 16px!important;
-  color: white;
-}
-
-.pat-module .head h1{
+  margin: 0px;
+  padding: 0px 12px;
   line-height: 36px;
-  font-size: 24px;
+  font-size: 16px;
+  color: white;
 }
 
 .pat-module .main{

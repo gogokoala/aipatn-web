@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UtilsService } from '../../utils.service';
 
 @Component({
@@ -8,7 +8,10 @@ import { UtilsService } from '../../utils.service';
 })
 export class SidebarComponent implements OnInit {
 
-  activeIndex:number=-1;
+  @Input()
+  actGroup:string=""
+
+  activeIndex:number=-1
   menus:any;
 
   constructor(
@@ -18,6 +21,12 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.menus.forEach((item,index) => {
+      if (item.group==this.actGroup){
+        this.activeIndex=index
+      }
+      
+    });
   }
 
   menuOnClick(i){
