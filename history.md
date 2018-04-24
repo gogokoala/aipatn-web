@@ -271,8 +271,8 @@ puyd:
             pwd: "123456"               //登录密码
             code: "13511650262"         //手机号
             mail: "admin@aiptan.com"    //邮件地址
-            role: [ ]                   //角色,id数组，保留，暂不使用
-            func: [                     //功能授权
+            role: [ ]                   //角色,id数组，保留，暂不使用(FK)
+            func: [                     //功能授权(FK)
                 {
                     id: 1,              //授权功能的id
                     active: true,       //是否启用
