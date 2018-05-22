@@ -48,14 +48,14 @@ export class UtilsService {
       group:"会员资料",
       img:"url('assets/images/desk/cell05.jpg')",
       links:[
-        {text:"基本资料", href:"#", kind: 0},
-        {text:"实名认证", href:"#", kind: 0},
-        {text:"联系方法", href:"#", kind: 0},
-        {text:"账户安全", href:"#", kind: 0},
-        {text:"账户绑定", href:"#", kind: 0},
-        {text:"会员积分", href:"#", kind: 0},
-        {text:"我的任务", href:"#", kind: 0},
-        {text:"消息邮件", href:"#", kind: 0},
+        {text:"基本资料", href:"#/user/userinfo", kind: 0},
+        {text:"实名认证", href:"#/user/realname", kind: 0},
+        {text:"联系方法", href:"#/user/contact", kind: 0},
+        {text:"账户安全", href:"#/user/security", kind: 0},
+        {text:"账户绑定", href:"#/user/bind", kind: 0},
+        {text:"会员积分", href:"#/user/point", kind: 0},
+        {text:"我的任务", href:"#/user/task", kind: 0},
+        {text:"消息邮件", href:"#/user/msg", kind: 0},
       ]
     },
     {
@@ -65,10 +65,10 @@ export class UtilsService {
         {text:"会员维护", href:"#/sysmain/accountmng", kind: 2},
         {text:"角色设置", href:"#/sysmain/rolesmng", kind: 2},
         {text:"授权项目", href:"#/sysmain/funcmng", kind: 2},
-        {text:"会员任务", href:"#", kind: 2},
-        {text:"宣传图片", href:"#", kind: 2},
-        {text:"主营业务", href:"#", kind: 2},
-        {text:"友情链接", href:"#", kind: 2},
+        {text:"会员任务", href:"#/sysmain/taskmng", kind: 2},
+        {text:"宣传图片", href:"#/sysmain/picmng", kind: 2},
+        {text:"主营业务", href:"#/sysmain/busnsmng", kind: 2},
+        {text:"友情链接", href:"#/sysmain/linkmng", kind: 2},
       ]
     },
   ]

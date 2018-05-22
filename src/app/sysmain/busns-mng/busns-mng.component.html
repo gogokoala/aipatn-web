@@ -1,0 +1,38 @@
+<app-topbar></app-topbar>
+<app-sidebar actGroup="系统维护"></app-sidebar>
+
+<div class="pat-frame">
+  <div class="pat-module">
+    <div class="head">
+      <h1>主营业务</h1>
+    </div>
+
+    <p-dataTable [value]="list" [rows]="20" [paginator]="true" [pageLinks]="10" [(selection)]="curItems" [(first)]="first" resizableColumns="true"
+      datakey="id">
+      <p-header>
+        <div style="text-align: left;">业务列表</div>
+      </p-header>
+      <p-footer>
+        <div class="ui-helper-clearfix" style="width:100%">
+          <button type="button" pButton style="float:left" icon="fa-plus" label="新增" (click)="addItem()">
+          </button>
+
+          <button type="button" pButton style="float:left" icon="fa-minus" label="删除" (click)="delItems()" [disabled]="curItems.length==0">
+          </button>
+        </div>
+      </p-footer>
+
+      <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+      <p-column field="id" header="ID"></p-column>
+      <p-column field="name" header="业务名称"></p-column>
+      <p-column field="desc" header="业务说明"></p-column>
+
+      <p-column styleClass="col-button" [style]="{'width':'48px'}">
+        <ng-template let-item="rowData" pTemplate="body">
+          <button type="button" pButton icon="fa-edit" (click)="editItem(item)"></button>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+  </div>
+
+</div>

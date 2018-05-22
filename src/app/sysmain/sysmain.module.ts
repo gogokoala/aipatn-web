@@ -27,7 +27,11 @@ import { AccountEditorComponent } from './account-editor/account-editor.componen
 import { AccountPowerEditorComponent } from './account-power-editor/account-power-editor.component';
 
 import { RolesMngComponent } from './roles-mng/roles-mng.component';
-import { FuncMngComponent } from './func-mng/func-mng.component'
+import { FuncMngComponent } from './func-mng/func-mng.component';
+import { TaskMngComponent } from './task-mng/task-mng.component';
+import { PicMngComponent } from './pic-mng/pic-mng.component';
+import { BusnsMngComponent } from './busns-mng/busns-mng.component';
+import { LinkMngComponent } from './link-mng/link-mng.component'
 
 @NgModule({
   imports: [
@@ -55,7 +59,11 @@ import { FuncMngComponent } from './func-mng/func-mng.component'
     AccountEditorComponent,
     AccountPowerEditorComponent,
     RolesMngComponent,
-    FuncMngComponent
+    FuncMngComponent,
+    TaskMngComponent,
+    PicMngComponent,
+    BusnsMngComponent,
+    LinkMngComponent
   ],
   providers:[
     ConfirmationService

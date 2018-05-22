@@ -17,6 +17,7 @@ const appRoutes: Routes = [
 //  { path: 'test', component: TestComponent },
   { path: 'sf1', loadChildren: 'app/sf1/sf1.module#SF1Module' },
   { path: 'sysmain', loadChildren: 'app/sysmain/sysmain.module#SysmainModule' },
+  { path: 'user', loadChildren: 'app/user/user.module#UserModule' },
   { path: 'filemngr', component: FilemngrComponent },
 ]
 
