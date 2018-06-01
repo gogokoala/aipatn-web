@@ -37,6 +37,7 @@ import { FilemngrComponent } from './files/filemngr/filemngr.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
 
 import { UtilsModule } from './utils/utils.module';
+import { BuildingComponent } from './building/building.component';
 // import { TestComponent } from './test/test.component'
 
 @NgModule({
@@ -55,6 +56,7 @@ import { UtilsModule } from './utils/utils.module';
     RegisterComponent,
     FilemngrComponent,
     NavmenuComponent,
+    BuildingComponent,
     //    TestComponent,
   ],
   imports: [

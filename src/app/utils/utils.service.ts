@@ -10,38 +10,38 @@ export class UtilsService {
       links:[
         {text:"简单检索", href:"#/sf1/simple", kind: 1},
         {text:"高级检索", href:"#/sf1/complex", kind: 1},
-        {text:"检索文件夹", href:"#", kind: 1},
-        {text:"专有库", href:"#", kind: 1},
+        {text:"检索文件夹", href:"#/building", kind: 1},
+        {text:"专有库", href:"#/building", kind: 1},
       ]
     },
     {
       group:"专利报告",
       img:"url('assets/images/desk/cell02.jpg')",
       links:[
-        {text:"报告文件夹", href:"#", kind: 1},
-        {text:"报告上传", href:"#", kind: 1},
+        {text:"报告文件夹", href:"#/building", kind: 1},
+        {text:"报告上传", href:"#/building", kind: 1},
       ]
     },
     {
       group:"案件管理",
       img:"url('assets/images/desk/cell03.jpg')",
       links:[
-        {text:"案件处置", href:"#", kind: 1},
-        {text:"案件进展", href:"#", kind: 1},
-        {text:"案件费用", href:"#", kind: 1},
-        {text:"案件评价", href:"#", kind: 1},
-        {text:"售后服务", href:"#", kind: 1},
-        {text:"统计分析", href:"#", kind: 1},
+        {text:"案件处置", href:"#/building", kind: 1},
+        {text:"案件进展", href:"#/building", kind: 1},
+        {text:"案件费用", href:"#/building", kind: 1},
+        {text:"案件评价", href:"#/building", kind: 1},
+        {text:"售后服务", href:"#/building", kind: 1},
+        {text:"统计分析", href:"#/building", kind: 1},
       ]
     },
     {
       group:"文章管理",
       img:"url('assets/images/desk/cell04.jpg')",
       links:[
-        {text:"文章发布", href:"#", kind: 2},
-        {text:"图片管理", href:"#", kind: 2},
-        {text:"文件管理", href:"#", kind: 2},
-        {text:"问答互动", href:"#", kind: 2},
+        {text:"文章发布", href:"#/building", kind: 2},
+        {text:"图片管理", href:"#/building", kind: 2},
+        {text:"文件管理", href:"#/building", kind: 2},
+        {text:"问答互动", href:"#/building", kind: 2},
       ]
     },
     {
