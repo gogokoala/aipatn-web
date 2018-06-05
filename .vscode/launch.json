@@ -9,7 +9,7 @@
             "disableNetworkCache": true,
             "url": "http://localhost:8100",
             "webRoot": "${workspaceRoot}",
-            "runtimeExecutable": "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"
+            //"runtimeExecutable": "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe"
         },
 
     ],
